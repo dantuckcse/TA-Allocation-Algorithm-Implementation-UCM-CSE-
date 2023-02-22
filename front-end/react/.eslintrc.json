@@ -1,0 +1,49 @@
+/* 
+analogy to understand this: 
+Think of the plugins array as 3 restaurant menus:
+ - the 'react' menu
+ - the 'jsx-a11y' menu
+ - the 'import' menu
+
+Whatever we put in the extends array is like us ordering certain items off of those menus.
+ - We use these certain items in our project.
+*/
+
+{
+    // the order of "extends" array matters.
+    "extends": [
+        "eslint:recommend", // loads all of the eslint:recommended rules including whitespace
+        "plugin:import/errors", // https://www.npmjs.com/package/eslint-plugin-import
+        "plugin:react/recommended", // https://www.npmjs.com/package/eslint-plugin-react
+        "plugin:jsx-a11y/recommended", // https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+        "prettier" // turns off the eslint white space rules and other rules it knows how to handle specifically.
+    ],
+    "plugins": ["react", "jsx-a11y", "import"],
+
+    // Turning off some of the default rules for react projects.
+    "rules": {
+        "react/prop-types": 0, // turns off prop types '0' means turn off
+        "react/react-in-jsx-scope": 0 // turns off requiring to import react in every file
+    },
+
+    // Giving eslint some information about our code and the environment it will be running in
+    "parserOptions": {
+        "ecmaVersion": 2022, // use the most modern version.
+        "sourceType": "module", // we will be using ES models
+        "ecmaFeatures": {
+            "jsx": true // we will be using JSX
+        }
+    },
+    "env": {
+        // describe the environment this code will run in
+        "es6": true, // eslint won't throw error if we try to use es6 methods like map() or or reduce().
+        "browser": true, // eslint won't throw errors if we use fetch() or the window object
+        "node": true // eslint won't throw errors if we try to access things in a node environment like 'global'
+    },
+    "settings": {
+        "react": {
+            "version": "detect" // tells eslint to look at the package.json and figure it out
+        }
+    }
+    
+}

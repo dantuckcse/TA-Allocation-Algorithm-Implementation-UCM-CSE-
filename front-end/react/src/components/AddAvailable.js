@@ -1,4 +1,5 @@
 import React from "react"
+import "./comp-style.css"
 
 export default function addAvailable(prop){
     return (

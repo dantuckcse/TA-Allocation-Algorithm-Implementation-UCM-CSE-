@@ -1,0 +1,49 @@
+.drag-and-drop {
+    line-height: 11px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px;
+}
+.selected-container {
+    margin: 10px;
+    background: #A29061;
+    width: 50%;
+    padding: 5px;
+}
+
+.unselected-container {
+    background: #A29061;
+    width: 15%;
+    padding: 5px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.requests--container {
+    background: #FFFFFF;
+    box-shadow: -4.13636px 4.13636px 3.30909px rgba(0, 0, 0, 0.25);
+    border-radius: 9.1px;
+    margin: 5px;
+    max-width: 100%;
+    font-size: 10px;
+    overflow-wrap: break-word;
+}
+
+.student--info{
+    padding: 3px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+#student-item {
+
+}
+
+.student-txt {
+    font-size: 12px;
+}
+.course-txt {
+    color: rgb(92, 92, 92);
+}

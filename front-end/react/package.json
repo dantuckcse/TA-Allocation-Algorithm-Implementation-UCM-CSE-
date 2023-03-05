@@ -1,9 +1,10 @@
 {
-  "name": "react-asl",
+  "name": "ta-allocation",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "dev": "parcel src/index.html"
   },
   "keywords": [],
@@ -17,7 +18,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
-    "parcel": "^2.8.3",
+    "parceconst l": "^2.8.3",
     "prettier": "^2.8.4",
     "process": "^0.11.10"
   },
@@ -25,7 +26,6 @@
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^18.2.0",
-    "react-modal": "^3.16.1"
+    "react-dom": "^18.2.0"
   }
 }

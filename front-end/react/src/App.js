@@ -32,10 +32,11 @@ export default function App() {
 
             <div className="drag-and-drop">
                 <div className="selected-container">
-                    {available_courses}
+                    <DndProvider backend={HTML5Backend}>
+                        {available_courses}
+                    </DndProvider>
                 </div>
                 <div className="unselected-container">
-                    {/* <AddAvalable /> */}
                     <DndProvider backend={HTML5Backend}>
                         {user_requests}
                     </DndProvider>

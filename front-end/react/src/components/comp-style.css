@@ -66,3 +66,8 @@
 .course-txt {
     color: rgb(92, 92, 92);
 }
+
+#hover-region {
+    color: white;
+    background: rgba(20, 27, 74, 0.2);
+}

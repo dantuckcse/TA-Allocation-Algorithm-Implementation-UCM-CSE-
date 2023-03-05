@@ -2950,7 +2950,7 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./App":"2kQhy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./App":"2kQhy"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ad0356ec884393fe");
 
@@ -27135,7 +27135,170 @@ module.exports = require("879be0f97fdd4264");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"2kQhy":[function(require,module,exports) {
+},{}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"km3Ru":[function(require,module,exports) {
+"use strict";
+var Refresh = require("c1fdffc59e0a3693");
+function debounce(func, delay) {
+    {
+        let timeout = undefined;
+        let lastTime = 0;
+        return function(args) {
+            // Call immediately if last call was more than the delay ago.
+            // Otherwise, set a timeout. This means the first call is fast
+            // (for the common case of a single update), and subsequent updates
+            // are batched.
+            let now = Date.now();
+            if (now - lastTime > delay) {
+                lastTime = now;
+                func.call(null, args);
+            } else {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    timeout = undefined;
+                    lastTime = Date.now();
+                    func.call(null, args);
+                }, delay);
+            }
+        };
+    }
+}
+var enqueueUpdate = debounce(function() {
+    Refresh.performReactRefresh();
+}, 30); // Everthing below is either adapted or copied from
+// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
+// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
+module.exports.prelude = function(module1) {
+    window.$RefreshReg$ = function(type, id) {
+        Refresh.register(type, module1.id + " " + id);
+    };
+    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
+};
+module.exports.postlude = function(module1) {
+    if (isReactRefreshBoundary(module1.exports)) {
+        registerExportsForReactRefresh(module1);
+        if (module1.hot) {
+            module1.hot.dispose(function(data) {
+                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
+                data.prevExports = module1.exports;
+            });
+            module1.hot.accept(function(getParents) {
+                var prevExports = module1.hot.data.prevExports;
+                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
+                // that the new exports make it ineligible for being a boundary.
+                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
+                // with the previous exports.
+                // For example, if you add/remove/change exports, we'll want
+                // to re-execute the importing modules, and force those components
+                // to re-render. Similarly, if you convert a class component
+                // to a function, we want to invalidate the boundary.
+                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
+                if (isNoLongerABoundary || didInvalidate) {
+                    // We'll be conservative. The only case in which we won't do a full
+                    // reload is if all parent modules are also refresh boundaries.
+                    // In that case we'll add them to the current queue.
+                    var parents = getParents();
+                    if (parents.length === 0) {
+                        // Looks like we bubbled to the root. Can't recover from that.
+                        window.location.reload();
+                        return;
+                    }
+                    return parents;
+                }
+                enqueueUpdate();
+            });
+        }
+    }
+};
+function isReactRefreshBoundary(exports) {
+    if (Refresh.isLikelyComponentType(exports)) return true;
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    return false;
+    var hasExports = false;
+    var areAllExportsComponents = true;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        hasExports = true;
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
+        return false;
+        var exportValue = exports[key];
+        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
+    }
+    return hasExports && areAllExportsComponents;
+}
+function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
+    var prevSignature = getRefreshBoundarySignature(prevExports);
+    var nextSignature = getRefreshBoundarySignature(nextExports);
+    if (prevSignature.length !== nextSignature.length) return true;
+    for(var i = 0; i < nextSignature.length; i++){
+        if (prevSignature[i] !== nextSignature[i]) return true;
+    }
+    return false;
+} // When this signature changes, it's unsafe to stop at this refresh boundary.
+function getRefreshBoundarySignature(exports) {
+    var signature = [];
+    signature.push(Refresh.getFamilyByType(exports));
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return signature;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        signature.push(key);
+        signature.push(Refresh.getFamilyByType(exportValue));
+    }
+    return signature;
+}
+function registerExportsForReactRefresh(module1) {
+    var exports = module1.exports, id = module1.id;
+    Refresh.register(exports, id + " %exports%");
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        Refresh.register(exportValue, id + " %exports% " + key);
+    }
+}
+
+},{"c1fdffc59e0a3693":"786KC"}],"2kQhy":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$f00f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27148,13 +27311,15 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 // import "./style.css"
+var _header = require("./components/Header");
+var _headerDefault = parcelHelpers.interopDefault(_header);
 var _addRequests = require("./components/AddRequests");
 var _addRequestsDefault = parcelHelpers.interopDefault(_addRequests);
 var _addAvailable = require("./components/AddAvailable");
 var _addAvailableDefault = parcelHelpers.interopDefault(_addAvailable);
-var _requests = require("./requests");
+var _requests = require("./data/requests");
 var _requestsDefault = parcelHelpers.interopDefault(_requests);
-var _available = require("./available");
+var _available = require("./data/available");
 var _availableDefault = parcelHelpers.interopDefault(_available);
 var _reactDnd = require("react-dnd");
 var _reactDndHtml5Backend = require("react-dnd-html5-backend");
@@ -27164,7 +27329,7 @@ function App() {
             ...item
         }, item, false, {
             fileName: "src/App.js",
-            lineNumber: 13,
+            lineNumber: 14,
             columnNumber: 13
         }, this);
     });
@@ -27173,86 +27338,15 @@ function App() {
             ...item
         }, item, false, {
             fileName: "src/App.js",
-            lineNumber: 21,
+            lineNumber: 22,
             columnNumber: 13
         }, this);
     });
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("body", {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("nav", {
-                className: "nav-bar",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                        className: "ucm-logo",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                className: "UC",
-                                children: "UC"
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 32,
-                                columnNumber: 17
-                            }, this),
-                            "MERCED"
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/App.js",
-                        lineNumber: 31,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                        id: "title",
-                        children: "TA ALLOCATION"
-                    }, void 0, false, {
-                        fileName: "src/App.js",
-                        lineNumber: 35,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "nav-items",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                id: "nav-item",
-                                children: "YEAR"
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 37,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                id: "nav-item",
-                                children: "POST ASSIGNMENT"
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 38,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                id: "nav-item",
-                                children: "FULFULLMENT ORDER"
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 39,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                id: "nav-item",
-                                children: "LOGOUT"
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 40,
-                                columnNumber: 21
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/App.js",
-                        lineNumber: 36,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerDefault.default), {}, void 0, false, {
                 fileName: "src/App.js",
-                lineNumber: 30,
+                lineNumber: 31,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27263,7 +27357,7 @@ function App() {
                         children: available_courses
                     }, void 0, false, {
                         fileName: "src/App.js",
-                        lineNumber: 44,
+                        lineNumber: 34,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27273,24 +27367,24 @@ function App() {
                             children: user_requests
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 49,
+                            lineNumber: 39,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "src/App.js",
-                        lineNumber: 47,
+                        lineNumber: 37,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/App.js",
-                lineNumber: 43,
+                lineNumber: 33,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/App.js",
-        lineNumber: 29,
+        lineNumber: 30,
         columnNumber: 9
     }, this);
 }
@@ -27304,11 +27398,111 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/AddRequests":"fqJbX","./components/AddAvailable":"4jxaO","./requests":"9sK4s","./available":"2XOMe","react-dnd":"cak3X","react-dnd-html5-backend":"1nsLD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fqJbX":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$9453 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/Header":"hsJbF","./components/AddAvailable":"4jxaO","./data/requests":"c7S1Q","./data/available":"9DCrz","react-dnd":"cak3X","react-dnd-html5-backend":"1nsLD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/AddRequests":"fqJbX"}],"hsJbF":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$bfed = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$9453.prelude(module);
+$parcel$ReactRefreshHelpers$bfed.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+function Header() {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("nav", {
+        className: "nav-bar",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                className: "ucm-logo",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        className: "UC",
+                        children: "UC"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 7,
+                        columnNumber: 13
+                    }, this),
+                    "MERCED"
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Header.js",
+                lineNumber: 6,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                id: "title",
+                children: "TA ALLOCATION"
+            }, void 0, false, {
+                fileName: "src/components/Header.js",
+                lineNumber: 10,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "nav-items",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "YEAR"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 12,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "POST ASSIGNMENT"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 13,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "FULFULLMENT ORDER"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 14,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "LOGOUT"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 15,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Header.js",
+                lineNumber: 11,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/Header.js",
+        lineNumber: 5,
+        columnNumber: 9
+    }, this);
+}
+exports.default = Header;
+_c = Header;
+var _c;
+$RefreshReg$(_c, "Header");
+
+  $parcel$ReactRefreshHelpers$bfed.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4jxaO":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$c629 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$c629.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -27318,74 +27512,58 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactDnd = require("react-dnd");
 var _compStyleCss = require("./comp-style.css");
-function addRequests(prop) {
+function addAvailable(prop) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "requests--container",
+        className: "drop-items-here",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "student--info",
+                className: "courses--container",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        id: "student-item",
-                        className: "student-txt",
-                        children: prop.student
-                    }, void 0, false, {
-                        fileName: "src/components/AddRequests.js",
+                        children: [
+                            "CSE ",
+                            prop.CSE
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/AddAvailable.js",
                         lineNumber: 9,
                         columnNumber: 17
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        id: "student-item",
-                        className: "course-txt",
-                        children: [
-                            "CSE ",
-                            prop.courses + " "
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/AddRequests.js",
-                        lineNumber: 10,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        id: "student-item",
-                        children: [
-                            prop.professor,
-                            " - ",
-                            prop.percentage
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/AddRequests.js",
-                        lineNumber: 11,
-                        columnNumber: 17
-                    }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                        fileName: "src/components/AddRequests.js",
-                        lineNumber: 12,
+                        fileName: "src/components/AddAvailable.js",
+                        lineNumber: 10,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
-                fileName: "src/components/AddRequests.js",
+                fileName: "src/components/AddAvailable.js",
                 lineNumber: 8,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "student--slots"
+                className: "slots--container",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: prop.slots
+                }, void 0, false, {
+                    fileName: "src/components/AddAvailable.js",
+                    lineNumber: 13,
+                    columnNumber: 17
+                }, this)
             }, void 0, false, {
-                fileName: "src/components/AddRequests.js",
-                lineNumber: 15,
+                fileName: "src/components/AddAvailable.js",
+                lineNumber: 12,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
-        fileName: "src/components/AddRequests.js",
+        fileName: "src/components/AddAvailable.js",
         lineNumber: 7,
         columnNumber: 9
     }, this);
 }
-exports.default = addRequests;
+exports.default = addAvailable;
 
-  $parcel$ReactRefreshHelpers$9453.postlude(module);
+  $parcel$ReactRefreshHelpers$c629.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
@@ -27419,37 +27597,7 @@ const DndContext = (0, _react.createContext)({
     dragDropManager: undefined
 });
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"iHyie":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iHyie":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 /**
@@ -31600,210 +31748,7 @@ parcelHelpers.defineInteropFlag(exports);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hsRU6":[function() {},{}],"km3Ru":[function(require,module,exports) {
-"use strict";
-var Refresh = require("c1fdffc59e0a3693");
-function debounce(func, delay) {
-    {
-        let timeout = undefined;
-        let lastTime = 0;
-        return function(args) {
-            // Call immediately if last call was more than the delay ago.
-            // Otherwise, set a timeout. This means the first call is fast
-            // (for the common case of a single update), and subsequent updates
-            // are batched.
-            let now = Date.now();
-            if (now - lastTime > delay) {
-                lastTime = now;
-                func.call(null, args);
-            } else {
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    timeout = undefined;
-                    lastTime = Date.now();
-                    func.call(null, args);
-                }, delay);
-            }
-        };
-    }
-}
-var enqueueUpdate = debounce(function() {
-    Refresh.performReactRefresh();
-}, 30); // Everthing below is either adapted or copied from
-// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
-// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
-module.exports.prelude = function(module1) {
-    window.$RefreshReg$ = function(type, id) {
-        Refresh.register(type, module1.id + " " + id);
-    };
-    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
-};
-module.exports.postlude = function(module1) {
-    if (isReactRefreshBoundary(module1.exports)) {
-        registerExportsForReactRefresh(module1);
-        if (module1.hot) {
-            module1.hot.dispose(function(data) {
-                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
-                data.prevExports = module1.exports;
-            });
-            module1.hot.accept(function(getParents) {
-                var prevExports = module1.hot.data.prevExports;
-                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
-                // that the new exports make it ineligible for being a boundary.
-                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
-                // with the previous exports.
-                // For example, if you add/remove/change exports, we'll want
-                // to re-execute the importing modules, and force those components
-                // to re-render. Similarly, if you convert a class component
-                // to a function, we want to invalidate the boundary.
-                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
-                if (isNoLongerABoundary || didInvalidate) {
-                    // We'll be conservative. The only case in which we won't do a full
-                    // reload is if all parent modules are also refresh boundaries.
-                    // In that case we'll add them to the current queue.
-                    var parents = getParents();
-                    if (parents.length === 0) {
-                        // Looks like we bubbled to the root. Can't recover from that.
-                        window.location.reload();
-                        return;
-                    }
-                    return parents;
-                }
-                enqueueUpdate();
-            });
-        }
-    }
-};
-function isReactRefreshBoundary(exports) {
-    if (Refresh.isLikelyComponentType(exports)) return true;
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    return false;
-    var hasExports = false;
-    var areAllExportsComponents = true;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        hasExports = true;
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
-        return false;
-        var exportValue = exports[key];
-        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
-    }
-    return hasExports && areAllExportsComponents;
-}
-function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
-    var prevSignature = getRefreshBoundarySignature(prevExports);
-    var nextSignature = getRefreshBoundarySignature(nextExports);
-    if (prevSignature.length !== nextSignature.length) return true;
-    for(var i = 0; i < nextSignature.length; i++){
-        if (prevSignature[i] !== nextSignature[i]) return true;
-    }
-    return false;
-} // When this signature changes, it's unsafe to stop at this refresh boundary.
-function getRefreshBoundarySignature(exports) {
-    var signature = [];
-    signature.push(Refresh.getFamilyByType(exports));
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return signature;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        signature.push(key);
-        signature.push(Refresh.getFamilyByType(exportValue));
-    }
-    return signature;
-}
-function registerExportsForReactRefresh(module1) {
-    var exports = module1.exports, id = module1.id;
-    Refresh.register(exports, id + " %exports%");
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        Refresh.register(exportValue, id + " %exports% " + key);
-    }
-}
-
-},{"c1fdffc59e0a3693":"786KC"}],"4jxaO":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$c629 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$c629.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _reactDnd = require("react-dnd");
-var _compStyleCss = require("./comp-style.css");
-function addAvailable(prop) {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "drop-items-here",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "courses--container",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        children: [
-                            "CSE ",
-                            prop.CSE
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/AddAvailable.js",
-                        lineNumber: 9,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                        fileName: "src/components/AddAvailable.js",
-                        lineNumber: 10,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/AddAvailable.js",
-                lineNumber: 8,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "slots--container",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: prop.slots
-                }, void 0, false, {
-                    fileName: "src/components/AddAvailable.js",
-                    lineNumber: 13,
-                    columnNumber: 17
-                }, this)
-            }, void 0, false, {
-                fileName: "src/components/AddAvailable.js",
-                lineNumber: 12,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/AddAvailable.js",
-        lineNumber: 7,
-        columnNumber: 9
-    }, this);
-}
-exports.default = addAvailable;
-
-  $parcel$ReactRefreshHelpers$c629.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hsRU6":[function() {},{}],"9sK4s":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hsRU6":[function() {},{}],"c7S1Q":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = [
@@ -32337,7 +32282,7 @@ exports.default = [
     }
 ];
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2XOMe":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9DCrz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = [
@@ -33343,6 +33288,91 @@ class OptionsReader {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1xC6H","jC2qd","8lqZg"], "8lqZg", "parcelRequire2642")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fqJbX":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$9453 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$9453.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _compStyleCss = require("./comp-style.css");
+function addRequests(prop) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "requests--container",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "student--info",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        id: "student-item",
+                        className: "student-txt",
+                        children: prop.student
+                    }, void 0, false, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 9,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        id: "student-item",
+                        className: "course-txt",
+                        children: [
+                            "CSE ",
+                            prop.courses + " "
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 10,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        id: "student-item",
+                        children: [
+                            prop.professor,
+                            " - ",
+                            prop.percentage
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 11,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 12,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/AddRequests.js",
+                lineNumber: 8,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "student--slots"
+            }, void 0, false, {
+                fileName: "src/components/AddRequests.js",
+                lineNumber: 15,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/AddRequests.js",
+        lineNumber: 7,
+        columnNumber: 9
+    }, this);
+}
+exports.default = addRequests;
+
+  $parcel$ReactRefreshHelpers$9453.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hsRU6":[function() {},{}]},["1xC6H","jC2qd","8lqZg"], "8lqZg", "parcelRequire2642")
 
 //# sourceMappingURL=index.975ef6c8.js.map

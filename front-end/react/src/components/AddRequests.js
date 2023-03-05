@@ -1,8 +1,8 @@
 import React from "react"
-import { useDrag } from 'react-dnd'
 import "./comp-style.css"
 
 export default function addRequests(prop){
+
     return (
         <div className="requests--container">
             <div className="student--info">

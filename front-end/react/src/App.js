@@ -1,9 +1,10 @@
 import React from "react"
 // import "./style.css"
+import Header from "./components/Header"
 import AddRequests from "./components/AddRequests"
 import AddAvailable from "./components/AddAvailable"
-import requests from "./requests"
-import available from "./available"
+import requests from "./data/requests"
+import available from "./data/available"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
@@ -27,25 +28,15 @@ export default function App() {
     
     return (
         <body>
-            <nav className="nav-bar">
-                <h1 className="ucm-logo">
-                <span className="UC">UC</span>
-                    MERCED
-                    </h1>
-                <h1 id="title">TA ALLOCATION</h1>
-                <div className="nav-items">
-                    <h3 id="nav-item">YEAR</h3>
-                    <h3 id="nav-item">POST ASSIGNMENT</h3>
-                    <h3 id="nav-item">FULFULLMENT ORDER</h3>
-                    <h3 id="nav-item">LOGOUT</h3>
-                </div>
-            </nav>
+            <Header />
+
             <div className="drag-and-drop">
                 <div className="selected-container">
-                    {available_courses}
+                    <DndProvider backend={HTML5Backend}>
+                        {available_courses}
+                    </DndProvider>
                 </div>
                 <div className="unselected-container">
-                    {/* <AddAvalable /> */}
                     <DndProvider backend={HTML5Backend}>
                         {user_requests}
                     </DndProvider>

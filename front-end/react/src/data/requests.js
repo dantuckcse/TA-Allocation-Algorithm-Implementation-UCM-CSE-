@@ -5,8 +5,9 @@ export default [
             rank: 9,
             professor: 'Hyeran Jeon',
             student: "Abhilasha Dave",             
-            percentage: 0.5,     
-            courses : [140]
+            percentage: 0.5, 
+            courses : [140],
+            status: "undecided"
         },      
 
         // Marcelo Kallmann                                                                           
@@ -15,7 +16,8 @@ export default [
             professor: 'Marcelo Kallmann',
             student: "Ritesh Sharma",              
             percentage: 0.5,     
-            courses : ['<span class="prevent">185</span>', 165, 24, 22, 100, 30, 20]
+            courses : ['<span class="prevent">185</span>', 165, 24, 22, 100, 30, 20],
+            status: "undecided"
         },
         {
             id: 2,
@@ -23,7 +25,8 @@ export default [
             professor: 'Marcelo Kallmann',
             student: "Xiumin Shang",               
             percentage: 0.5,     
-            courses : [21, 20, 22, 30, 31, 24]
+            courses : [21, 20, 22, 30, 31, 24],
+            status: "undecided"
         },
         {
             id: 3,
@@ -31,7 +34,8 @@ export default [
             professor: 'Marcelo Kallmann',
             student:"Maryam Khazaei Pool",        
             percentage: 0.5,     
-            courses : [100, 30, 5, 165, 31, 15, 20, 21, 22, 179]
+            courses : [100, 30, 5, 165, 31, 15, 20, 21, 22, 179],
+            status: "undecided"
         },
 
         // Shawn Newsam                                                                                
@@ -41,7 +45,8 @@ export default [
             professor: 'Shawn Newsam',
             student: "Haolin Liang",               
             percentage: 0.5,     
-            courses : [22, 20, 21, 15, 30, 100, 120, 165]
+            courses : [22, 20, 21, 15, 30, 100, 120, 165],
+            status: "undecided"
         },
         {
             id: 5,
@@ -49,7 +54,8 @@ export default [
             professor: 'Shawn Newsam',
             student: "Yuxin Tian",                 
             percentage: 0.5,     
-            courses : [15, 22, 20, 21, 30, '<span class="prevent">185</span>']
+            courses : [15, 22, 20, 21, 30, '<span class="prevent">185</span>'],
+            status: "undecided"
         },
     // Dong Li                                                                          
         {
@@ -58,7 +64,8 @@ export default [
             professor: 'Dong Li',
             student: "Wenqian Dong",               
             percentage: 0.5,     
-            courses : [179, 20, 21, 15]
+            courses : [179, 20, 21, 15],
+            status: "undecided"
         },
         {
             id: 7,
@@ -66,7 +73,8 @@ export default [
             professor: 'Dong Li',
             student: "Shuangyan Yang",             
             percentage: 0.5,     
-            courses : [20, 21, 15]
+            courses : [20, 21, 15],
+            status: "undecided"
         },
         {
             id: 8,
@@ -74,7 +82,8 @@ export default [
             professor: 'Dong Li',
             student: "Jie Liu",                    
             percentage: 0.5,     
-            courses : [179, 20, 21, 15]
+            courses : [179, 20, 21, 15],
+            status: "undecided"
         },     
 
     // Ming-Hsuan Yang                                                                             
@@ -84,7 +93,8 @@ export default [
             professor: 'Ming-Hsuan Yang',
             student: "Chieh Lin",              	  
             percentage: 0.5,     
-            courses : [5, 20, 21, 22, 140, 30, 165, 15, 31, '<span class="prevent">185</span>']
+            courses : [5, 20, 21, 22, 140, 30, 165, 15, 31, '<span class="prevent">185</span>'],
+            status: "undecided"
         },
         {
             id: 10,
@@ -92,7 +102,8 @@ export default [
             professor: 'Ming-Hsuan Yang',
             student: "Hsin-Ping Huang",            
             percentage: 0.5,     
-            courses : [5, 15, 21, 31, 120, 140, '<span class="prevent">185</span>', 22, 30, 20]
+            courses : [5, 15, 21, 31, 120, 140, '<span class="prevent">185</span>', 22, 30, 20],
+            status: "undecided"
         },
         {
             id: 11,
@@ -100,14 +111,17 @@ export default [
             professor: 'Ming-Hsuan Yang',
             student: "Yi-Wen Chen",                
             percentage: 0.5,     
-            courses : ['<b class="ensure">185</b>', 15,  31, 21, 140, 120, 5, 179, 22, 5]},
+            courses : ['<b class="ensure">185</b>', 15,  31, 21, 140, 120, 5, 179, 22, 5],
+            status: "undecided"
+        },
         {
             id: 12,
             rank: 18,
             professor: 'Ming-Hsuan Yang',
             student: "Chun-Han Yao",               
             percentage: 0.5,     
-            courses : ['<b class="ensure">185</b>', 20, 21, 22, 5, 15, 30, 100, 120, 160, 165, 24, 140, 179]
+            courses : ['<b class="ensure">185</b>', 20, 21, 22, 5, 15, 30, 100, 120, 160, 165, 24, 140, 179],
+            status: "undecided"
         },
         {
             id: 13,
@@ -115,7 +129,8 @@ export default [
             professor: 'Ming-Hsuan Yang',
             student: "Taihong Xiao",               
             percentage: 0.5,     
-            courses : [15, 21, 5, 20, 22, 100, 165, 30, 31, '<span class="prevent">185</span>']
+            courses : [15, 21, 5, 20, 22, 100, 165, 30, 31, '<span class="prevent">185</span>'],
+            status: "undecided"
         },
 
     // Miguel Carreira-Perpinan                                                                             
@@ -125,7 +140,8 @@ export default [
             professor: 'Miguel Carreira-Perpinan',
             student: "Magzhan Gabidolla",          
             percentage: 0.5,     
-            courses : [179, 100, 165, 31, 30]
+            courses : [179, 100, 165, 31, 30],
+            status: "undecided"
         },
         {
             id: 15,
@@ -133,7 +149,8 @@ export default [
             professor: 'Miguel Carreira-Perpinan',
             student: "Yerlan Idelbayev",           
             percentage: 0.5,     
-            courses : [100, 30, 120, 22]
+            courses : [100, 30, 120, 22],
+            status: "undecided"
         },         
 
     // Wan Du                                                                      
@@ -143,7 +160,8 @@ export default [
             professor: 'Wan Du',
             student: "Zehao Li",       		      
             percentage: 0.5,     
-            courses : [30, 22, 5, 165]
+            courses : [30, 22, 5, 165],
+            status: "undecided"
         },
         {
             id: 17,
@@ -151,7 +169,8 @@ export default [
             professor: 'Wan Du',
             student: "Xianzhong Ding",             
             percentage: 0.5,     
-            courses : [30, 22, 20, 15, 24]
+            courses : [30, 22, 20, 15, 24],
+            status: "undecided"
         },
         {
             id: 18,
@@ -159,7 +178,8 @@ export default [
             professor: 'Wan Du',
             student: "Kang Yang",                  
             percentage: 0.5,     
-            courses : [21, 20, 22, 5]
+            courses : [21, 20, 22, 5],
+            status: "undecided"
         }, 
 
     // Stefano Carpin                                                                          
@@ -169,7 +189,8 @@ export default [
             professor: 'Stefano Carpin',
             student: "Carlos Diaz Alvarenga",      
             percentage: 0.5,     
-            courses : [5, 15, 20, 21, 22, 24, 30, 100]
+            courses : [5, 15, 20, 21, 22, 24, 30, 100],
+            status: "undecided"
         },
         {
             id: 20,
@@ -177,7 +198,8 @@ export default [
             professor: 'Stefano Carpin',
             student: "Lorenzo Booth",              
             percentage: 0.5,     
-            courses : [5, 15, 20, 21, 22, 24, 30]
+            courses : [5, 15, 20, 21, 22, 24, 30],
+            status: "undecided"
         },
 
     // Mukesh Singhal                                                                                
@@ -187,7 +209,8 @@ export default [
             professor: 'Mukesh Singhal',
             student: "Pooya Tavallali",            
             percentage: 0.5,     
-            courses : [31, 140, 15, 30, 150, 160]
+            courses : [31, 140, 15, 30, 150, 160],
+            status: "undecided"
         },
         {
             id: 22,
@@ -195,7 +218,8 @@ export default [
             professor: 'Mukesh Singhal',
             student: "Nasit Sony",                 
             percentage: 0.5,     
-            courses : [30, 100, 15, 31, '<span class="prevent">185</span>']
+            courses : [30, 100, 15, 31, '<span class="prevent">185</span>'],
+            status: "undecided"
         },
         {
             id: 23,
@@ -203,7 +227,8 @@ export default [
             professor: 'Mukesh Singhal',
             student: "Azar Alizadeh",              
             percentage: 0.5,     
-            courses : [5, 20, 22, 30, 31, 165]
+            courses : [5, 20, 22, 30, 31, 165],
+            status: "undecided"
         },
         {
             id: 24,
@@ -211,7 +236,8 @@ export default [
             professor: 'Mukesh Singhal',
             student: "Zhixun He",                  
             percentage: 0.5,     
-            courses : ['0 (Any available course)']
+            courses : ['0 (Any available course)'],
+            status: "undecided"
         },
 
         // Angelo Kyrilov
@@ -219,6 +245,7 @@ export default [
             id: 25,
             rank: 11,
             professor: 'Angelo Kyrilov',
+            status: "undecided"
         },
 
         // Sungjin Im
@@ -226,6 +253,7 @@ export default [
             id: 26,
             rank: 8,
             professor: 'Sungjin Im',
+            status: "undecided"
         },
 
         // Alberto Cerpa
@@ -235,7 +263,8 @@ export default [
             professor: 'Alberto Cerpa',
             student: "Hamid Rajabi",               
             percentage: 0.5,     
-            courses : [160, 20, 21, 30, 31, 120]
+            courses : [160, 20, 21, 30, 31, 120],
+            status: "undecided"
         },
         {
             id: 28,
@@ -243,7 +272,8 @@ export default [
             professor: 'Alberto Cerpa',
             student: "Jothi P. S. Sundaram",       
             percentage: 0.5,     
-            courses : [15, 20, 21, 30, 31, 120]
+            courses : [15, 20, 21, 30, 31, 120],
+            status: "undecided"
         },
 
         // Shijia Pan
@@ -253,7 +283,8 @@ export default [
             professor: 'Shijia Pan',
             student: "Shubham Rohal",              
             percentage: 0.25,     
-            courses : [160]
+            courses : [160],
+            status: "undecided"
         },
         {
             id: 30,
@@ -261,7 +292,8 @@ export default [
             professor: 'Shijia Pan',
             student: "Shubham Rohal",              
             percentage: 0.25,     
-            courses : [100]
+            courses : [100],
+            status: "undecided"
         },
 
         // Florin Rusu
@@ -269,6 +301,7 @@ export default [
             id: 31,
             rank: 16,
             professor: 'Florin Rusu',
+            status: "undecided"
         },
 
         // David Noelle
@@ -276,6 +309,7 @@ export default [
             id: 32,
             rank: 14,
             professor: 'David Noelle',
+            status: "undecided"
         },
 
         // Santosh Chandrasekhar
@@ -283,6 +317,7 @@ export default [
             id: 33,
             rank: 5,
             professor: 'Santosh Chandrasekhar',
+            status: "undecided"
         },
 
         // YangQuan Chen
@@ -290,6 +325,7 @@ export default [
             id: 34,
             rank: 6,
             professor: 'YangQuan Chen',
+            status: "undecided"
         },
 
         // Ahmed Sabbir Arif
@@ -299,7 +335,8 @@ export default [
             professor: 'Ahmed Sabbir Arif',
             student: "Ghazal Zand",                
             percentage: 0.5,     
-            courses : [20, 21, 30, 179, '<span class="prevent">185</span>', 100, 24, 165]
+            courses : [20, 21, 30, 179, '<span class="prevent">185</span>', 100, 24, 165],
+            status: "undecided"
         },
         {
             id: 36,
@@ -307,7 +344,8 @@ export default [
             professor: 'Ahmed Sabbir Arif',
             student: "Yuan Ren",                   
             percentage: 0.5,     
-            courses : [30, 100, 120]
+            courses : [30, 100, 120],
+            status: "undecided"
         },
 
         // Hua Hunag
@@ -315,6 +353,7 @@ export default [
             id: 37,
             rank: 19,
             professor: 'Hua Hunag',
+            status: "undecided"
         },
 
         // Xiaoyi Lu
@@ -322,11 +361,13 @@ export default [
             id: 38,
             rank: 20,
             professor: 'Xiaoyi Lu',
+            status: "undecided"
         },
         // Pengfei Su
         {
             id: 39,
             rank: 21,
             professor: 'Pengfei Su',
+            status: "undecided"
         },
 ]

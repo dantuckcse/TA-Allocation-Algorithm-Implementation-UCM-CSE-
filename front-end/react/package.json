@@ -18,7 +18,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
-    "parceconst l": "^2.8.3",
+    "parcel": "^2.8.3",
     "prettier": "^2.8.4",
     "process": "^0.11.10"
   },
@@ -28,4 +28,4 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0"
   }
-}
+} 

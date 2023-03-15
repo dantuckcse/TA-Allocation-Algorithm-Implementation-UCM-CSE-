@@ -27147,6 +27147,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactDom = require("react-dom");
+var _reactDomDefault = parcelHelpers.interopDefault(_reactDom);
 // import "./style.css"
 var _header = require("./components/Header");
 var _headerDefault = parcelHelpers.interopDefault(_header);
@@ -27166,7 +27168,7 @@ function App() {
             ...item
         }, item, false, {
             fileName: "src/App.js",
-            lineNumber: 14,
+            lineNumber: 15,
             columnNumber: 13
         }, this);
     });
@@ -27175,7 +27177,7 @@ function App() {
             ...item
         }, item, false, {
             fileName: "src/App.js",
-            lineNumber: 22,
+            lineNumber: 23,
             columnNumber: 13
         }, this);
     });
@@ -27183,7 +27185,7 @@ function App() {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerDefault.default), {}, void 0, false, {
                 fileName: "src/App.js",
-                lineNumber: 31,
+                lineNumber: 32,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27196,12 +27198,12 @@ function App() {
                             children: available_courses
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 35,
+                            lineNumber: 36,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "src/App.js",
-                        lineNumber: 34,
+                        lineNumber: 35,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27211,24 +27213,24 @@ function App() {
                             children: user_requests
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 40,
+                            lineNumber: 41,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "src/App.js",
-                        lineNumber: 39,
+                        lineNumber: 40,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/App.js",
-                lineNumber: 33,
+                lineNumber: 34,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/App.js",
-        lineNumber: 30,
+        lineNumber: 31,
         columnNumber: 9
     }, this);
 }
@@ -27242,7 +27244,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/Header":"hsJbF","./components/AddRequests":"fqJbX","./components/AddAvailable":"4jxaO","./data/requests":"c7S1Q","./data/available":"9DCrz","react-dnd":"cak3X","react-dnd-html5-backend":"1nsLD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hsJbF":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/Header":"hsJbF","./components/AddRequests":"fqJbX","./components/AddAvailable":"4jxaO","./data/requests":"c7S1Q","./data/available":"9DCrz","react-dnd":"cak3X","react-dnd-html5-backend":"1nsLD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-dom":"j6uA9"}],"hsJbF":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$bfed = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -31807,10 +31809,12 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+// import ReactDOM from 'react-dom'
 var _reactDnd = require("react-dnd");
 var _itemType = require("../data/itemType");
 var _itemTypeDefault = parcelHelpers.interopDefault(_itemType);
 var _compStyleCss = require("./comp-style.css");
+var _splitCreditsJs = require("./SplitCredits.js");
 var _s = $RefreshSig$();
 function addAvailable(prop) {
     _s();
@@ -31820,6 +31824,11 @@ function addAvailable(prop) {
                 isOver: !!monitor.isOver()
             })
     });
+    // const root = ReactDOM.createRoot(
+    //     document.getElementsByClassName('slots--container')
+    // );
+    // const element = "test";
+    // root.render(element);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "drop-items-here",
         children: [
@@ -31833,18 +31842,18 @@ function addAvailable(prop) {
                         ]
                     }, void 0, true, {
                         fileName: "src/components/AddAvailable.js",
-                        lineNumber: 17,
+                        lineNumber: 24,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "src/components/AddAvailable.js",
-                        lineNumber: 18,
+                        lineNumber: 25,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/AddAvailable.js",
-                lineNumber: 16,
+                lineNumber: 23,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -31855,18 +31864,18 @@ function addAvailable(prop) {
                     children: prop.slots
                 }, void 0, false, {
                     fileName: "src/components/AddAvailable.js",
-                    lineNumber: 21,
+                    lineNumber: 29,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/AddAvailable.js",
-                lineNumber: 20,
+                lineNumber: 28,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/AddAvailable.js",
-        lineNumber: 15,
+        lineNumber: 22,
         columnNumber: 9
     }, this);
 }
@@ -31882,7 +31891,56 @@ _s(addAvailable, "9166pYLrZ/JzF75YDim8ZjfICTM=", false, function() {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","../data/itemType":"bxNpp","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hsRU6":[function() {},{}],"c7S1Q":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","../data/itemType":"bxNpp","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./SplitCredits.js":"2xEoD"}],"hsRU6":[function() {},{}],"2xEoD":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$3bc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$3bc3.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createBox", ()=>createBox);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactDnd = require("react-dnd");
+var _itemType = require("../data/itemType");
+var _itemTypeDefault = parcelHelpers.interopDefault(_itemType);
+var _compStyleCss = require("./comp-style.css");
+function createBox(result) {
+    // const newDiv = document.createElement("div");
+    // const newContent = document.createTextNode(result);
+    // newDiv.appendChild(newContent);
+    // const currentDiv = document.getElementsByClassName("drop-items-here");
+    // document.body.insertBefore(newDiv, currentDiv);
+    // return(
+    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "slots--container",
+        ref: drop,
+        id: isOver ? "hover-region" : "",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+            children: result
+        }, void 0, false, {
+            fileName: "src/components/SplitCredits.js",
+            lineNumber: 14,
+            columnNumber: 5
+        }, this)
+    }, void 0, false, {
+        fileName: "src/components/SplitCredits.js",
+        lineNumber: 13,
+        columnNumber: 5
+    }, this);
+// )
+}
+function createBox(result) {}
+
+  $parcel$ReactRefreshHelpers$3bc3.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","react-dnd":"cak3X","../data/itemType":"bxNpp","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj"}],"hsRU6":[function() {},{}],"c7S1Q":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = [

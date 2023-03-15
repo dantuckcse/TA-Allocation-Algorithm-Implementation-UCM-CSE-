@@ -28,7 +28,8 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// Find total space for 
+// Given a semester, find the amount of space each class has. 
+// Also find the total space in all classes
 router.get('/total_available', async function (req, res, next) {
   // Find the id of the semester that user puts in
   let sql = `
@@ -58,9 +59,44 @@ router.get('/total_available', async function (req, res, next) {
   `;
   args = [semesterPk]
   const totalSpace = await db.get(sql, args);
-  console.log(totalSpace);
 
-  res.json({ details: availableCourses, total: totalSpace })
+  return res.json({ details: availableCourses, total: totalSpace })
+});
+
+// Takes in a new semester as input and creates it in the database
+// The input is a json object w/ the following format and is contained in req.body: 
+// { term: "fall", year: "2023"}
+router.post('/semester', async function (req, res, next) {
+  const { term, year } = req.body
+
+  // Check if the semester they put in already exists:
+  let sql = `
+    SELECT *
+    FROM Semester
+    WHERE term = ?
+      AND year = ?
+  `;
+  args = [term, year]
+  const semester = await db.get(sql, args)
+
+  let body;
+
+  // If the inputted semester doesn't exist, create it
+  if (semester == undefined) {
+    sql = `
+      INSERT INTO Semester (term, year)
+      VALUES (?, ?)
+    `;
+    args = [term, year]
+    await db.run(sql, args)
+    body = { msg: "Created a new semester" }
+  }
+  // If the inputted semester does exist, send a message saying it does and don't alter the db
+  else {
+    body = { msg: "Semester already exists" }
+  }
+
+  return res.json(body)
 });
 
 module.exports = router;

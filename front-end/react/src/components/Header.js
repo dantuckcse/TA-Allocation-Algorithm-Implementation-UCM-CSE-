@@ -11,7 +11,7 @@ export default function Header() {
             <div className="nav-items">
                 <h3 id="nav-item">YEAR</h3>
                 <h3 id="nav-item">POST ASSIGNMENT</h3>
-                <h3 id="nav-item">FULFULLMENT ORDER</h3>
+                <h3 id="nav-item">FULFILLMENT ORDER</h3>
                 <h3 id="nav-item">LOGOUT</h3>
             </div>
         </nav>

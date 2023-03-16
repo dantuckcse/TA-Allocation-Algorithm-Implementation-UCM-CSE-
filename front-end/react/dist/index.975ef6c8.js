@@ -31819,6 +31819,8 @@ var _itemType = require("../data/itemType");
 var _itemTypeDefault = parcelHelpers.interopDefault(_itemType);
 var _available = require("../data/available");
 var _availableDefault = parcelHelpers.interopDefault(_available);
+var _requests = require("../data/requests");
+var _requestsDefault = parcelHelpers.interopDefault(_requests);
 var _compStyleCss = require("./comp-style.css");
 var _splitCreditsJs = require("./SplitCredits.js");
 var _s = $RefreshSig$();
@@ -31834,6 +31836,14 @@ function addAvailable(prop) {
                     canDrop: !!monitor.canDrop()
                 })
         }));
+    // const slottedStudents = requests.map(item => {
+    //     return (
+    //         <AddRequests 
+    //             key = {item}
+    //             {...item}
+    //         />
+    //     )
+    // })
     const addStudent = (id)=>{
         const droppedStudents = (0, _availableDefault.default).filter((slot)=>id === slot.id);
         setAddAvailable((addAvailable)=>[
@@ -31841,16 +31851,11 @@ function addAvailable(prop) {
                 droppedStudents[0]
             ]);
     };
-    const slottedStudents = addAvailable.map((slot)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addRequestsDefault.default), {
-            id: slot.id,
-            rank: slot.rank,
-            professor: slot.professor,
-            student: slot.student,
-            courses: slot.courses,
-            finalized: true
-        }, void 0, false, {
+    const slottedStudents = addAvailable.map((item)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addRequestsDefault.default), {
+            ...item
+        }, item, false, {
             fileName: "src/components/AddAvailable.js",
-            lineNumber: 30,
+            lineNumber: 40,
             columnNumber: 54
         }, this));
     // const root = ReactDOM.createRoot(
@@ -31872,18 +31877,18 @@ function addAvailable(prop) {
                             ]
                         }, void 0, true, {
                             fileName: "src/components/AddAvailable.js",
-                            lineNumber: 42,
+                            lineNumber: 52,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                             fileName: "src/components/AddAvailable.js",
-                            lineNumber: 43,
+                            lineNumber: 53,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/AddAvailable.js",
-                    lineNumber: 41,
+                    lineNumber: 51,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -31891,29 +31896,36 @@ function addAvailable(prop) {
                     ref: drop,
                     id: isOver ? "hover-region" : "",
                     children: [
-                        slottedStudents,
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            className: "slotted",
+                            children: slottedStudents
+                        }, void 0, false, {
+                            fileName: "src/components/AddAvailable.js",
+                            lineNumber: 57,
+                            columnNumber: 21
+                        }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                             children: prop.slots
                         }, void 0, false, {
                             fileName: "src/components/AddAvailable.js",
-                            lineNumber: 48,
+                            lineNumber: 58,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/AddAvailable.js",
-                    lineNumber: 46,
+                    lineNumber: 56,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/AddAvailable.js",
-            lineNumber: 40,
+            lineNumber: 50,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "src/components/AddAvailable.js",
-        lineNumber: 39,
+        lineNumber: 49,
         columnNumber: 9
     }, this);
 }
@@ -31929,7 +31941,7 @@ _s(addAvailable, "0kzOrfRe2xgp9YlZbqA6OxV7PA0=", false, function() {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../data/itemType":"bxNpp","./AddRequests":"fqJbX","./SplitCredits.js":"2xEoD","../data/available":"9DCrz"}],"hsRU6":[function() {},{}],"2xEoD":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../data/itemType":"bxNpp","./AddRequests":"fqJbX","./SplitCredits.js":"2xEoD","../data/available":"9DCrz","../data/requests":"c7S1Q"}],"hsRU6":[function() {},{}],"2xEoD":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3bc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

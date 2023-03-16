@@ -5,6 +5,7 @@ import React from "react"
 import { useDrop } from 'react-dnd'
 import itemTypes from "../data/itemType"
 import available from "../data/available"
+import requests from "../data/requests"
 import "./comp-style.css"
 import {createBox} from "./SplitCredits.js";
 
@@ -22,12 +23,21 @@ export default function addAvailable(prop){
         })
     }))
 
+    // const slottedStudents = requests.map(item => {
+    //     return (
+    //         <AddRequests 
+    //             key = {item}
+    //             {...item}
+    //         />
+    //     )
+    // })
+
     const addStudent = (id) => {
         const droppedStudents = available.filter(slot => id === slot.id)
         setAddAvailable(addAvailable => [...addAvailable, droppedStudents[0]])
     }
 
-    const slottedStudents = addAvailable.map(slot => <AddRequests id={slot.id} rank={slot.rank} professor={slot.professor} student={slot.student} courses={slot.courses} finalized={true}/>)
+    const slottedStudents = addAvailable.map(item => <AddRequests key = {item} {...item}/>)
 
     // const root = ReactDOM.createRoot(
     //     document.getElementsByClassName('slots--container')
@@ -44,7 +54,7 @@ export default function addAvailable(prop){
                 </div>
                 {/*FIX HERE*/}
                 <div className="slots--container" ref={drop} id = {isOver ? "hover-region" : ""}>
-                    {slottedStudents}
+                    <span className="slotted">{slottedStudents}</span>
                     <p>{prop.slots}</p>
                 </div>
             </div>

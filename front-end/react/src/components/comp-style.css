@@ -28,7 +28,7 @@
 
 .requests--container, .courses--container, .slots--container {
     background: #FFFFFF;
-    box-shadow: -4.13636px 4.13636px 3.30909px rgba(0, 0, 0, 0.25);
+    
     border-radius: 9.1px;
     margin: 5px;
     overflow-wrap: break-word;
@@ -70,4 +70,15 @@
 #hover-region {
     color: white;
     background: rgba(20, 27, 74, 0.2);
+}
+
+.slotted {
+    display: flex;
+    color: black;
+    justify-content: center;
+    position: absolute;
+
+    border-radius: 9.1px;
+    width: 8.8%;
+    height: 8.8%
 }

@@ -10,7 +10,7 @@ import "./comp-style.css"
 import {createBox} from "./SplitCredits.js";
 
 export default function addAvailable(prop){
-    const [addAvailable, setAddAvailable] = useState([])
+    const [addingStudent, setAddingStudent] = useState([])
     const [{ isOver, canDrop }, drop] = useDrop(() => ({
         accept: itemTypes.GRADUATE_STUDENT, // the type(s) to accept -- strings or symbols
 
@@ -33,11 +33,11 @@ export default function addAvailable(prop){
     // })
 
     const addStudent = (id) => {
-        const droppedStudents = available.filter(slot => id === slot.id)
-        setAddAvailable(addAvailable => [...addAvailable, droppedStudents[0]])
+        const droppedStudents = requests.filter(slot => id === slot.id)
+        setAddingStudent(addingStudent => [...addingStudent, droppedStudents[0]])
     }
 
-    const slottedStudents = addAvailable.map(item => <AddRequests key = {item} {...item}/>)
+    const slottedStudents = addingStudent.map(item => <AddRequests key = {item} {...item}/>)
 
     // const root = ReactDOM.createRoot(
     //     document.getElementsByClassName('slots--container')

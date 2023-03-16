@@ -1,5 +1,5 @@
 const itemTypes = {
-    CARD: "card"
+    GRADUATE_STUDENT: "graduateStudent"
 }
 
 export default itemTypes

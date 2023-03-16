@@ -4,12 +4,14 @@ import itemTypes from "../data/itemType"
 import "./comp-style.css"
 
 export default function addRequests(prop){
-    const [{ isDragging }, drag ] = useDrag({
-        type: itemTypes.CARD,
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: itemTypes.GRADUATE_STUDENT, // type is required as it's used by the "accept" specification of drop targets.
+        item: {id: prop.id},
+        // "collect" utilizes a "monitor" instance to pull important pieces of state from the DnD systems
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
-    })
+    }))
 
     return (
         <div className="requests--container" ref={drag}>

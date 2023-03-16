@@ -143,8 +143,8 @@
     }
   }
 })({"1xC6H":[function(require,module,exports) {
-var Refresh = require("cc4f236d657b1574");
-var ErrorOverlay = require("733f15e57a22db59");
+var Refresh = require("573c5662e2c3548b");
+var ErrorOverlay = require("e2cca271b628b3c2");
 Refresh.injectIntoGlobalHook(window);
 window.$RefreshReg$ = function() {};
 window.$RefreshSig$ = function() {
@@ -163,11 +163,11 @@ window.addEventListener("parcelhmraccept", ()=>{
     ErrorOverlay.dismissRuntimeErrors();
 });
 
-},{"cc4f236d657b1574":"786KC","733f15e57a22db59":"1dldy"}],"786KC":[function(require,module,exports) {
+},{"573c5662e2c3548b":"786KC","e2cca271b628b3c2":"1dldy"}],"786KC":[function(require,module,exports) {
 "use strict";
-module.exports = require("98e7ba848412d6c3");
+module.exports = require("6b5c6cf5aea112e");
 
-},{"98e7ba848412d6c3":"hdge7"}],"hdge7":[function(require,module,exports) {
+},{"6b5c6cf5aea112e":"hdge7"}],"hdge7":[function(require,module,exports) {
 /** @license React v0.9.0
  * react-refresh-runtime.development.js
  *
@@ -628,7 +628,7 @@ module.exports = require("98e7ba848412d6c3");
 })();
 
 },{}],"1dldy":[function(require,module,exports) {
-var process = require("68dd1e6c2254fa80");
+var process = require("c0cb8062538c3c67");
 !function(e, t) {
     module.exports = t();
 }(window, function() {
@@ -2358,7 +2358,7 @@ var process = require("68dd1e6c2254fa80");
     ]);
 });
 
-},{"68dd1e6c2254fa80":"d5jf4"}],"d5jf4":[function(require,module,exports) {
+},{"c0cb8062538c3c67":"d5jf4"}],"d5jf4":[function(require,module,exports) {
 // shim for using process in browser
 var process = module.exports = {};
 // cached from whatever global is present so that test runners that stub it
@@ -2950,11 +2950,11 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./App":"2kQhy"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./App":"2kQhy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
-module.exports = require("ad0356ec884393fe");
+module.exports = require("927ad071089086df");
 
-},{"ad0356ec884393fe":"48uCM"}],"48uCM":[function(require,module,exports) {
+},{"927ad071089086df":"48uCM"}],"48uCM":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-dev-runtime.development.js
@@ -2966,7 +2966,7 @@ module.exports = require("ad0356ec884393fe");
  */ "use strict";
 (function() {
     "use strict";
-    var React = require("9c9655bd7880d8d2");
+    var React = require("277b59c966498dd6");
     // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
@@ -3785,11 +3785,11 @@ module.exports = require("ad0356ec884393fe");
     exports.jsxDEV = jsxDEV$1;
 })();
 
-},{"9c9655bd7880d8d2":"21dqq"}],"21dqq":[function(require,module,exports) {
+},{"277b59c966498dd6":"21dqq"}],"21dqq":[function(require,module,exports) {
 "use strict";
-module.exports = require("cad7362cc636a4aa");
+module.exports = require("7cebc876513eb4fa");
 
-},{"cad7362cc636a4aa":"6YvXz"}],"6YvXz":[function(require,module,exports) {
+},{"7cebc876513eb4fa":"6YvXz"}],"6YvXz":[function(require,module,exports) {
 /**
  * @license React
  * react.development.js
@@ -5657,7 +5657,7 @@ module.exports = require("cad7362cc636a4aa");
 
 },{}],"lOjBx":[function(require,module,exports) {
 "use strict";
-var m = require("929a3078c26f353e");
+var m = require("2e46ff84f988a6f2");
 var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -5676,7 +5676,7 @@ exports.hydrateRoot = function(c, h, o) {
     }
 };
 
-},{"929a3078c26f353e":"j6uA9"}],"j6uA9":[function(require,module,exports) {
+},{"2e46ff84f988a6f2":"j6uA9"}],"j6uA9":[function(require,module,exports) {
 "use strict";
 function checkDCE() {
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") return;
@@ -5690,9 +5690,9 @@ function checkDCE() {
     // a false positive.
     throw new Error("^_^");
 }
-module.exports = require("79f998ef93eae6ab");
+module.exports = require("5e9cb2a337262e74");
 
-},{"79f998ef93eae6ab":"3iA9v"}],"3iA9v":[function(require,module,exports) {
+},{"5e9cb2a337262e74":"3iA9v"}],"3iA9v":[function(require,module,exports) {
 /**
  * @license React
  * react-dom.development.js
@@ -5705,8 +5705,8 @@ module.exports = require("79f998ef93eae6ab");
 (function() {
     "use strict";
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
-    var React = require("6de176d184ca3504");
-    var Scheduler = require("c7082ba57d037010");
+    var React = require("78629ec67cc3566a");
+    var Scheduler = require("49bc1c9b2d8d3733");
     var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     var suppressWarning = false;
     function setSuppressWarning(newSuppressWarning) {
@@ -26677,11 +26677,11 @@ module.exports = require("79f998ef93eae6ab");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{"6de176d184ca3504":"21dqq","c7082ba57d037010":"juvHo"}],"juvHo":[function(require,module,exports) {
+},{"78629ec67cc3566a":"21dqq","49bc1c9b2d8d3733":"juvHo"}],"juvHo":[function(require,module,exports) {
 "use strict";
-module.exports = require("879be0f97fdd4264");
+module.exports = require("c5c29e565ee0e319");
 
-},{"879be0f97fdd4264":"RqdIf"}],"RqdIf":[function(require,module,exports) {
+},{"c5c29e565ee0e319":"RqdIf"}],"RqdIf":[function(require,module,exports) {
 /**
  * @license React
  * scheduler.development.js
@@ -27135,7 +27135,213 @@ module.exports = require("879be0f97fdd4264");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"gkKU3":[function(require,module,exports) {
+},{}],"2kQhy":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$f00f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$f00f.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _header = require("./components/Header");
+var _headerDefault = parcelHelpers.interopDefault(_header);
+var _addRequests = require("./components/AddRequests");
+var _addRequestsDefault = parcelHelpers.interopDefault(_addRequests);
+var _addAvailable = require("./components/AddAvailable");
+var _addAvailableDefault = parcelHelpers.interopDefault(_addAvailable);
+var _requests = require("./data/requests");
+var _requestsDefault = parcelHelpers.interopDefault(_requests);
+var _available = require("./data/available");
+var _availableDefault = parcelHelpers.interopDefault(_available);
+var _reactDnd = require("react-dnd");
+var _reactDndHtml5Backend = require("react-dnd-html5-backend");
+function App() {
+    const user_requests = (0, _requestsDefault.default).map((item)=>{
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addRequestsDefault.default), {
+            ...item
+        }, item, false, {
+            fileName: "src/App.js",
+            lineNumber: 14,
+            columnNumber: 13
+        }, this);
+    });
+    const available_courses = (0, _availableDefault.default).map((item)=>{
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addAvailableDefault.default), {
+            ...item
+        }, item, false, {
+            fileName: "src/App.js",
+            lineNumber: 22,
+            columnNumber: 13
+        }, this);
+    });
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("body", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerDefault.default), {}, void 0, false, {
+                fileName: "src/App.js",
+                lineNumber: 31,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "drag-and-drop",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "selected-container",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDnd.DndProvider), {
+                            backend: (0, _reactDndHtml5Backend.HTML5Backend),
+                            children: available_courses
+                        }, void 0, false, {
+                            fileName: "src/App.js",
+                            lineNumber: 35,
+                            columnNumber: 21
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "src/App.js",
+                        lineNumber: 34,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "unselected-container",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDnd.DndProvider), {
+                            backend: (0, _reactDndHtml5Backend.HTML5Backend),
+                            children: user_requests
+                        }, void 0, false, {
+                            fileName: "src/App.js",
+                            lineNumber: 40,
+                            columnNumber: 21
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "src/App.js",
+                        lineNumber: 39,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/App.js",
+                lineNumber: 33,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/App.js",
+        lineNumber: 30,
+        columnNumber: 9
+    }, this);
+}
+exports.default = App;
+_c = App;
+var _c;
+$RefreshReg$(_c, "App");
+
+  $parcel$ReactRefreshHelpers$f00f.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/Header":"hsJbF","./components/AddRequests":"fqJbX","./components/AddAvailable":"4jxaO","./data/requests":"c7S1Q","./data/available":"9DCrz","react-dnd":"cak3X","react-dnd-html5-backend":"1nsLD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hsJbF":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$bfed = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$bfed.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+function Header() {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("nav", {
+        className: "nav-bar",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                className: "ucm-logo",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        className: "UC",
+                        children: "UC"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 7,
+                        columnNumber: 13
+                    }, this),
+                    "MERCED"
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Header.js",
+                lineNumber: 6,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                id: "title",
+                children: "TA ALLOCATION"
+            }, void 0, false, {
+                fileName: "src/components/Header.js",
+                lineNumber: 10,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "nav-items",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "YEAR"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 12,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "POST ASSIGNMENT"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 13,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "FULFILLMENT ORDER"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 14,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        id: "nav-item",
+                        children: "LOGOUT"
+                    }, void 0, false, {
+                        fileName: "src/components/Header.js",
+                        lineNumber: 15,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Header.js",
+                lineNumber: 11,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/Header.js",
+        lineNumber: 5,
+        columnNumber: 9
+    }, this);
+}
+exports.default = Header;
+_c = Header;
+var _c;
+$RefreshReg$(_c, "Header");
+
+  $parcel$ReactRefreshHelpers$bfed.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27167,7 +27373,7 @@ exports.export = function(dest, destName, get) {
 
 },{}],"km3Ru":[function(require,module,exports) {
 "use strict";
-var Refresh = require("c1fdffc59e0a3693");
+var Refresh = require("47a8d87dcb8d4279");
 function debounce(func, delay) {
     {
         let timeout = undefined;
@@ -27298,11 +27504,11 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"c1fdffc59e0a3693":"786KC"}],"2kQhy":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$f00f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"47a8d87dcb8d4279":"786KC"}],"fqJbX":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$9453 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$f00f.prelude(module);
+$parcel$ReactRefreshHelpers$9453.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -27310,337 +27516,101 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _reactDom = require("react-dom");
-var _reactDomDefault = parcelHelpers.interopDefault(_reactDom);
-// import "./style.css"
-var _header = require("./components/Header");
-var _headerDefault = parcelHelpers.interopDefault(_header);
-var _addRequests = require("./components/AddRequests");
-var _addRequestsDefault = parcelHelpers.interopDefault(_addRequests);
-var _studentItem = require("./components/StudentItem");
-var _studentItemDefault = parcelHelpers.interopDefault(_studentItem);
-var _addAvailable = require("./components/AddAvailable");
-var _addAvailableDefault = parcelHelpers.interopDefault(_addAvailable);
-var _requests = require("./data/requests");
-var _requestsDefault = parcelHelpers.interopDefault(_requests);
-var _available = require("./data/available");
-var _availableDefault = parcelHelpers.interopDefault(_available);
-var _reactDnd = require("react-dnd");
-var _reactDndHtml5Backend = require("react-dnd-html5-backend");
-function App() {
-    const user_requests = (0, _requestsDefault.default).map((item)=>{
-        return(// <AddRequests 
-        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _studentItemDefault.default), {
-            ...item
-        }, item, false, {
-            fileName: "src/App.js",
-            lineNumber: 17,
-            columnNumber: 13
-        }, this));
-    });
-    const available_courses = (0, _availableDefault.default).map((item)=>{
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addAvailableDefault.default), {
-            ...item
-        }, item, false, {
-            fileName: "src/App.js",
-            lineNumber: 25,
-            columnNumber: 13
-        }, this);
-    });
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("body", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerDefault.default), {}, void 0, false, {
-                fileName: "src/App.js",
-                lineNumber: 34,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "drag-and-drop",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "selected-container",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDnd.DndProvider), {
-                            backend: (0, _reactDndHtml5Backend.HTML5Backend),
-                            children: available_courses
-                        }, void 0, false, {
-                            fileName: "src/App.js",
-                            lineNumber: 38,
-                            columnNumber: 21
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "src/App.js",
-                        lineNumber: 37,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "unselected-container",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDnd.DndProvider), {
-                            backend: (0, _reactDndHtml5Backend.HTML5Backend),
-                            children: user_requests
-                        }, void 0, false, {
-                            fileName: "src/App.js",
-                            lineNumber: 43,
-                            columnNumber: 21
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "src/App.js",
-                        lineNumber: 42,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/App.js",
-                lineNumber: 36,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "src/App.js",
-        lineNumber: 33,
-        columnNumber: 9
-    }, this);
-}
-exports.default = App;
-_c = App;
-var _c;
-$RefreshReg$(_c, "App");
-
-  $parcel$ReactRefreshHelpers$f00f.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/Header":"hsJbF","./components/AddAvailable":"4jxaO","./data/requests":"c7S1Q","./data/available":"9DCrz","react-dnd":"cak3X","react-dnd-html5-backend":"1nsLD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/AddRequests":"fqJbX","react-dom":"j6uA9","./components/StudentItem":"9xpkE"}],"hsJbF":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$bfed = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$bfed.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-function Header() {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("nav", {
-        className: "nav-bar",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                className: "ucm-logo",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        className: "UC",
-                        children: "UC"
-                    }, void 0, false, {
-                        fileName: "src/components/Header.js",
-                        lineNumber: 7,
-                        columnNumber: 13
-                    }, this),
-                    "MERCED"
-                ]
-            }, void 0, true, {
-                fileName: "src/components/Header.js",
-                lineNumber: 6,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                id: "title",
-                children: "TA ALLOCATION"
-            }, void 0, false, {
-                fileName: "src/components/Header.js",
-                lineNumber: 10,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "nav-items",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                        id: "nav-item",
-                        children: "YEAR"
-                    }, void 0, false, {
-                        fileName: "src/components/Header.js",
-                        lineNumber: 12,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                        id: "nav-item",
-                        children: "POST ASSIGNMENT"
-                    }, void 0, false, {
-                        fileName: "src/components/Header.js",
-                        lineNumber: 13,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                        id: "nav-item",
-                        children: "FULFILLMENT ORDER"
-                    }, void 0, false, {
-                        fileName: "src/components/Header.js",
-                        lineNumber: 14,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                        id: "nav-item",
-                        children: "LOGOUT"
-                    }, void 0, false, {
-                        fileName: "src/components/Header.js",
-                        lineNumber: 15,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/Header.js",
-                lineNumber: 11,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/Header.js",
-        lineNumber: 5,
-        columnNumber: 9
-    }, this);
-}
-exports.default = Header;
-_c = Header;
-var _c;
-$RefreshReg$(_c, "Header");
-
-  $parcel$ReactRefreshHelpers$bfed.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4jxaO":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$c629 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$c629.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _addRequests = require("./AddRequests");
-var _addRequestsDefault = parcelHelpers.interopDefault(_addRequests);
-// import ReactDOM from 'react-dom'
 var _reactDnd = require("react-dnd");
 var _itemType = require("../data/itemType");
 var _itemTypeDefault = parcelHelpers.interopDefault(_itemType);
-var _available = require("../data/available");
-var _availableDefault = parcelHelpers.interopDefault(_available);
 var _compStyleCss = require("./comp-style.css");
-var _splitCreditsJs = require("./SplitCredits.js");
 var _s = $RefreshSig$();
-function addAvailable(prop) {
+function addRequests(prop) {
     _s();
-    const [addAvailable, setAddAvailable] = (0, _react.useState)([]);
-    const [{ isOver , canDrop  }, drop] = (0, _reactDnd.useDrop)(()=>({
-            accept: (0, _itemTypeDefault.default).GRADUATE_STUDENT,
-            drop: (item)=>addStudent(item.id),
-            // props to collect
+    const [{ isDragging  }, drag] = (0, _reactDnd.useDrag)(()=>({
+            type: (0, _itemTypeDefault.default).GRADUATE_STUDENT,
+            item: {
+                id: prop.id
+            },
+            // "collect" utilizes a "monitor" instance to pull important pieces of state from the DnD systems
             collect: (monitor)=>({
-                    isOver: !!monitor.isOver(),
-                    canDrop: !!monitor.canDrop()
+                    isDragging: !!monitor.isDragging()
                 })
         }));
-    const addStudent = (id)=>{
-        const droppedStudents = (0, _availableDefault.default).filter((slot)=>id === slot.id);
-        setAddAvailable((addAvailable)=>[
-                ...addAvailable,
-                droppedStudents[0]
-            ]);
-    };
-    const slottedStudents = addAvailable.map((slot)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addRequestsDefault.default), {
-            id: slot.id,
-            rank: slot.rank,
-            professor: slot.professor,
-            student: slot.student,
-            courses: slot.courses,
-            finalized: true
-        }, void 0, false, {
-            fileName: "src/components/AddAvailable.js",
-            lineNumber: 30,
-            columnNumber: 54
-        }, this));
-    // const root = ReactDOM.createRoot(
-    //     document.getElementsByClassName('slots--container')
-    // );
-    // const element = "test";
-    // root.render(element);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            className: "drop-items-here",
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "courses--container",
-                    children: [
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                            children: [
-                                "CSE ",
-                                prop.CSE
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/AddAvailable.js",
-                            lineNumber: 42,
-                            columnNumber: 21
-                        }, this),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                            fileName: "src/components/AddAvailable.js",
-                            lineNumber: 43,
-                            columnNumber: 21
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/AddAvailable.js",
-                    lineNumber: 41,
-                    columnNumber: 17
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "slots--container",
-                    ref: drop,
-                    id: isOver ? "hover-region" : "",
-                    children: [
-                        slottedStudents,
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                            children: prop.slots
-                        }, void 0, false, {
-                            fileName: "src/components/AddAvailable.js",
-                            lineNumber: 48,
-                            columnNumber: 21
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/AddAvailable.js",
-                    lineNumber: 46,
-                    columnNumber: 17
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/components/AddAvailable.js",
-            lineNumber: 40,
-            columnNumber: 13
-        }, this)
-    }, void 0, false, {
-        fileName: "src/components/AddAvailable.js",
-        lineNumber: 39,
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "requests--container",
+        ref: drag,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "student--info",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        id: "student-item",
+                        className: "student-txt",
+                        children: prop.student
+                    }, void 0, false, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 19,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        id: "student-item",
+                        className: "course-txt",
+                        children: [
+                            "CSE ",
+                            prop.courses + " "
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 20,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        id: "student-item",
+                        children: [
+                            prop.professor,
+                            " - ",
+                            prop.percentage
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 21,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "src/components/AddRequests.js",
+                        lineNumber: 22,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/AddRequests.js",
+                lineNumber: 18,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "student--slots"
+            }, void 0, false, {
+                fileName: "src/components/AddRequests.js",
+                lineNumber: 25,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/AddRequests.js",
+        lineNumber: 17,
         columnNumber: 9
     }, this);
 }
-exports.default = addAvailable;
-_s(addAvailable, "0kzOrfRe2xgp9YlZbqA6OxV7PA0=", false, function() {
+exports.default = addRequests;
+_s(addRequests, "wuumsFp4qAni9XRJfRhQAZjuD/k=", false, function() {
     return [
-        (0, _reactDnd.useDrop)
+        (0, _reactDnd.useDrag)
     ];
 });
 
-  $parcel$ReactRefreshHelpers$c629.postlude(module);
+  $parcel$ReactRefreshHelpers$9453.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../data/itemType":"bxNpp","./AddRequests":"fqJbX","./SplitCredits.js":"2xEoD","../data/available":"9DCrz"}],"cak3X":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-dnd":"cak3X","../data/itemType":"bxNpp"}],"hsRU6":[function() {},{}],"cak3X":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _indexJs = require("./core/index.js");
@@ -27764,9 +27734,9 @@ function getGlobalContext() {
 
 },{"react/jsx-runtime":"6AEwr","dnd-core":"3pix3","react":"21dqq","./DndContext.js":"59xow","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6AEwr":[function(require,module,exports) {
 "use strict";
-module.exports = require("ce267ef8afe075f7");
+module.exports = require("558a719846922c8c");
 
-},{"ce267ef8afe075f7":"kujY4"}],"kujY4":[function(require,module,exports) {
+},{"558a719846922c8c":"kujY4"}],"kujY4":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-runtime.development.js
@@ -27778,7 +27748,7 @@ module.exports = require("ce267ef8afe075f7");
  */ "use strict";
 (function() {
     "use strict";
-    var React = require("1891351276b7b098");
+    var React = require("e1003024bff86c5b");
     // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
@@ -28609,7 +28579,7 @@ module.exports = require("ce267ef8afe075f7");
     exports.jsxs = jsxs;
 })();
 
-},{"1891351276b7b098":"21dqq"}],"3pix3":[function(require,module,exports) {
+},{"e1003024bff86c5b":"21dqq"}],"3pix3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _createDragDropManagerJs = require("./createDragDropManager.js");
@@ -29418,7 +29388,7 @@ function getDraggableSource(sourceIds, monitor) {
  */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "invariant", ()=>invariant);
-var process = require("d26956f0d2967712");
+var process = require("f03a7056907aa220");
 function invariant(condition, format, ...args) {
     if (isProduction()) {
         if (format === undefined) throw new Error("invariant requires an error message argument");
@@ -29442,7 +29412,7 @@ function isProduction() {
     return typeof process !== "undefined" && false;
 }
 
-},{"d26956f0d2967712":"d5jf4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b53Tm":[function(require,module,exports) {
+},{"f03a7056907aa220":"d5jf4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b53Tm":[function(require,module,exports) {
 // cheap lodash replacements
 /**
  * drop-in replacement for _.get
@@ -31820,19 +31790,20 @@ parcelHelpers.defineInteropFlag(exports);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hsRU6":[function() {},{}],"bxNpp":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bxNpp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const itemTypes = {
-    GRADUATE_STUDENT: "graduateStudent"
+    GRADUATE_STUDENT: "graduateStudent",
+    ITEM_TYPE: "ITEM"
 };
 exports.default = itemTypes;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fqJbX":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$9453 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4jxaO":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$c629 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$9453.prelude(module);
+$parcel$ReactRefreshHelpers$c629.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -31840,101 +31811,125 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _addRequests = require("./AddRequests");
+var _addRequestsDefault = parcelHelpers.interopDefault(_addRequests);
+// import ReactDOM from 'react-dom'
 var _reactDnd = require("react-dnd");
 var _itemType = require("../data/itemType");
 var _itemTypeDefault = parcelHelpers.interopDefault(_itemType);
+var _available = require("../data/available");
+var _availableDefault = parcelHelpers.interopDefault(_available);
 var _compStyleCss = require("./comp-style.css");
+var _splitCreditsJs = require("./SplitCredits.js");
 var _s = $RefreshSig$();
-function addRequests(prop) {
+function addAvailable(prop) {
     _s();
-    const [{ isDragging  }, drag] = (0, _reactDnd.useDrag)(()=>({
-            type: (0, _itemTypeDefault.default).GRADUATE_STUDENT,
-            item: {
-                id: prop.id
-            },
-            // "collect" utilizes a "monitor" instance to pull important pieces of state from the DnD systems
+    const [addAvailable, setAddAvailable] = (0, _react.useState)([]);
+    const [{ isOver , canDrop  }, drop] = (0, _reactDnd.useDrop)(()=>({
+            accept: (0, _itemTypeDefault.default).GRADUATE_STUDENT,
+            drop: (item)=>addStudent(item.id),
+            // props to collect
             collect: (monitor)=>({
-                    isDragging: !!monitor.isDragging()
+                    isOver: !!monitor.isOver(),
+                    canDrop: !!monitor.canDrop()
                 })
         }));
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "requests--container",
-        ref: drag,
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "student--info",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        id: "student-item",
-                        className: "student-txt",
-                        children: prop.student
-                    }, void 0, false, {
-                        fileName: "src/components/AddRequests.js",
-                        lineNumber: 19,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        id: "student-item",
-                        className: "course-txt",
-                        children: [
-                            "CSE ",
-                            prop.courses + " "
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/AddRequests.js",
-                        lineNumber: 20,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        id: "student-item",
-                        children: [
-                            prop.professor,
-                            " - ",
-                            prop.percentage
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/AddRequests.js",
-                        lineNumber: 21,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                        fileName: "src/components/AddRequests.js",
-                        lineNumber: 22,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/AddRequests.js",
-                lineNumber: 18,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "student--slots"
-            }, void 0, false, {
-                fileName: "src/components/AddRequests.js",
-                lineNumber: 25,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/AddRequests.js",
-        lineNumber: 17,
+    const addStudent = (id)=>{
+        const droppedStudents = (0, _availableDefault.default).filter((slot)=>id === slot.id);
+        setAddAvailable((addAvailable)=>[
+                ...addAvailable,
+                droppedStudents[0]
+            ]);
+    };
+    const slottedStudents = addAvailable.map((slot)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addRequestsDefault.default), {
+            id: slot.id,
+            rank: slot.rank,
+            professor: slot.professor,
+            student: slot.student,
+            courses: slot.courses,
+            finalized: true
+        }, void 0, false, {
+            fileName: "src/components/AddAvailable.js",
+            lineNumber: 30,
+            columnNumber: 54
+        }, this));
+    // const root = ReactDOM.createRoot(
+    //     document.getElementsByClassName('slots--container')
+    // );
+    // const element = "test";
+    // root.render(element);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "drop-items-here",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "courses--container",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            children: [
+                                "CSE ",
+                                prop.CSE
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/AddAvailable.js",
+                            lineNumber: 42,
+                            columnNumber: 21
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/components/AddAvailable.js",
+                            lineNumber: 43,
+                            columnNumber: 21
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/AddAvailable.js",
+                    lineNumber: 41,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "slots--container",
+                    ref: drop,
+                    id: isOver ? "hover-region" : "",
+                    children: [
+                        slottedStudents,
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            children: prop.slots
+                        }, void 0, false, {
+                            fileName: "src/components/AddAvailable.js",
+                            lineNumber: 48,
+                            columnNumber: 21
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/AddAvailable.js",
+                    lineNumber: 46,
+                    columnNumber: 17
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/components/AddAvailable.js",
+            lineNumber: 40,
+            columnNumber: 13
+        }, this)
+    }, void 0, false, {
+        fileName: "src/components/AddAvailable.js",
+        lineNumber: 39,
         columnNumber: 9
     }, this);
 }
-exports.default = addRequests;
-_s(addRequests, "wuumsFp4qAni9XRJfRhQAZjuD/k=", false, function() {
+exports.default = addAvailable;
+_s(addAvailable, "0kzOrfRe2xgp9YlZbqA6OxV7PA0=", false, function() {
     return [
-        (0, _reactDnd.useDrag)
+        (0, _reactDnd.useDrop)
     ];
 });
 
-  $parcel$ReactRefreshHelpers$9453.postlude(module);
+  $parcel$ReactRefreshHelpers$c629.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-dnd":"cak3X","../data/itemType":"bxNpp"}],"hsRU6":[function() {},{}],"2xEoD":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","./comp-style.css":"hsRU6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../data/itemType":"bxNpp","./AddRequests":"fqJbX","./SplitCredits.js":"2xEoD","../data/available":"9DCrz"}],"hsRU6":[function() {},{}],"2xEoD":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3bc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -32067,7 +32062,7 @@ exports.default = [
         courses: [
             140
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Marcelo Kallmann                                          `                                 
     {
@@ -32085,7 +32080,7 @@ exports.default = [
             30,
             20
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 2,
@@ -32101,7 +32096,7 @@ exports.default = [
             31,
             24
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 3,
@@ -32121,7 +32116,7 @@ exports.default = [
             22,
             179
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Shawn Newsam                                                                                
     {
@@ -32140,7 +32135,7 @@ exports.default = [
             120,
             165
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 5,
@@ -32156,7 +32151,7 @@ exports.default = [
             30,
             '<span class="prevent">185</span>'
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 6,
@@ -32170,7 +32165,7 @@ exports.default = [
             21,
             15
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 7,
@@ -32183,7 +32178,7 @@ exports.default = [
             21,
             15
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 8,
@@ -32197,7 +32192,7 @@ exports.default = [
             21,
             15
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Ming-Hsuan Yang                                                                             
     {
@@ -32218,7 +32213,7 @@ exports.default = [
             31,
             '<span class="prevent">185</span>'
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 10,
@@ -32238,7 +32233,7 @@ exports.default = [
             30,
             20
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 11,
@@ -32258,7 +32253,7 @@ exports.default = [
             22,
             5
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 12,
@@ -32282,7 +32277,7 @@ exports.default = [
             140,
             179
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 13,
@@ -32302,7 +32297,7 @@ exports.default = [
             31,
             '<span class="prevent">185</span>'
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Miguel Carreira-Perpinan                                                                             
     {
@@ -32318,7 +32313,7 @@ exports.default = [
             31,
             30
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 15,
@@ -32332,7 +32327,7 @@ exports.default = [
             120,
             22
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Wan Du                                                                      
     {
@@ -32347,7 +32342,7 @@ exports.default = [
             5,
             165
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 17,
@@ -32362,7 +32357,7 @@ exports.default = [
             15,
             24
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 18,
@@ -32376,7 +32371,7 @@ exports.default = [
             22,
             5
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Stefano Carpin                                                                          
     {
@@ -32395,7 +32390,7 @@ exports.default = [
             30,
             100
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 20,
@@ -32412,7 +32407,7 @@ exports.default = [
             24,
             30
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Mukesh Singhal                                                                                
     {
@@ -32429,7 +32424,7 @@ exports.default = [
             150,
             160
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 22,
@@ -32444,7 +32439,7 @@ exports.default = [
             31,
             '<span class="prevent">185</span>'
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 23,
@@ -32460,7 +32455,7 @@ exports.default = [
             31,
             165
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 24,
@@ -32471,21 +32466,21 @@ exports.default = [
         courses: [
             "0 (Any available course)"
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Angelo Kyrilov
     {
         id: 25,
         rank: 11,
         professor: "Angelo Kyrilov",
-        finalized: false
+        finalized: "NO"
     },
     // Sungjin Im
     {
         id: 26,
         rank: 8,
         professor: "Sungjin Im",
-        finalized: false
+        finalized: "NO"
     },
     // Alberto Cerpa
     {
@@ -32502,7 +32497,7 @@ exports.default = [
             31,
             120
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 28,
@@ -32518,7 +32513,7 @@ exports.default = [
             31,
             120
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Shijia Pan
     {
@@ -32530,7 +32525,7 @@ exports.default = [
         courses: [
             160
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 30,
@@ -32541,35 +32536,35 @@ exports.default = [
         courses: [
             100
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Florin Rusu
     {
         id: 31,
         rank: 16,
         professor: "Florin Rusu",
-        finalized: false
+        finalized: "NO"
     },
     // David Noelle
     {
         id: 32,
         rank: 14,
         professor: "David Noelle",
-        finalized: false
+        finalized: "NO"
     },
     // Santosh Chandrasekhar
     {
         id: 33,
         rank: 5,
         professor: "Santosh Chandrasekhar",
-        finalized: false
+        finalized: "NO"
     },
     // YangQuan Chen
     {
         id: 34,
         rank: 6,
         professor: "YangQuan Chen",
-        finalized: false
+        finalized: "NO"
     },
     // Ahmed Sabbir Arif
     {
@@ -32588,7 +32583,7 @@ exports.default = [
             24,
             165
         ],
-        finalized: false
+        finalized: "NO"
     },
     {
         id: 36,
@@ -32601,28 +32596,28 @@ exports.default = [
             100,
             120
         ],
-        finalized: false
+        finalized: "NO"
     },
     // Hua Hunag
     {
         id: 37,
         rank: 19,
         professor: "Hua Hunag",
-        finalized: false
+        finalized: "NO"
     },
     // Xiaoyi Lu
     {
         id: 38,
         rank: 20,
         professor: "Xiaoyi Lu",
-        finalized: false
+        finalized: "NO"
     },
     // Pengfei Su
     {
         id: 39,
         rank: 21,
         professor: "Pengfei Su",
-        finalized: false
+        finalized: "NO"
     }
 ];
 
@@ -33546,125 +33541,6 @@ class OptionsReader {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9xpkE":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$de2f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$de2f.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _reactDnd = require("react-dnd");
-var _window = require("./Window");
-var _windowDefault = parcelHelpers.interopDefault(_window);
-var _itemType = require("../data/itemType");
-var _itemTypeDefault = parcelHelpers.interopDefault(_itemType);
-var _s = $RefreshSig$();
-const StudentItem = ({ item , index , moveItem , status  })=>{
-    _s();
-    const ref = (0, _react.useRef)(null);
-    const [, drop] = (0, _reactDnd.useDrop)({
-        accept: (0, _itemTypeDefault.default),
-        hover (item, monitor) {
-            if (!ref.current) return;
-            const dragIndex = item.index;
-            const hoverIndex = index;
-            moveItem(dragIndex, hoverIndex);
-            item.index = hoverIndex;
-        }
-    });
-    const [{ isDragging  }, drag] = (0, _react.useState)({
-        item: {
-            type: (0, _itemTypeDefault.default),
-            ...item,
-            index
-        },
-        collect: (monitor)=>({
-                isDragging: monitor.isDragging()
-            })
-    });
-    const [show, setShow] = (0, _react.useState)(false);
-    const onOpen = ()=>setShow(true);
-    const onClose = ()=>setShow(false);
-    drag(drop(ref));
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _react.Fragment), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            className: "drop-items-here",
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "courses--container",
-                    children: [
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                            children: [
-                                "CSE ",
-                                prop.CSE
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/StudentItem.js",
-                            lineNumber: 41,
-                            columnNumber: 21
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                            fileName: "src/components/StudentItem.js",
-                            lineNumber: 42,
-                            columnNumber: 21
-                        }, undefined)
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/StudentItem.js",
-                    lineNumber: 40,
-                    columnNumber: 17
-                }, undefined),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "slots--container",
-                    ref: drop,
-                    id: isOver ? "hover-region" : "",
-                    children: [
-                        slottedStudents,
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                            children: prop.slots
-                        }, void 0, false, {
-                            fileName: "src/components/StudentItem.js",
-                            lineNumber: 47,
-                            columnNumber: 21
-                        }, undefined)
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/StudentItem.js",
-                    lineNumber: 45,
-                    columnNumber: 17
-                }, undefined)
-            ]
-        }, void 0, true, {
-            fileName: "src/components/StudentItem.js",
-            lineNumber: 39,
-            columnNumber: 13
-        }, undefined)
-    }, void 0, false, {
-        fileName: "src/components/StudentItem.js",
-        lineNumber: 38,
-        columnNumber: 9
-    }, undefined);
-};
-_s(StudentItem, "qXbsSareh7c6xdXZgi/w4HiJzwI=", false, function() {
-    return [
-        (0, _reactDnd.useDrop)
-    ];
-});
-_c = StudentItem;
-var _c;
-$RefreshReg$(_c, "StudentItem");
-
-  $parcel$ReactRefreshHelpers$de2f.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dnd":"cak3X","./Window":"iVFLx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../data/itemType":"bxNpp"}],"iVFLx":[function(require,module,exports) {
-
-},{}]},["1xC6H","jC2qd","8lqZg"], "8lqZg", "parcelRequire074e")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1xC6H","jC2qd","8lqZg"], "8lqZg", "parcelRequire074e")
 
 //# sourceMappingURL=index.975ef6c8.js.map

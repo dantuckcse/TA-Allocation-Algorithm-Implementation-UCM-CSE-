@@ -1,20 +1,17 @@
 import React from "react"
-import ReactDOM from 'react-dom'
-// import "./style.css"
 import Header from "./components/Header"
 import AddRequests from "./components/AddRequests"
-import StudentItem from "./components/StudentItem"
 import AddAvailable from "./components/AddAvailable"
 import requests from "./data/requests"
 import available from "./data/available"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
+
 export default function App() {
     const user_requests = requests.map(item => {
         return (
-            // <AddRequests 
-            <StudentItem
+            <AddRequests 
                 key = {item}
                 {...item}
             />

@@ -23,27 +23,12 @@ export default function addAvailable(prop){
         })
     }))
 
-    // const slottedStudents = requests.map(item => {
-    //     return (
-    //         <AddRequests 
-    //             key = {item}
-    //             {...item}
-    //         />
-    //     )
-    // })
-
     const addStudent = (id) => {
         const droppedStudents = requests.filter(slot => id === slot.id)
         setAddingStudent(addingStudent => [...addingStudent, droppedStudents[0]])
     }
 
     const slottedStudents = addingStudent.map(item => <AddRequests key = {item} {...item}/>)
-
-    // const root = ReactDOM.createRoot(
-    //     document.getElementsByClassName('slots--container')
-    // );
-    // const element = "test";
-    // root.render(element);
 
     return (
         <React.Fragment>
@@ -55,7 +40,7 @@ export default function addAvailable(prop){
                 {/*FIX HERE*/}
                 <div className="slots--container" ref={drop} id = {isOver ? "hover-region" : ""}>
                     <span className="slotted">{slottedStudents}</span>
-                    <p>{prop.slots}</p>
+                    <p className="prop--slot">{prop.slots}</p>
                 </div>
             </div>
         </React.Fragment>

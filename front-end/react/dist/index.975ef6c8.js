@@ -27323,21 +27323,21 @@ var _availableDefault = parcelHelpers.interopDefault(_available);
 var _reactDnd = require("react-dnd");
 var _reactDndHtml5Backend = require("react-dnd-html5-backend");
 function App() {
-    const user_requests = (0, _requestsDefault.default).map((item)=>{
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addRequestsDefault.default), {
-            ...item
-        }, item, false, {
-            fileName: "src/App.js",
-            lineNumber: 14,
-            columnNumber: 13
-        }, this);
-    });
     const available_courses = (0, _availableDefault.default).map((item)=>{
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addAvailableDefault.default), {
             ...item
         }, item, false, {
             fileName: "src/App.js",
-            lineNumber: 22,
+            lineNumber: 15,
+            columnNumber: 13
+        }, this);
+    });
+    const user_requests = (0, _requestsDefault.default).map((item)=>{
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addRequestsDefault.default), {
+            ...item
+        }, item, false, {
+            fileName: "src/App.js",
+            lineNumber: 24,
             columnNumber: 13
         }, this);
     });
@@ -27345,7 +27345,7 @@ function App() {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerDefault.default), {}, void 0, false, {
                 fileName: "src/App.js",
-                lineNumber: 31,
+                lineNumber: 33,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27358,12 +27358,12 @@ function App() {
                             children: available_courses
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 35,
+                            lineNumber: 37,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "src/App.js",
-                        lineNumber: 34,
+                        lineNumber: 36,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27373,24 +27373,24 @@ function App() {
                             children: user_requests
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 40,
+                            lineNumber: 42,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "src/App.js",
-                        lineNumber: 39,
+                        lineNumber: 41,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/App.js",
-                lineNumber: 33,
+                lineNumber: 35,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/App.js",
-        lineNumber: 30,
+        lineNumber: 32,
         columnNumber: 9
     }, this);
 }
@@ -27541,14 +27541,6 @@ function addAvailable(prop) {
                     canDrop: !!monitor.canDrop()
                 })
         }));
-    // const slottedStudents = requests.map(item => {
-    //     return (
-    //         <AddRequests 
-    //             key = {item}
-    //             {...item}
-    //         />
-    //     )
-    // })
     const addStudent = (id)=>{
         const droppedStudents = (0, _requestsDefault.default).filter((slot)=>id === slot.id);
         setAddingStudent((addingStudent)=>[
@@ -27560,14 +27552,9 @@ function addAvailable(prop) {
             ...item
         }, item, false, {
             fileName: "src/components/AddAvailable.js",
-            lineNumber: 40,
+            lineNumber: 31,
             columnNumber: 55
         }, this));
-    // const root = ReactDOM.createRoot(
-    //     document.getElementsByClassName('slots--container')
-    // );
-    // const element = "test";
-    // root.render(element);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "drop-items-here",
@@ -27582,18 +27569,18 @@ function addAvailable(prop) {
                             ]
                         }, void 0, true, {
                             fileName: "src/components/AddAvailable.js",
-                            lineNumber: 52,
+                            lineNumber: 37,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                             fileName: "src/components/AddAvailable.js",
-                            lineNumber: 53,
+                            lineNumber: 38,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/AddAvailable.js",
-                    lineNumber: 51,
+                    lineNumber: 36,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27606,31 +27593,32 @@ function addAvailable(prop) {
                             children: slottedStudents
                         }, void 0, false, {
                             fileName: "src/components/AddAvailable.js",
-                            lineNumber: 57,
+                            lineNumber: 42,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            className: "prop--slot",
                             children: prop.slots
                         }, void 0, false, {
                             fileName: "src/components/AddAvailable.js",
-                            lineNumber: 58,
+                            lineNumber: 43,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/AddAvailable.js",
-                    lineNumber: 56,
+                    lineNumber: 41,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/AddAvailable.js",
-            lineNumber: 50,
+            lineNumber: 35,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "src/components/AddAvailable.js",
-        lineNumber: 49,
+        lineNumber: 34,
         columnNumber: 9
     }, this);
 }
@@ -31877,7 +31865,7 @@ function addRequests(prop) {
                         children: prop.student
                     }, void 0, false, {
                         fileName: "src/components/AddRequests.js",
-                        lineNumber: 20,
+                        lineNumber: 21,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -31889,7 +31877,7 @@ function addRequests(prop) {
                         ]
                     }, void 0, true, {
                         fileName: "src/components/AddRequests.js",
-                        lineNumber: 21,
+                        lineNumber: 22,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -31901,31 +31889,31 @@ function addRequests(prop) {
                         ]
                     }, void 0, true, {
                         fileName: "src/components/AddRequests.js",
-                        lineNumber: 22,
+                        lineNumber: 23,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "src/components/AddRequests.js",
-                        lineNumber: 23,
+                        lineNumber: 24,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/AddRequests.js",
-                lineNumber: 19,
+                lineNumber: 20,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "student--slots"
             }, void 0, false, {
                 fileName: "src/components/AddRequests.js",
-                lineNumber: 26,
+                lineNumber: 27,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/AddRequests.js",
-        lineNumber: 18,
+        lineNumber: 19,
         columnNumber: 9
     }, this);
 }

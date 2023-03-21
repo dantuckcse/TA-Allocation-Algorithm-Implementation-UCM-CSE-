@@ -1,9 +1,10 @@
 import React from "react"
-import { useDrag } from "react-dnd"
+import { useDrag, useDrop } from "react-dnd"
 import itemTypes from "../data/itemType"
 import "./comp-style.css"
 
 export default function addRequests(prop){
+
     const [{ isDragging }, drag] = useDrag(() => ({
         type: itemTypes.GRADUATE_STUDENT, // type is required as it's used by the "accept" specification of drop targets.
         item: {id: prop.id},

@@ -9,17 +9,19 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 
 export default function App() {
-    const user_requests = requests.map(item => {
+
+    const available_courses = available.map(item => {
         return (
-            <AddRequests 
+            <AddAvailable 
                 key = {item}
                 {...item}
             />
         )
     })
-    const available_courses = available.map(item => {
+    
+    const user_requests = requests.map(item => {
         return (
-            <AddAvailable 
+            <AddRequests 
                 key = {item}
                 {...item}
             />

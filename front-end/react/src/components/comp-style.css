@@ -34,30 +34,40 @@
     overflow-wrap: break-word;
 }
 
-.courses--container, .slots--container {
+.courses--container {
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
     padding: 10px;
     font-size: 10px;
-}
-.courses--container {
     width: 10%;
 }
 
 .slots--container {
+    font-weight: bold;
+    font-size: 10px;
     background: #A29061;
     box-shadow: inset 0px 0px 8px 2px rgba(11, 14, 51, 0.6);
     border-radius: 9.1px;
-    width: 15%;
+    width: 20%;
+}
+
+.prop--slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    
 }
 
 .student--info {
     font-size: 10px;
     margin: 5px;
     margin-bottom: -15px;
+    margin-top: -5px;
     font-weight: bold;
+    padding: 0.1px;
 }
 
 .student-txt {
@@ -70,13 +80,4 @@
 #hover-region {
     color: white;
     background: rgba(20, 27, 74, 0.2);
-}
-
-.slotted {
-    display: flex;
-    color: black;
-    justify-content: center;
-    position: absolute;
-
-    border-radius: 9.1px;
 }

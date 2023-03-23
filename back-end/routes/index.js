@@ -4,6 +4,9 @@ let path = require('path')
 let sqlite3 = require('sqlite3').verbose();
 let { open } = require('sqlite');
 
+// Global variable for current semester
+let currentSemesterId = 27;
+
 // Open the database
 let db;
 let dbFilePath = path.join(__dirname, '/../test.db')
@@ -23,32 +26,76 @@ const openDb = async () => {
 }
 openDb();
 
+const getCurrentSemester = async () => {
+  let sql = `
+    SELECT *
+    FROM Semester
+    WHERE pk = ?
+  `;
+  let args = [currentSemesterId]
+  const semester = await db.get(sql, args);
+  return semester;
+}
+
+const getSemester = async (term, year) => {
+  let sql = `
+    SELECT *
+    FROM Semester
+    WHERE term = ?
+      AND year = ?
+  `;
+  args = [term, year];
+  const semester = await db.get(sql, args);
+  return semester;
+}
+
+const generateSemesterId = async () => {
+  let sql = `
+    SELECT MAX(pk) + 1 AS newId
+    FROM Semester;
+  `;
+  const { newId } = await db.get(sql);
+  return newId;
+}
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// Given a semester, find the amount of space each class has. 
-// Also find the total space in all classes
-router.get('/total_available', async function (req, res, next) {
-  // Find the id of the semester that user puts in
+// Get current Semester
+router.get('/current_semester', async function (req, res, next) {
+  const semester = await getCurrentSemester()
+  return res.json(semester)
+});
+
+// Update the current semester in the app
+// ie somebody clicks Summer 2021, it should 
+// update the currentSemesterId to Summer 2021
+router.put('/current_semester/:term/:year', async function (req, res, next) {
+  const { term, year } = req.params;
   let sql = `
-    SELECT pk 
+    SELECT *
     FROM Semester
     WHERE term = ?
-      AND year = ?
+      AND year = ? 
   `;
-  let args = ['Summer', 2021]
+  let args = [term, year];
   const semester = await db.get(sql, args);
-  const semesterPk = semester.pk;
+  currentSemesterId = semester.pk;
+  return res.json({ currentSemesterId, msg: "success" })
+});
 
+// Given the current semester, find the amount of space each class has. 
+// Also find the total space in all classes
+router.get('/total_available/', async function (req, res, next) {
   // Find all the available classes for that semester
   sql = `
     SELECT course_number, percentage
     FROM Available_Courses
     WHERE semester_fk = ?
   `;
-  args = [semesterPk];
+  args = [currentSemesterId];
   const availableCourses = await db.all(sql, args);
 
   // Add up the total number of spaces for the available courses
@@ -57,7 +104,7 @@ router.get('/total_available', async function (req, res, next) {
     FROM Available_Courses
     WHERE semester_fk = ?
   `;
-  args = [semesterPk]
+  args = [currentSemesterId]
   const totalSpace = await db.get(sql, args);
 
   return res.json({ details: availableCourses, total: totalSpace })
@@ -70,24 +117,18 @@ router.post('/semester', async function (req, res, next) {
   const { term, year } = req.body
 
   // Check if the semester they put in already exists:
-  let sql = `
-    SELECT *
-    FROM Semester
-    WHERE term = ?
-      AND year = ?
-  `;
-  args = [term, year]
-  const semester = await db.get(sql, args)
+  const semester = await getSemester(term, year);
 
   let body;
 
   // If the inputted semester doesn't exist, create it
   if (semester == undefined) {
+    let id = await generateSemesterId();
     sql = `
-      INSERT INTO Semester (term, year)
-      VALUES (?, ?)
+      INSERT INTO Semester (pk, term, year)
+      VALUES (?, ?, ?)
     `;
-    args = [term, year]
+    args = [id, term, year]
     await db.run(sql, args)
     body = { msg: "Created a new semester" }
   }
@@ -96,6 +137,30 @@ router.post('/semester', async function (req, res, next) {
     body = { msg: "Semester already exists" }
   }
 
+  return res.json(body)
+});
+
+// Delete a semester (the semester to delete is in the body)
+router.delete('/semester', async function (req, res, next) {
+  const { term, year } = req.body;
+
+  // Check if semester exists
+  const semester = await getSemester(term, year);
+
+  let body = {}
+  if (semester == undefined) {
+    body = { msg: "Can't delete semester because it doesn't exist" }
+  }
+  else {
+    let sql = `
+      DELETE FROM Semester
+      WHERE term = ?
+        AND year = ?;
+    `;
+    let args = [term, year];
+    await db.run(sql, args)
+    body = { msg: `Deleted ${term} ${year} semester` };
+  }
   return res.json(body)
 });
 

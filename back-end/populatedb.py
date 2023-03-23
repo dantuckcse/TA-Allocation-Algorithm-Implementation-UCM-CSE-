@@ -247,8 +247,6 @@ def getCourseNumber(input):
     elif type(input) == int:
         return input
 
-# Not done. Populate Assignments with requests first then finish this function
-
 
 def populateRequestedCoursesTable(_conn):
     try:
@@ -268,10 +266,14 @@ def populateRequestedCoursesTable(_conn):
                 for course in request["courses"]:
                     category = determineCourseCategory(course)
                     course_number = getCourseNumber(course)
+                    tempRank = rank
+                    if category == 'prevent':
+                        rank = None
                     _conn.execute(f"""
                         INSERT INTO Requested_Courses (assignment_fk, course_number, rank, category)
                         VALUES (?, ?, ?, ?)
                     """, [assignment_fk, course_number, rank, category])
+                    rank = tempRank + 1
         _conn.commit()
     except Error as e:
         _conn.rollback()

@@ -164,4 +164,26 @@ router.delete('/semester', async function (req, res, next) {
   return res.json(body)
 });
 
+// Returns the rankings of all the requests
+router.get('/rankings', async function (req, res, next) {
+  let sql = `
+    SELECT * 
+    FROM student_rankings;
+  `;
+  const rankings = await db.all(sql);
+
+  const cleanRankings = rankings.map((request) => {
+    let courses = request['courses'].split(',');
+    let cleanCourses = courses.map(course => parseInt(course)); //Convert string course values to ints
+
+    newObj = {
+      ...request,
+      courses: cleanCourses
+    }
+    return newObj;
+  });
+
+  return res.json(cleanRankings);
+});
+
 module.exports = router;

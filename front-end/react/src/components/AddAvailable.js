@@ -1,13 +1,10 @@
 import React, {useState} from "react"
 import AddRequests from "./AddRequests"
-import React from "react"
-// import ReactDOM from 'react-dom'
 import { useDrop } from 'react-dnd'
 import itemTypes from "../data/itemType"
 import available from "../data/available"
 import requests from "../data/requests"
 import "./comp-style.css"
-import {createBox} from "./SplitCredits.js";
 
 export default function addAvailable(prop){
     const [addingStudent, setAddingStudent] = useState([])
@@ -29,6 +26,20 @@ export default function addAvailable(prop){
     }
 
     const slottedStudents = addingStudent.map(item => <AddRequests key = {item} {...item}/>)
+    
+    let boxTotal = prop.slots;
+    const boxes = [];
+    while (boxTotal != 0){
+        if(boxTotal >= 0.5){
+            boxes.push(0.5);
+            boxTotal -= (0.5)
+        } else if(boxTotal >= 0.25){
+            boxes.push(0.25);
+            boxTotal -= 0.25;
+        }
+    }
+
+
 
     return (
         <React.Fragment>
@@ -37,11 +48,21 @@ export default function addAvailable(prop){
                     <p>CSE {prop.CSE}</p>
                     <br></br>
                 </div>
+                
                 {/*FIX HERE*/}
-                <div className="slots--container" ref={drop} id = {isOver ? "hover-region" : ""}>
+                {/* <div className="slots--container" ref={drop} id = {isOver ? "hover-region" : ""}>
                     <span className="slotted">{slottedStudents}</span>
                     <p className="prop--slot">{prop.slots}</p>
-                </div>
+                </div> */}
+                {boxes.map((b) =>{
+                    return(
+                        <div className="slots--container" ref={drop} id = {isOver ? "hover-region" : ""}>
+                            <span className="slotted">{slottedStudents}</span>
+                            <p className="prop--slot">{b}</p>
+                        </div>
+                    )     
+                })}
+                {/* <CreateBox drop = {drop} isOver = {isOver} slottedStudents = {slottedStudents} slots = {prop.slots}/> */}
             </div>
         </React.Fragment>
         // createBox("test");

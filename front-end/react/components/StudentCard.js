@@ -1,6 +1,5 @@
 import { useDrag } from "react-dnd"
-import  itemTypes  from "../../utils/itemType"
-
+import  itemTypes  from "../utils/itemType"
 
 
 export default function StudentCard(prop){

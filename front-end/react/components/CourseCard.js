@@ -1,8 +1,8 @@
 import { useDrop } from 'react-dnd'
 import { useContext, useState } from "react"
-import  itemTypes  from "../../utils/itemType"
-import requests from "../TA-Allocation/data/requests"
-import  { CardContext }  from "../TA-Allocation/allocation.js"
+import  itemTypes  from "../utils/itemType"
+import requests from "../pages/TA-Allocation/data/requests"
+import  { CardContext }  from "../pages/TA-Allocation/allocation.js"
 import StudentCard from "./StudentCard"
 
 export default function CourseCard(prop){
@@ -30,7 +30,7 @@ export default function CourseCard(prop){
 
     let boxTotal = prop.slots;
     const boxes = [];
-    while (boxTotal != 0){
+    while (boxTotal != 0 && boxTotal != undefined){
         if(boxTotal >= 0.5){
             boxes.push(0.5);
             boxTotal -= (0.5)
@@ -40,7 +40,6 @@ export default function CourseCard(prop){
         }
         
     }
-
     return (
         <CardContext.Provider value={{ markAsFinalized }}>
             <div className="drop-items-here">

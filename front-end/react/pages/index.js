@@ -1,0 +1,28 @@
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from "next/link"
+import styles from '@/styles/Home.module.css'
+import Layout from "./layout/layout.js"
+
+export default function Home() {
+  return (
+    <Layout home>
+      <Head>
+        <title>Welcome Page - Sign-In Page</title>
+      </Head>
+      
+      <Link href="/Initial-Faculty-Ranking">
+        <h1>INITIAL FACULTY RANKING</h1>
+      </Link>
+      <Link href="/TA-Allocation/allocation">
+        <h1>TA ALLOCATION</h1>
+      </Link>
+    </Layout>
+  )
+}
+
+/* 
+CREDIT: 
+
+Next.js set-up: https://youtube.com/playlist?list=PLynWqC6VC9KOvExUuzhTFsWaxnpP_97BD
+*/

@@ -1,0 +1,128 @@
+*>*{
+  font-family: Gudea, sans-serif;
+}
+
+body {
+  background-image: url("../public/images/WebsiteBG.png");
+  background-color: #002856;
+  background-size: 100%;
+  margin: 0;
+  
+}
+
+.nav-bar {
+  background-color: #002856;
+  color: white;
+  border-bottom: 1px solid white;
+  
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+#title {
+  font-size: 30px;
+}
+.nav-items {
+  display: flex;
+}
+#nav-item {
+  padding: 10px;
+  margin: 15px;
+}
+.UC {
+  color: #A29061;
+}
+
+a:link { text-decoration: none; }
+a:visited { 
+  text-decoration: none; 
+  color: white; 
+}
+a:hover { text-decoration: none; color:rgb(47, 115, 120); }
+
+.drag-and-drop {
+  line-height: 11px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
+}
+.selected-container {
+  margin: 10px;
+  background: #A29061;
+  width: 50%;
+  padding: 10px;
+}
+
+.unselected-container {
+  background: #A29061;
+  width: 15%;
+  padding: 5px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.drop-items-here {
+  display: flex;
+  align-items: center;
+}
+
+.requests--container, .courses--container, .slots--container {
+  background: #FFFFFF;
+  border-radius: 9.1px;
+  margin: 5px;
+  overflow-wrap: break-word;
+}
+
+.courses--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 10px;
+  width: 10%;
+}
+
+.slots--container {
+  font-weight: bold;
+  font-size: 10px;
+  background: #A29061;
+  box-shadow: inset 0px 0px 8px 2px rgba(11, 14, 51, 0.6);
+  border-radius: 9.1px;
+  width: 20%;
+}
+/* .prop--slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+} */
+
+.student--info {
+  font-size: 10px;
+  margin: 5px;
+  margin-bottom: -15px;
+  margin-top: -5px;
+  font-weight: bold;
+  padding: 0.1px;
+}
+
+.student-txt {
+  font-size: 12px;
+}
+.course-txt {
+  color: rgb(92, 92, 92);
+}
+
+#hover-region {
+  color: white;
+  background: rgba(20, 27, 74, 0.2);
+}
+
+#dragging-item {
+  opacity: 0;
+}

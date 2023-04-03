@@ -1,4 +1,7 @@
 # TA-Allocation-Algorithm-Implementation-UCM-CSE-120
 
 Front-End:
-* Instructions for running react files can be found at the top of the src>index.html file.
+* Instructions for running react files:
+    1. type *npm install* in termnial
+    2. type *npm run dev* in terminal
+    3. type *ctrl+c* to stop running

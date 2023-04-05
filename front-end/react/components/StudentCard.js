@@ -5,7 +5,7 @@ import  itemTypes  from "../utils/itemType"
 export default function StudentCard(prop){
 
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: itemTypes.CARD, // type is required as it's used by the "accept" specification of drop targets.
+        type: itemTypes.UNSLOTTED_STUDENT, // type is required as it's used by the "accept" specification of drop targets.
         item: {id: prop.id},
         // "collect" utilizes a "monitor" instance to pull important pieces of state from the DnD systems
         collect: monitor => ({

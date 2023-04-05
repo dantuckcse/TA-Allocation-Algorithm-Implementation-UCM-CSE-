@@ -1,7 +1,7 @@
 const itemTypes = {
-    GRADUATE_STUDENT: "graduateStudent",
-    ITEM_TYPE: "ITEM",
-    CARD: 'card'
+    CARD: 'card',
+    UNSLOTTED_STUDENT: "unslotted_student",
+    SLOTTED_STUDENT: "slotted_student"
 }
 
 export default itemTypes

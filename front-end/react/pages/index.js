@@ -25,4 +25,6 @@ export default function Home() {
 CREDIT: 
 
 Next.js set-up: https://youtube.com/playlist?list=PLynWqC6VC9KOvExUuzhTFsWaxnpP_97BD
+
+React-dnd with Next.js tutorial I followed: https://www.youtube.com/watch?v=NW8erkUgqus
 */

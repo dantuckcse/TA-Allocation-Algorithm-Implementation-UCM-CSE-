@@ -11,21 +11,6 @@ export default function CourseCard(prop){
 
     const [addingStudent, setAddingStudent] = useState([])
 
-    const [{ isOver, didDrop, getDropResult }, drop] = useDrop(() => ({
-        accept: itemTypes.UNSLOTTED_STUDENT, // the type(s) to accept -- strings or symbols
-        drop(item, monitor) {
-            markAsFinalized(item.id)
-            addStudent(item.id)
-        },
-
-        // props to collect
-        collect: monitor => ({
-            isOver: !!monitor.isOver(),
-            didDrop: monitor.didDrop(),
-            getDropResult: monitor.getDropResult()
-        }),
-    }))
-
     const addStudent = (id) => {
         const droppedStudents = requests.filter(slot => id === slot.id)
         setAddingStudent(addingStudent => [...addingStudent, droppedStudents[0]])
@@ -56,27 +41,38 @@ export default function CourseCard(prop){
         }
     }
 
-    // console.log(item.slots["slot_1"])
-
     return(
-    <div>
-        <div className="drop-items-here">
-            <div className="courses--container">
-                <p>CSE {prop.CSE}</p>
-                <br></br>
+        <div>
+            <div className="drop-items-here">
+                <div className="courses--container">
+                    <p>CSE {prop.CSE}</p>
+                    <br></br>
+                </div>
+                {boxes.map((b, index) =>{ // Added index to map
+                    const [{ isOver, didDrop, getDropResult }, drop] = useDrop(() => ({
+                        accept: itemTypes.UNSLOTTED_STUDENT,
+                        drop(item, monitor) {
+                            markAsFinalized(item.id)
+                            addStudent(item.id)
+                        },
+                        collect: monitor => ({
+                            isOver: !!monitor.isOver(),
+                            didDrop: monitor.didDrop(),
+                            getDropResult: monitor.getDropResult()
+                        }),
+                    }))
+                    return(
+                        <div className="slots--container" ref={drop} id={ isOver ? "hover-region" : ""} key={index}>
+                            <p className="prop--slot"> {b}
+                                <CardContext.Provider value={{ markAsFinalized }}>
+                                    {index < slottedStudents.length ? slottedStudents[index] : null}
+                                </CardContext.Provider>
+                            </p>
+                        </div>
+                    )     
+                })}
+
             </div>
-            {boxes.map((b) =>{
-                return(
-                    <div className="slots--container" ref={drop} id={ isOver ? "hover-region" : ""}>
-                        <p className="prop--slot"> {b}
-                            <CardContext.Provider value={{ markAsFinalized }}>
-                                {slottedStudents}
-                            </CardContext.Provider>
-                        </p>
-                    </div>
-                )     
-            })}
         </div>
-    </div>
     )
 }

@@ -26,8 +26,8 @@ jobs:
     - name: Build and push Docker images
       uses: docker/build-push-action@v2
       with:
-        context: ../back-end
-        file: ../back-end/Dockerfile
+        context: back-end
+        file: back-end/Dockerfile
         platforms: linux/amd64
         push: true
         tags: gcr.io/ta-allocation-382919/mybackend:latest
@@ -35,8 +35,8 @@ jobs:
     - name: Build and push Docker images
       uses: docker/build-push-action@v2
       with:
-        context: ../front-end/react
-        file: ../front-end/react/Dockerfile
+        context: front-end/react
+        file: front-end/react/Dockerfile
         platforms: linux/amd64
         push: true
         tags: gcr.io/ta-allocation-382919/myfrontend:latest

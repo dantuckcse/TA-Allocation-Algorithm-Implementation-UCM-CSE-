@@ -5,6 +5,9 @@ import  { CardContext }  from "../pages/TA-Allocation/allocation.js"
 import StudentCard from "./StudentCard"
 import requests from "../pages/TA-Allocation/data/requests"
 
+import DivsContainer from './DivsContainer';
+
+
 export default function CourseCard(prop){
     const { markAsFinalized } = useContext(CardContext);
     const [students, setStudents] = useState(() => requests)
@@ -76,6 +79,7 @@ export default function CourseCard(prop){
                     </div>
                 )     
             })}
+            {/* <div><DivsContainer numDivs={4} /></div> */}
         </div>
     </div>
     )

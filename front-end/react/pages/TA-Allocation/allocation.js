@@ -2,7 +2,8 @@ import { useState, createContext } from 'react'
 import StudentCard from "../../components/StudentCard"
 import CourseCard from "../../components/CourseCard"
 import requests from "./data/requests"
-import available from "./data/available"
+//import available from "./data/available"
+import { availableData } from "./data/available"
 import Head from 'next/head'
 import Layout from "../layout/layout.js"
 
@@ -11,7 +12,7 @@ export const CardContext = createContext({
 })
 
 export default function Allocation() {
-    const [courses, setCourses] = useState(() => available)
+    const [courses, setCourses] = useState(() => availableData)
     const [students, setStudents] = useState(() => requests)
 
     const markAsFinalized = id => {

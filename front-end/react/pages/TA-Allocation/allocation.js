@@ -1,7 +1,8 @@
 import { useState, createContext } from 'react'
 import StudentCard from "../../components/StudentCard"
 import CourseCard from "../../components/CourseCard"
-import requests from "./data/requests"
+//import requests from "./data/requests"
+import { requests } from "./data/requests";
 //import available from "./data/available"
 import { availableData } from "./data/available"
 import Head from 'next/head'

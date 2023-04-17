@@ -641,21 +641,26 @@ RENAME TO Requested_Courses;
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS Requested_Courses_Copy (
+CREATE TABLE IF NOT EXISTS Assignments_Copy(
 	pk INTEGER PRIMARY KEY,
-	assignment_fk INTEGER NOT NULL,
-	course_number TEXT NOT NULL,
-	category TEXT NOT NULL
+	faculty_fk INTEGER NOT NULL,
+	semester_fk INTEGER NOT NULL,
+    percentage REAL NOT NULL,
+	student_name TEXT NOT NULL,
+    student_id INTEGER DEFAULT -1,
+    assigned_course TEXT,
+    rank INTEGER,
+	finalized TEXT NOT NULL
 );
 
-INSERT INTO Requested_Courses_Copy ()
-SELECT pk, assignment_fk, course_number, category 
-FROM Requested_Courses;
+INSERT INTO Assignments_Copy (pk, faculty_fk, semester_fk, percentage, student_name, assigned_course, rank, finalized)
+SELECT pk, faculty_fk, semester_fk, percentage, student_name, assigned_course, rank, finalized
+FROM Assignments;
 
-DROP TABLE IF EXISTS Requested_Courses;
+DROP TABLE IF EXISTS Assignments;
 
-ALTER TABLE Requested_Courses_Copy
-RENAME TO Requested_Courses;
+ALTER TABLE Assignments_Copy
+RENAME TO Assignments;
 
 --------------------------------------------------------------------------------------------------------------------------------
 
@@ -719,3 +724,43 @@ INSERT INTO Requested_Courses (assignment_fk, course_number, category)
      DELETE 
     FROM Student_Rankings;
 
+
+
+--Only to make temp student id values
+CREATE TABLE temp (
+  id INTEGER PRIMARY KEY,
+  random_value INTEGER UNIQUE
+);
+
+DROP TABLE IF EXISTS temp;
+
+INSERT INTO temp (random_value)
+SELECT random_value FROM (
+  SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+  UNION SELECT ABS(RANDOM()) % (1000000000-100000000) + 100000000 AS random_value
+)
+WHERE random_value NOT IN (SELECT random_value FROM temp)
+LIMIT 137;
+
+UPDATE Assignments
+SET student_id = (
+  SELECT random_value FROM (
+    SELECT ROW_NUMBER() OVER () AS row_num, student_name FROM (
+      SELECT DISTINCT student_name FROM Assignments
+    )
+  ) a
+  JOIN (
+    SELECT ROW_NUMBER() OVER () AS row_num, random_value FROM temp
+  ) t ON a.row_num = t.row_num
+  WHERE a.student_name = Assignments.student_name
+)
+WHERE student_name IN (
+  SELECT DISTINCT student_name FROM Assignments
+);

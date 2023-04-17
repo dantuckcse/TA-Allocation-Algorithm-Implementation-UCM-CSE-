@@ -1,5 +1,0 @@
-Required packages and modules
-
-npm install sqlite
-npm install sqlite3
-npm install express

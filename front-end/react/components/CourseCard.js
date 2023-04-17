@@ -3,16 +3,16 @@ import { useContext, useState } from "react"
 import  itemTypes  from "../utils/itemType"
 import  { CardContext }  from "../pages/TA-Allocation/allocation.js"
 import StudentCard from "./StudentCard"
-import requests from "../pages/TA-Allocation/data/requests"
+import { requestData } from "../pages/TA-Allocation/data/requests"
 
 export default function CourseCard(prop){
     const { markAsFinalized } = useContext(CardContext);
-    const [students, setStudents] = useState(() => requests)
+    const [students, setStudents] = useState(() => requestData)
 
     const [addingStudent, setAddingStudent] = useState([])
 
     const addStudent = (id) => {
-        const droppedStudents = requests.filter(slot => id === slot.id)
+        const droppedStudents = students.filter(slot => id === slot.id)
         setAddingStudent(addingStudent => [...addingStudent, droppedStudents[0]])
     }
 
@@ -40,7 +40,6 @@ export default function CourseCard(prop){
             boxTotal -= 0.25;
         }
     }
-
     return(
         <div>
             <div className="drop-items-here">

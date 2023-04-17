@@ -12,11 +12,12 @@ export default function StudentCard(prop){
             isDragging: !!monitor.isDragging()
         })
     }))
+    
     return (
         <div className="requests--container" ref={drag} id = {isDragging ? "dragging-item" : ""}>
             <div className="student--info">
                 <p id="student-item" className="student-txt">{prop.student}</p>
-                <p id="student-item" className="course-txt">CSE {prop.courses + " "}</p>
+                <p id="student-item" className="course-txt">CSE <span id="cse-check">{Number.isInteger(prop.courses) ? prop.courses + " " :" N/A"}</span></p>
                 <p id="student-item">{prop.professor} - {prop.percentage}</p>
                 <br></br>
             </div>

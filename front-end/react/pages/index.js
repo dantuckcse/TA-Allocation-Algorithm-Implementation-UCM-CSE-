@@ -15,6 +15,9 @@ export default function Home() {
       <Link href="/TA-Allocation/allocation">
         <h1>TA ALLOCATION</h1>
       </Link>
+      <Link href="/Data-Form">
+        <h1>DATA FORM</h1>
+      </Link>
     </Layout>
   )
 }

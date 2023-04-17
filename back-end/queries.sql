@@ -1,21 +1,35 @@
 -- ALL queries that are used
---Also has alot of testing queries
---Very disorganized
+-- Also has alot of testing queries
+-- Very disorganized
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
 
 -- Gets the total semesters INITIAL
 UPDATE Faculty
-SET total_semesters = (CASE WHEN (SELECT ((SELECT S.pk 
-                                            FROM Semester S 
-                                            WHERE S.term = 'Summer' AND S.year = 2021) - Faculty.start_semester_fk) * 1.0) = 0 THEN 1.0 
-                            ELSE (SELECT ((SELECT S.pk 
-                                            FROM Semester S 
-                                            WHERE S.term = 'Summer' AND S.year = 2021) - Faculty.start_semester_fk) * 1.0) 
-                            END)
-FROM Semester
-WHERE Faculty.start_semester_fk = Semester.pk;
+SET total_semesters = (CASE 
+    WHEN ((SELECT ((SELECT S.semester_order 
+                    FROM Semester S 
+                    WHERE S.term = 'Summer' AND S.year = 2021) - SS.semester_order) * 1.0 
+           FROM Semester SS
+           WHERE SS.pk = Faculty.start_semester_fk) = 0) 
+    THEN 1.0 
+    ELSE (SELECT ((SELECT S.semester_order 
+                    FROM Semester S 
+                    WHERE S.term = 'Summer' AND S.year = 2021) - SS.semester_order) * 1.0 
+          FROM Semester SS
+          WHERE SS.pk = Faculty.start_semester_fk) 
+    END)
+WHERE EXISTS (
+    SELECT 1
+    FROM Semester S
+    WHERE S.term = 'Summer' AND S.year = 2021 AND S.semester_order > (
+        SELECT SS.semester_order
+        FROM Semester SS
+        WHERE SS.pk = Faculty.start_semester_fk
+    )
+);
+
 
 
 --USE THIS TO CALCULATE THE INITIAL TOTAL NUMBER OF STUDENTS A PROFESSOR HAS ASSIGNED IN ASS PASSED SEMESTER
@@ -146,6 +160,43 @@ GROUP BY A.student_name --Temporary just for testing
 ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
 
 
+--V4
+SELECT
+        A.pk AS id,
+        ROW_NUMBER() OVER (ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name)) AS rank,
+        (F.first_name || ' ' || F.last_name) AS professor,
+        (SELECT DISTINCT(A.student_name)) AS student,
+        A.percentage AS percentage,
+        T.course_list AS courses,
+        A.finalized as finalized
+    FROM
+        Faculty F
+        INNER JOIN Assignments A ON A.faculty_fk = F.pk
+        INNER JOIN
+        (SELECT
+            T.SN, 
+            GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
+                            WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
+                            ELSE T.CN END, ',') as course_list
+        FROM
+            (SELECT DISTINCT
+                A.student_name AS SN, RC.course_number AS CN, RC.category AS cat
+            FROM
+                Requested_Courses RC
+                INNER JOIN Requested_Courses CR ON RC.pk = CR.pk
+                INNER JOIN Assignments A ON RC.assignment_fk = A.pk
+            ORDER BY cast(RC.course_number AS INTEGER) ASC) AS T
+        GROUP BY T.SN) T ON A.student_name = T.SN
+    WHERE A.semester_fk IN (SELECT semester_fk 
+                            FROM Assignments, Semester
+                            WHERE semester_fk = Semester.pk
+                            AND term = 'Summer' AND year = 2021)
+        AND A.finalized = 'NO'
+    GROUP BY A.student_name
+    ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
+
+
+
 --Query to set the assigned course and rank, and adds functionality for NULL if student was not assigned
 -- WARNING: USE STUDENT NAME INSTEAD OF PK FOR TESTING PURPOSES
 UPDATE Assignments
@@ -200,10 +251,9 @@ SELECT
         INNER JOIN
         (SELECT
             T.SN, 
-            CASE 
-                WHEN GROUP_CONCAT(T.CN,',') LIKE '%ANY%' THEN 'ANY'
-                ELSE GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' ELSE T.CN END, ',')
-            END AS course_list
+            GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
+                            WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
+                            ELSE T.CN END, ',') as course_list
         FROM
             (SELECT DISTINCT
                 A.student_name AS SN, RC.course_number AS CN, RC.category AS cat
@@ -268,12 +318,12 @@ FROM Faculty F, Assignments A, Semester S
 WHERE A.semester_fk IN (SELECT semester_fk 
                         FROM Assignments, Semester
                         WHERE semester_fk = Semester.pk
-                        AND term = 'Summer' AND year = 2021) --Temporary values
+                        AND term = 'Summer' AND year = 2021) 
     AND A.faculty_fk = F.pk
 GROUP BY A.student_name
 ORDER BY F.score ASC, professor;
----------------------------------------------------------------
----------------------------------------------------------------
+
+
 --SQlite queries for inputting data
 
 
@@ -281,18 +331,22 @@ ORDER BY F.score ASC, professor;
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
--- NOTES:
--- Ask some one to randomly input assignment_fk in Requested_Courses table
--- Why ranked in Requested_Course table?
--- Remove course number from Assignments table
--- Category ANY with any as course number or want all course numbers for assigned courses
--- Percentage in available_courses table?
--- To calculate the number of students assigned, can we have the data or will it start from scratch?
--- How will input be put into database? Frontend question
--- Is it ok if I keep redooing the assignment list, since 1 will always be the second?
--- Compare original database to new database for missing or changed data
--- How are we supposed to know what assignbments grad students had in the past? As team where did they get data for requested courses table.
--- Need semester_fk in Available_courses table?
+-- Back-end Notes:
+-- Category ANY with any as course number or want all course numbers for assigned courses [ASKING]
+------ Can have ANY with pther course numbers as priority: (ANY, 15, 31, 120) or (15, 31, 120, ANY) [ASKING]
+-- Confirm categories for courses (ensure, prevent, neutral, any?) [ASKING]
+-- Percentage in available_courses table? [ASKING]
+-- How will input be put into database? New courses, new students, new professor, next semesters courses, etc... [WAITING]
+-- Implement files into routes or keep files [WAITING]
+-- Update main query for slot indexes and new format for object that front-end needs [WAITING]
+-- Make sure database is set back to normal after testing is done [WORKING]
+-- Firebase implementation [NOT ME]
+-- Make sure all table are backed-up before initial assignment [WORKING]
+-- Optional: Undo/redo 1 assignment at a time, export results, TA assignment status, calculations page [WORKING]
+------ Ask what is TA assignment status and make file for it if its easy [ASKING]
+------ What is calculations page? [ASKING]
+-- Undo/redo can be done using the ranks that are assigned in assignments:
+
 
 
 
@@ -459,6 +513,7 @@ WHERE pk > 0;
 
 DROP TABLE Student_Rankings;
 
+
 CREATE TABLE IF NOT EXISTS Student_Rankings (
 	id INTEGER NOT NULL,
 	rank INTEGER NOT NULL,
@@ -474,3 +529,193 @@ SET finalized = "NO",
     assigned_course = NULL,
     rank = NULL
 WHERE pk = 490;
+
+
+DELETE FROM Semester
+WHERE pk = 33;
+
+
+
+Select currentSem - startSem
+FROM 
+    (SELECT COUNT(*) FROM Semester WHERE term = "Summer" AND year = 2021) currentSem,
+    (SELECT COUNT(*) FROM Semester WHERE term = "Spring" AND year = 2018) startSem;
+
+
+SELECT row_number() OVER (ORDER BY pk) as row_num
+FROM Semester
+WHERE term = 'Summer' AND year = 2021;
+
+
+SELECT row_number() OVER (ORDER BY pk) as row_num, pk
+FROM (
+    SELECT S.pk
+    FROM Semester S 
+    WHERE S.term = 'Summer' AND S.year = 2021
+);
+
+SELECT COUNT(*) 
+FROM Semester, 
+WHERE (term < 'Summer' OR (term = 'Summer' AND year < 2021));
+
+Faculty.start_semester_fk
+
+
+SELECT COUNT(*)
+FROM Semester S, Faculty F
+WHERE F.start_semester_fk = S.pk
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Semester_Copy (
+	pk INTEGER PRIMARY KEY,
+	term TEXT NOT NULL,
+    year INTEGER NOT NULL,
+	finalized TEXT NOT NULL,
+	data_available TEXT,
+    semester_order INTEGER NOT NULL
+);
+
+INSERT INTO Semester_Copy (term, year, finalized, data_available, semester_order)
+SELECT term, year, finalized, data_available, ROW_NUMBER() OVER (ORDER BY pk)
+FROM Semester;
+
+DROP TABLE IF EXISTS Semester;
+
+ALTER TABLE Semester_Copy
+RENAME TO Semester;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Requested_Courses_Copy (
+	pk INTEGER PRIMARY KEY,
+	assignment_fk INTEGER NOT NULL,
+	course_number TEXT NOT NULL,
+	category TEXT NOT NULL
+);
+
+INSERT INTO Requested_Courses_Copy ()
+SELECT pk, assignment_fk, course_number, category 
+FROM Requested_Courses;
+
+DROP TABLE IF EXISTS Requested_Courses;
+
+ALTER TABLE Requested_Courses_Copy
+RENAME TO Requested_Courses;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Requested_Courses_Copy (
+	pk INTEGER PRIMARY KEY,
+	assignment_fk INTEGER NOT NULL,
+	course_number TEXT NOT NULL,
+	category TEXT NOT NULL
+);
+
+INSERT INTO Requested_Courses_Copy ()
+SELECT pk, assignment_fk, course_number, category 
+FROM Requested_Courses;
+
+DROP TABLE IF EXISTS Requested_Courses;
+
+ALTER TABLE Requested_Courses_Copy
+RENAME TO Requested_Courses;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Requested_Courses_Copy (
+	pk INTEGER PRIMARY KEY,
+	assignment_fk INTEGER NOT NULL,
+	course_number TEXT NOT NULL,
+	category TEXT NOT NULL
+);
+
+INSERT INTO Requested_Courses_Copy ()
+SELECT pk, assignment_fk, course_number, category 
+FROM Requested_Courses;
+
+DROP TABLE IF EXISTS Requested_Courses;
+
+ALTER TABLE Requested_Courses_Copy
+RENAME TO Requested_Courses;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Requested_Courses_Copy (
+	pk INTEGER PRIMARY KEY,
+	assignment_fk INTEGER NOT NULL,
+	course_number TEXT NOT NULL,
+	category TEXT NOT NULL
+);
+
+INSERT INTO Requested_Courses_Copy ()
+SELECT pk, assignment_fk, course_number, category 
+FROM Requested_Courses;
+
+DROP TABLE IF EXISTS Requested_Courses;
+
+ALTER TABLE Requested_Courses_Copy
+RENAME TO Requested_Courses;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Available_Courses_Copy (
+	pk INTEGER PRIMARY KEY,
+	course_number TEXT NOT NULL,
+	percentage REAL NOT NULL,
+    exclusive TEXT NOT NULL
+);
+
+INSERT INTO Available_Courses_Copy (course_number, percentage, exclusive)
+SELECT course_number, percentage, 'NO' 
+FROM Available_Courses;
+
+DROP TABLE IF EXISTS Available_Courses;
+
+ALTER TABLE Available_Courses_Copy
+RENAME TO Available_Courses;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Gets the total semesters INITIAL (OLD VERSION)
+UPDATE Faculty
+SET total_semesters = (CASE WHEN (SELECT ((SELECT S.pk 
+                                            FROM Semester S 
+                                            WHERE S.term = 'Summer' AND S.year = 2021) - Faculty.start_semester_fk) * 1.0) = 0 THEN 1.0 
+                            ELSE (SELECT ((SELECT S.pk 
+                                            FROM Semester S 
+                                            WHERE S.term = 'Summer' AND S.year = 2021) - Faculty.start_semester_fk) * 1.0) 
+                            END)
+FROM Semester
+WHERE Faculty.start_semester_fk = Semester.pk;
+
+
+
+SELECT A.pk 
+                FROM Assignments A, Semester S
+                WHERE A.semester_fk = S.pk 
+                        AND A.student_name = "Bobby Hill"
+                        AND S.term = "Summer"
+                        AND S.year = 2021
+
+DELETE FROM Requested_Courses
+WHERE assignment_fk = 514;
+
+
+
+INSERT INTO Requested_Courses (assignment_fk, course_number, category)
+            VALUES (
+                (SELECT A.pk 
+                FROM Assignments A, Semester S
+                WHERE A.semester_fk = S.pk 
+                        AND A.student_name = "Bobby Hill"
+                        AND S.term = "Summer"
+                        AND S.year = 2021),
+                '1677',
+                'neutral')
+
+
+     DELETE 
+    FROM Student_Rankings;
+

@@ -16,18 +16,31 @@ const totalSemesters = async (semesterInput) => {
 
     let sql = `
     UPDATE Faculty
-    SET total_semesters = (CASE WHEN (SELECT ((SELECT S.pk 
-                                                FROM Semester S 
-                                                WHERE S.term = ? AND S.year = ?) - Faculty.start_semester_fk) * 1.0) = 0 THEN 1.0 
-                                ELSE (SELECT ((SELECT S.pk 
-                                                FROM Semester S 
-                                                WHERE S.term = ? AND S.year = ?) - Faculty.start_semester_fk) * 1.0) 
-                                END)
-    FROM Semester
-    WHERE Faculty.start_semester_fk = Semester.pk;
+    SET total_semesters = (CASE 
+        WHEN ((SELECT ((SELECT S.semester_order 
+                        FROM Semester S 
+                        WHERE S.term = ? AND S.year = ?) - SS.semester_order) * 1.0 
+            FROM Semester SS
+            WHERE SS.pk = Faculty.start_semester_fk) = 0) 
+        THEN 1.0 
+        ELSE (SELECT ((SELECT S.semester_order 
+                        FROM Semester S 
+                        WHERE S.term = ? AND S.year = ?) - SS.semester_order) * 1.0 
+            FROM Semester SS
+            WHERE SS.pk = Faculty.start_semester_fk) 
+        END)
+    WHERE EXISTS (
+        SELECT 1
+        FROM Semester S
+        WHERE S.term = ? AND S.year = ? AND S.semester_order > (
+            SELECT SS.semester_order
+            FROM Semester SS
+            WHERE SS.pk = Faculty.start_semester_fk
+        )
+    );
     `;
 
-    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
+    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
     const db = await dbPromise;
     await db.run(sql, args);
 };
@@ -37,10 +50,10 @@ const totalSemesters = async (semesterInput) => {
 const calcScore = async () => {
 
     let sql = `
-    UPDATE Faculty
-    SET score = (CASE WHEN students_assigned / total_semesters = 0.0 THEN ROUND(1 / total_semesters, 5) 
-                      ELSE ROUND(students_assigned / total_semesters, 5) 
-    END);
+        UPDATE Faculty
+        SET score = (CASE WHEN students_assigned / total_semesters = 0.0 THEN ROUND(1 / total_semesters, 5) 
+                        ELSE ROUND(students_assigned / total_semesters, 5) 
+        END);
     `;
 
     const db = await dbPromise;
@@ -68,10 +81,9 @@ const initalRank = async (semesterInput) => {
         INNER JOIN
         (SELECT
             T.SN, 
-            CASE 
-                WHEN GROUP_CONCAT(T.CN,',') LIKE '%ANY%' THEN 'ANY'
-                ELSE GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' ELSE T.CN END, ',')
-            END AS course_list
+            GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
+                            WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
+                            ELSE T.CN END, ',') as course_list
         FROM
             (SELECT DISTINCT
                 A.student_name AS SN, RC.course_number AS CN, RC.category AS cat

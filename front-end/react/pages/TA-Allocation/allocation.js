@@ -1,8 +1,10 @@
 import { useState, createContext } from 'react'
 import StudentCard from "../../components/StudentCard"
 import CourseCard from "../../components/CourseCard"
-import requests from "./data/requests"
-import available from "./data/available"
+//import requests from "./data/requests"
+import { requestData } from "./data/requests"; 
+//import available from "./data/available"
+import { availableData } from "./data/available"
 import Head from 'next/head'
 import Layout from "../layout/layout.js"
 
@@ -11,8 +13,8 @@ export const CardContext = createContext({
 })
 
 export default function Allocation() {
-    const [courses, setCourses] = useState(() => available)
-    const [students, setStudents] = useState(() => requests)
+    const [courses, setCourses] = useState(() => availableData)
+    const [students, setStudents] = useState(() => requestData)
 
     const markAsFinalized = id => {
         const f_student = students.filter((f_student, i) => id === f_student.id) // f_student = filtered student

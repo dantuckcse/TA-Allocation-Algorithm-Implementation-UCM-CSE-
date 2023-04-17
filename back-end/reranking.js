@@ -31,7 +31,7 @@ const update_student = async (assignment1) => {
 //recounts total students for professor
 //Note could have done it by simply doing students_assigned = students_assigned + 1, but
 //this allows counting for previous semesters. Allows for future modification for real data.
-const recount = async (semesterInput, assignment1) => {
+const recount = async (semesterInput) => {
 
     let sql = `
     UPDATE Faculty
@@ -66,10 +66,10 @@ const recount = async (semesterInput, assignment1) => {
 const rescore = async () => {
 
     let sql = `
-    UPDATE Faculty
-    SET score = (CASE WHEN students_assigned / total_semesters = 0.0 THEN ROUND(1 / total_semesters, 5) 
-                      ELSE ROUND(students_assigned / total_semesters, 5) 
-    END);
+        UPDATE Faculty
+        SET score = (CASE WHEN students_assigned / total_semesters = 0.0 THEN ROUND(1 / total_semesters, 5) 
+                        ELSE ROUND(students_assigned / total_semesters, 5) 
+        END);
     `;
 
     const db = await dbPromise;
@@ -81,9 +81,9 @@ const rescore = async () => {
 const finalize_student = async () => {
 
     let sql = `
-    UPDATE Assignments
-    SET finalized = 'YES'
-    WHERE finalized = 'NO' AND assigned_course IS NOT NULL;
+        UPDATE Assignments
+        SET finalized = 'YES'
+        WHERE finalized = 'NO' AND assigned_course IS NOT NULL;
     `;
 
     const db = await dbPromise;
@@ -125,10 +125,9 @@ const rerank = async (semesterInput) => {
         INNER JOIN
         (SELECT
             T.SN, 
-            CASE 
-                WHEN GROUP_CONCAT(T.CN,',') LIKE '%ANY%' THEN 'ANY'
-                ELSE GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' ELSE T.CN END, ',')
-            END AS course_list
+            GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
+                            WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
+                            ELSE T.CN END, ',') as course_list
         FROM
             (SELECT DISTINCT
                 A.student_name AS SN, RC.course_number AS CN, RC.category AS cat
@@ -144,7 +143,7 @@ const rerank = async (semesterInput) => {
             Assignments A, 
             Semester S
         WHERE 
-            A.semester_fk = S.pk AND S.term = 'Summer' AND year = 2021) R
+            A.semester_fk = S.pk AND S.term = ? AND year = ?) R
     WHERE A.semester_fk IN (SELECT semester_fk 
                             FROM Assignments, Semester
                             WHERE semester_fk = Semester.pk
@@ -163,7 +162,7 @@ const rerank = async (semesterInput) => {
 
 //runs all functions in order
 await update_student(assignment1);
-await recount(semesterInput, assignment1);
+await recount(semesterInput);
 await rescore();
 await finalize_student();
 await clearTable();

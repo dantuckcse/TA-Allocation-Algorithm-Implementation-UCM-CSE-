@@ -11,11 +11,26 @@ const dbPromise = open({
 });
 
 
+const available_condition = async (semesterInput) => {
+  const sql = `
+    SELECT data_available
+    FROM Semester
+    WHERE term = ? AND year = ?;
+  `;
+
+  const args = [semesterInput.term, semesterInput.year];
+  const db = await dbPromise;
+  const result = await db.get(sql, args);
+
+  return result.finalized;
+};
+
+
 const finalized_condition = async (semesterInput) => {
   const sql = `
     SELECT finalized
     FROM Semester
-    WHERE term = ? AND year = ? AND (data_available = 'YES' OR data_available IS NOT NULL);
+    WHERE term = ? AND year = ?;
   `;
 
   const args = [semesterInput.term, semesterInput.year];
@@ -55,8 +70,9 @@ const display_allocation = async (semesterInput) => {
 app.get('/allocation', async (req, res) => {
 
   const finalized = await finalized_condition(semesterInput);
+  const available = await available_condition(semesterInput);
 
-  if (finalized === 'YES') {
+  if (finalized === 'YES' && available === 'YES') {
 
     
     const allocation = await display_allocation(semesterInput);
@@ -65,7 +81,7 @@ app.get('/allocation', async (req, res) => {
 
   else {
 
-    res.status(400).json({ error: 'Allocation not finalized' });
+    res.status(400).json({ error: 'Allocation not finalized or not available' });
   }
   
 });

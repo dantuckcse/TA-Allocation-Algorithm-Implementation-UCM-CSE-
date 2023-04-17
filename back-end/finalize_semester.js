@@ -4,6 +4,7 @@ import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import semesterInput from "./test_year.js"
 
+
 const dbPromise = open({
     filename: 'TA_Allocation.db',
     driver: sqlite3.Database,
@@ -14,23 +15,35 @@ const dbPromise = open({
 const finalize_semester = async (semesterInput) => {
 
     let sql = `
-    UPDATE Semester 
-    SET finalized = (SELECT
-        CASE 
-            WHEN INSTR(GROUP_CONCAT(T.CN,' ') , 'NO') = 0 THEN 'YES' ELSE 'NO'
-            END AS finalized
-        FROM
-            (SELECT 
-                A.finalized AS CN
+        UPDATE Semester 
+        SET finalized = (SELECT
+            CASE 
+                WHEN INSTR(GROUP_CONCAT(T.CN,' ') , 'NO') = 0 THEN 'YES' ELSE 'NO'
+                END AS finalized
             FROM
-                Assignments A
-                INNER JOIN Assignments AA ON A.student_name = AA.student_name
-                INNER JOIN Semester S ON A.semester_fk = S.pk
-            WHERE S.term = ? AND S.year = ?) AS T)
-    WHERE term = ? AND year = ?;
+                (SELECT 
+                    A.finalized AS CN
+                FROM
+                    Assignments A
+                    INNER JOIN Assignments AA ON A.student_name = AA.student_name
+                    INNER JOIN Semester S ON A.semester_fk = S.pk
+                WHERE S.term = ? AND S.year = ?) AS T),
+            data_available = (SELECT
+            CASE 
+                WHEN INSTR(GROUP_CONCAT(T.CN,' ') , 'NO') = 0 THEN 'YES' ELSE NULL
+                END AS finalized
+            FROM
+                (SELECT 
+                    A.finalized AS CN
+                FROM
+                    Assignments A
+                    INNER JOIN Assignments AA ON A.student_name = AA.student_name
+                    INNER JOIN Semester S ON A.semester_fk = S.pk
+                WHERE S.term = ? AND S.year = ?) AS T)
+        WHERE term = ? AND year = ?;
     `;
 
-    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
+    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
     const db = await dbPromise;
     await db.run(sql, args);
 };

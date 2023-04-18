@@ -6,7 +6,18 @@ export default function StudentCard(prop){
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: itemTypes.UNSLOTTED_STUDENT, // type is required as it's used by the "accept" specification of drop targets.
-        item: {id: prop.id},
+        item: {
+            id: prop.id,
+            student: prop.student
+        },
+        end: (item, monitor) => {
+            const dropResult = monitor.getDropResult()
+            if (item && dropResult) {
+             alert(`You dropped ${dropResult.student}!`)
+             console.log("Drop result: ", dropResult)
+             console.log("Student dropped ID: ", item.id)
+            }
+        },
         // "collect" utilizes a "monitor" instance to pull important pieces of state from the DnD systems
         collect: monitor => ({
             isDragging: !!monitor.isDragging()

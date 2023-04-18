@@ -50,25 +50,29 @@ export default function CourseCard(prop){
                 {boxes.map((b, index) =>{ // Added index to map
                     const [{ isOver, didDrop, getDropResult }, drop] = useDrop(() => ({
                         accept: itemTypes.UNSLOTTED_STUDENT,
+                        // canDrop: (item, monitor) => {  // will use later for "prevent" cases
+                        //     return (item.task_id === prop.task_id ? true : false);
+                        // },
                         drop(item, monitor) {
                             markAsFinalized(item.id)
                             addStudent(item.id)
+                            return monitor.getItem()
                         },
                         collect: monitor => ({
                             isOver: !!monitor.isOver(),
                             didDrop: monitor.didDrop(),
-                            getDropResult: monitor.getDropResult()
+                            canDrop: !!monitor.canDrop()
                         }),
-                    }))
+                    }))  
                     return(
-                        <div className="slots--container" ref={drop} id={ isOver ? "hover-region" : ""} key={index}>
+                        <div className="slots--container" ref={drop} id={ isOver ? "hover-region" : ""} key={index} test={didDrop? console.log('test') : ""}>
                             <p className="prop--slot"> {b}
                                 <CardContext.Provider value={{ markAsFinalized }}>
                                     {index < slottedStudents.length ? slottedStudents[index] : null}
                                 </CardContext.Provider>
                             </p>
                         </div>
-                    )     
+                    )  
                 })}
 
             </div>

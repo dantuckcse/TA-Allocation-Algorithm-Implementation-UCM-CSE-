@@ -94,6 +94,7 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
   box-shadow: inset 0px 0px 8px 2px rgba(11, 14, 51, 0.6);
   border-radius: 9.1px;
   width: 20%;
+  padding: 10px;
 }
 
 .student--info {

@@ -1,6 +1,7 @@
 import { useState, createContext } from 'react'
 import StudentCard from "../../components/StudentCard"
 import CourseCard from "../../components/CourseCard"
+import AssignedStudents from "../../components/AssignedStudents"
 //import requests from "./data/requests"
 import { requestData } from "./data/requests"; 
 //import available from "./data/available"
@@ -28,6 +29,7 @@ export default function Allocation() {
             <Head>
                 <title>TA Allocation</title>
             </Head>
+            <AssignedStudents />
             
             <CardContext.Provider value={{ markAsFinalized }}>
                 <div className="drag-and-drop">
@@ -54,6 +56,7 @@ export default function Allocation() {
                                     key={f_student.id.toString()}
                                     index={i}
                                     id={f_student.id}
+                                    rank={f_student.rank}
                                     student={f_student.student}
                                     courses={f_student.courses}
                                     professor={f_student.professor}

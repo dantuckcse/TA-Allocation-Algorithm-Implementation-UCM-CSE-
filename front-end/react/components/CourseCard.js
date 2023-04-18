@@ -23,6 +23,7 @@ export default function CourseCard(prop){
                 key={f_student.id.toString()}
                 index={i}
                 id={f_student.id}
+                rank={f_student.rank}
                 student={f_student.student}
                 courses={f_student.courses}
                 professor={f_student.professor}
@@ -66,11 +67,11 @@ export default function CourseCard(prop){
                     }))  
                     return(
                         <div className="slots--container" ref={drop} id={ isOver ? "hover-region" : ""} key={index} test={didDrop? console.log('test') : ""}>
-                            <p className="prop--slot"> {b}
+                            <span className="prop--slot"> {b}
                                 <CardContext.Provider value={{ markAsFinalized }}>
                                     {index < slottedStudents.length ? slottedStudents[index] : null}
                                 </CardContext.Provider>
-                            </p>
+                            </span>
                         </div>
                     )  
                 })}

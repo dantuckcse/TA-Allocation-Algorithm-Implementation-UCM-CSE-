@@ -1,21 +1,23 @@
 import { useDrag } from "react-dnd"
 import  itemTypes  from "../utils/itemType"
 
-
+export const assigned_student = {}
 export default function StudentCard(prop){
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: itemTypes.UNSLOTTED_STUDENT, // type is required as it's used by the "accept" specification of drop targets.
         item: {
             id: prop.id,
-            student: prop.student
+            student: prop.student,
+            rank: prop.rank,
+            courses: prop.courses
         },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if (item && dropResult) {
-             alert(`You dropped ${dropResult.student}!`)
-             console.log("Drop result: ", dropResult)
-             console.log("Student dropped ID: ", item.id)
+             assigned_student.id = 500 + dropResult.id
+             assigned_student.rank = dropResult.rank
+             assigned_student.courses = dropResult.courses
             }
         },
         // "collect" utilizes a "monitor" instance to pull important pieces of state from the DnD systems
@@ -23,6 +25,7 @@ export default function StudentCard(prop){
             isDragging: !!monitor.isDragging()
         })
     }))
+
     
     return (
         <div className="requests--container" ref={drag} id = {isDragging ? "dragging-item" : ""}>

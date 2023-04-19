@@ -1,0 +1,118 @@
+body {
+  background-color: #002856;
+  background-image: url("WebsiteBG.6f7e57a3.png");
+  background-size: 100%;
+  margin: 0;
+}
+
+.nav-bar {
+  color: #fff;
+  background-color: #002856;
+  border-bottom: 1px solid #fff;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-family: Gudea, sans-serif;
+  display: flex;
+}
+
+#title {
+  font-size: 30px;
+}
+
+.nav-items {
+  display: flex;
+}
+
+#nav-item {
+  margin: 15px;
+  padding: 10px;
+}
+
+.UC {
+  color: #a29061;
+}
+
+.drag-and-drop {
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
+  line-height: 11px;
+  display: flex;
+}
+
+.selected-container {
+  width: 50%;
+  background: #a29061;
+  margin: 10px;
+  padding: 10px;
+}
+
+.unselected-container {
+  width: 15%;
+  background: #a29061;
+  flex-direction: column;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+}
+
+.drop-items-here {
+  align-items: center;
+  display: flex;
+}
+
+.requests--container, .courses--container, .slots--container {
+  overflow-wrap: break-word;
+  background: #fff;
+  border-radius: 9.1px;
+  margin: 5px;
+}
+
+.courses--container {
+  width: 10%;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+}
+
+.slots--container {
+  width: 20%;
+  background: #a29061;
+  border-radius: 9.1px;
+  font-size: 10px;
+  font-weight: bold;
+  box-shadow: inset 0 0 8px 2px #0b0e3399;
+}
+
+.prop--slot {
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  display: flex;
+}
+
+.student--info {
+  margin: -5px 5px -15px;
+  padding: .1px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.student-txt {
+  font-size: 12px;
+}
+
+.course-txt {
+  color: #5c5c5c;
+}
+
+#hover-region {
+  color: #fff;
+  background: #141b4a33;
+}
+
+/*# sourceMappingURL=index.2cdaf7bc.css.map */

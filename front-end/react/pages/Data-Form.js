@@ -2,6 +2,7 @@ import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useState } from "react";
 
+export const newSemesterData = {}
 export default function Data_Form(){
     const [semesterData, setSemesterData] = useState([
         {

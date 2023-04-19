@@ -55,11 +55,23 @@ jobs:
         echo "Service account activated"
         gcloud config set project ta-allocation-382919
         echo "Project set"
-        gcloud config set container/use_client_certificate True
-        echo "Using client certificate for authentication"
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
         echo "Cluster credentials fetched"
-
+    - name: Install gke-gcloud-auth-plugin
+      run: |
+        ARCH=$(uname -m)
+        case $ARCH in
+          "x86_64") ARCH="amd64" ;;
+          *) echo "Unsupported architecture"; exit 1 ;;
+        esac
+        curl -LO "https://storage.googleapis.com/gke-gcloud-auth-plugin/latest/gke-gcloud-auth-plugin-linux-$ARCH"
+        chmod +x gke-gcloud-auth-plugin-linux-$ARCH
+        sudo mv gke-gcloud-auth-plugin-linux-$ARCH /usr/local/bin/gke-gcloud-auth-plugin
+    - name: Set up service account
+      run: |
+        export SERVICE_ACCOUNT_NAME=1031482042151-compute@developer.gserviceaccount.com
+        gcloud iam service-accounts keys create --iam-account=$SERVICE_ACCOUNT_NAME key.json
+        gcloud auth activate-service-account --key-file=key.json
     - name: Deploy to Google Kubernetes Engine
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest

@@ -57,11 +57,11 @@ jobs:
         echo "Project set"
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
         echo "Cluster credentials fetched"
-        # Download and install gke-gcloud-auth-plugin
-        curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/components/google-cloud-sdk.tar.gz
-        tar xvzf google-cloud-sdk.tar.gz
-        ./google-cloud-sdk/bin/gcloud components install kubectl-gke-auth-plugin
-        sudo cp ./google-cloud-sdk/bin/kubectl-gke-auth-plugin /usr/local/bin/
+    - name: Install gke-gcloud-auth-plugin
+      run: |
+        curl -LO https://storage.googleapis.com/gke-gcloud-auth-plugin/latest/gke-gcloud-auth-plugin
+        chmod +x gke-gcloud-auth-plugin
+        sudo mv gke-gcloud-auth-plugin /usr/local/bin/
     - name: Deploy to Google Kubernetes Engine
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest

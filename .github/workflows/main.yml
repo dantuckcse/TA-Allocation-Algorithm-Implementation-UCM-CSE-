@@ -40,6 +40,11 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: gcr.io/ta-allocation-382919/myfrontend:latest
+        
+   - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        version: '>= 363.0.0'
 
     - name: Install and configure gcloud CLI
       run: |

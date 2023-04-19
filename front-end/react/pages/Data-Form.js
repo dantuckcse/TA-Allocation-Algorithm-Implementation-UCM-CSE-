@@ -1,8 +1,9 @@
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useState } from "react";
+import newSemesterFunction from "./Export-Data-Form.js";
 
-export const newSemesterData = {}
+export let newSemesterData = [];
 export default function Data_Form(){
     const [semesterData, setSemesterData] = useState([
         {
@@ -10,7 +11,7 @@ export default function Data_Form(){
             year: 2020
         },
         {
-            term: "Winter",
+            term: "Spring",
             year: 2022
         },
         {
@@ -27,6 +28,7 @@ export default function Data_Form(){
             term: term,
             year: parseInt(year)
         };
+        newSemesterData = newSemester;
         setSemesterData([...semesterData, newSemester])
         setTerm("");
         setYear("")
@@ -51,7 +53,7 @@ export default function Data_Form(){
                                 <option key={i} value = {s}>{s.term} {s.year}</option>
                             ))}
                         </select>
-                        <button onClick={() => setShowModal(true)}>Edit Semesters</button>
+                        <button onClick={() => setShowModal(true)}>Add Semesters</button>
 
                         {showModal && (
                         <div className="modal">
@@ -70,10 +72,13 @@ export default function Data_Form(){
                             placeholder="Enter year"
                             />
                             <button onClick={handleCreateSemester}>Create Semester</button>
+                            <button onClick={newSemesterFunction}>Check Last Export</button>
                             <button onClick={() => setShowModal(false)}>Cancel</button>
                         </div>
                         </div>
                         )}
+
+
                     </div>
                     <div className='Data-Form-Course-Details'></div>
                     <div>{semesterSelect.term} {semesterSelect.year}</div>
@@ -88,3 +93,4 @@ export default function Data_Form(){
         </>
     )
 }
+

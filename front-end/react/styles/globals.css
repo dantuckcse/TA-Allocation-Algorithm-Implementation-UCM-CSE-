@@ -121,3 +121,7 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 #dragging-item {
   opacity: 0;
 }
+
+.Data-Form-Div{
+  color:white;
+}

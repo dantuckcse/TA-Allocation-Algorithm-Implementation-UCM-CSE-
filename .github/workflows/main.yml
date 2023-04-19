@@ -52,7 +52,7 @@ jobs:
         curl -LO https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
-        echo ${{ secrets.GCR_JSON_KEY }} > gcp-key.json
+        echo "${{ secrets.GCR_JSON_KEY }}" > gcp-key.json
         gcloud auth activate-service-account --key-file gcp-key.json
         gcloud config set project ta-allocation-382919
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1

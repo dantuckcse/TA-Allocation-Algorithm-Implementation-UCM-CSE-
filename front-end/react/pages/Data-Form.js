@@ -34,7 +34,7 @@ export default function Data_Form(){
         setTerm("");
         setYear("")
         setShowModal(false);
-    };
+    }; 
 
     const [semesterSelect, setSemesterSelect] = useState([])
     const handleSemesterChange = (e) => {
@@ -48,8 +48,10 @@ export default function Data_Form(){
         <>
             <Layout dataform>
                 <div className='Data-Form-Div'>
+                    <div id="DF-Title">Data Form</div>
+                    <div id= "DF-Semester-Title">{semesterSelect.term} {semesterSelect.year}</div>
                     <div className='Data-Form-DropDown'>
-                        <label for = "semester">Select Semester:</label>
+                        <label id = "DF-Select-Semester-Title">Select Semester:</label>
                         <select id = "semester-drop-down" onChange={handleSemesterChange}>
                             {semesterData.map((s, i) => ( 
                                 <option key={i} value = {s}>{s.term} {s.year}</option>
@@ -80,17 +82,27 @@ export default function Data_Form(){
                         </div>
                         </div>
                         )}
-
-
                     </div>
-                    <div className='Data-Form-Course-Details'></div>
-                    <div>{semesterSelect.term} {semesterSelect.year}</div>
-                    {/* 
-                    {semesterData.map((semester, index) => (
-                        <div key={index}>
-                        <h3>{semester.term} {semester.year}</h3>
+
+                    <div className='Data-Form-Course-Details-Div'>
+                        <div className="DF-Input-Div">
+                            <h1>Course Details</h1>
+                            <input className = "DF-CD-Input-Box" type="number" placeholder="Course Number"/>
+                            <input className = "DF-CD-Input-Box" type="number" placeholder="Course Unit"/>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Exclusive"/>
+                            <button className = "DF-CD-Button">Submit Course Data</button>
                         </div>
-                    ))} */}
+                        <div className="DF-Input-Div">
+                            <h1>Professor Details</h1> 
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Add Professor"/>
+                            <button>Submit Professor Data</button>
+                        </div>
+                        <div className="DF-Input-Div">
+                            <h1>Student Details</h1>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Add Student"/>
+                            <button>Submit Student Data</button>
+                        </div>
+                    </div>
                 </div>
             </Layout>
         </>
@@ -100,3 +112,32 @@ export default function Data_Form(){
 
 //Select Semester (Have to create them to select them): Current Semester
 //Issue: page cannot save, on refresh, all the data will be lost.
+
+{/* 
+{semesterData.map((semester, index) => (
+    <div key={index}>
+    <h3>{semester.term} {semester.year}</h3>
+    </div>
+))} */}
+
+
+// //For any semester
+// const newProfessor = {
+//     first_name: "Bill",
+//     last_name: "Billson",
+//     starting_term: "Spring",
+//     starting_year: 2018
+// };
+
+// //Only for the current semester
+// //NOTE!!: exclusive_courses is the course that the professor guarantees for the student. Using
+// //this object as an example, Professor Wan Du is teaching CSE 185 and wants to reserve TA spots 
+// //for his graduate students, such Bobby Hill. So the exclusive course is 185. 
+// //Otherwise make it empty, exclusive_courses: []
+// const addStudent = {
+//     professor_name: "Wan Du",
+//     student_name: "Bobby Hill",
+//     courses: [5,15,20,30,31,100,165,185],
+//     exclusive_courses: [185],
+//     percentage: 0.5
+// };

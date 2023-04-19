@@ -125,3 +125,39 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 .Data-Form-Div{
   color:white;
 }
+
+#DF-Semester-Title{
+  font-size: 2vw;
+  padding-bottom: 1.5vw;
+}
+
+#DF-Title{
+  font-size: 3vw;
+  padding: 1.5vw;
+}
+
+.DF-Input-Div{
+  display: flex;
+  flex-direction: column;
+  padding: 2vw;
+}
+
+.Data-Form-DropDown{
+  padding: 1vw;
+}
+
+.Data-Form-Course-Details-Div{
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.DF-CD-Input-Box{
+  padding: 1vw;
+  margin: 1vw;
+}
+
+.DF-CD-Button{
+  padding: 0.5vw;
+  margin-top: 3vw;
+}

@@ -49,6 +49,9 @@ jobs:
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
         echo "Kubectl installed"
+        sudo apt-get update
+        sudo apt-get install -y google-cloud-sdk-kubectl-auth-plugin
+        echo "GKE gcloud auth plugin installed"
         echo '${{ secrets.GCR_JSON_KEY }}' > gcp-key.json
         echo "GCP Key saved to gcp-key.json"
         gcloud auth activate-service-account --key-file gcp-key.json
@@ -57,7 +60,6 @@ jobs:
         echo "Project set"
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
         echo "Cluster credentials fetched"
-
     - name: Deploy to Google Kubernetes Engine
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest

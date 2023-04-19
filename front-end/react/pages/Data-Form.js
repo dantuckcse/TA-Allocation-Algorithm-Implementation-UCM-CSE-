@@ -1,8 +1,9 @@
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useState } from "react";
-import newSemesterFunction from "./Export-Data-Form.js";
+import newSemesterFunction from "./Export-Data-Form.js"; {/* EXPORT CHECK */}
 
+export let currentSemesterData = [];
 export let newSemesterData = [];
 export default function Data_Form(){
     const [semesterData, setSemesterData] = useState([
@@ -40,6 +41,7 @@ export default function Data_Form(){
         const index = e.target.selectedIndex;
         const semester = semesterData[index];
         setSemesterSelect(semester)
+        currentSemesterData = semester;
     }
 
     return (
@@ -53,6 +55,7 @@ export default function Data_Form(){
                                 <option key={i} value = {s}>{s.term} {s.year}</option>
                             ))}
                         </select>
+                        <button onClick = {newSemesterFunction}>Export Check</button> {/* EXPORT CHECK */}
                         <button onClick={() => setShowModal(true)}>Add Semesters</button>
 
                         {showModal && (
@@ -72,7 +75,7 @@ export default function Data_Form(){
                             placeholder="Enter year"
                             />
                             <button onClick={handleCreateSemester}>Create Semester</button>
-                            <button onClick={newSemesterFunction}>Check Last Export</button>
+                            {/* <button onClick={newSemesterFunction}>Check Last Export</button> */}
                             <button onClick={() => setShowModal(false)}>Cancel</button>
                         </div>
                         </div>
@@ -94,3 +97,6 @@ export default function Data_Form(){
     )
 }
 
+
+//Select Semester (Have to create them to select them): Current Semester
+//Issue: page cannot save, on refresh, all the data will be lost.

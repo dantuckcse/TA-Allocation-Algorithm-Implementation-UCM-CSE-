@@ -20,7 +20,6 @@ export default function Data_Form(){
     const [term, setTerm] = useState("");
     const [year, setYear] = useState("");
     const [showModal, setShowModal] = useState(false);
-    const [termToDelete, setTermToDelete] = useState("");
 
     const handleCreateSemester = () => {
         const newSemester = {
@@ -40,13 +39,6 @@ export default function Data_Form(){
         setSemesterSelect(semester)
     }
 
-    const handleDeleteSemester = (index) => {
-        const updatedSemesterData = semesterData.filter(semester => semester.term != termToDelete);
-        setSemesterData(updatedSemesterData);
-        setTermToDelete("");
-        setShowModal(false);
-    }
-
     return (
         <>
             <Layout dataform>
@@ -59,21 +51,6 @@ export default function Data_Form(){
                             ))}
                         </select>
                         <button onClick={() => setShowModal(true)}>Edit Semesters</button>
-
-                        {showModal && (
-                            // Render the modal content
-                            <div>
-                            <h3>Delete Semester</h3>
-                            <select value={termToDelete} onChange={(e) => setTermToDelete(e.target.value)}>
-                                <option value="">Select Term to Delete</option>
-                                {semesterData.map((semester, index) => (
-                                <option key={index} value={semester.term}>{semester.term} {semester.year}</option>
-                                ))}
-                            </select>
-                            <button onClick={handleDeleteSemester}>Delete Semester</button>
-                            <button onClick={() => setShowModal(false)}>Cancel</button>
-                            </div>
-                        )}
 
                         {showModal && (
                         <div className="modal">
@@ -98,15 +75,13 @@ export default function Data_Form(){
                         )}
                     </div>
                     <div className='Data-Form-Course-Details'></div>
-                    {/* <div>{semesterSelect.term} {semesterSelect.year}</div> */}
+                    <div>{semesterSelect.term} {semesterSelect.year}</div>
                     {/* 
                     {semesterData.map((semester, index) => (
                         <div key={index}>
                         <h3>{semester.term} {semester.year}</h3>
                         </div>
                     ))} */}
-
-
                 </div>
             </Layout>
         </>

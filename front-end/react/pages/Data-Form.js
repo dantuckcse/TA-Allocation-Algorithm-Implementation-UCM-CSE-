@@ -5,6 +5,7 @@ import newSemesterFunction from "./Export-Data-Form.js"; {/* EXPORT CHECK */}
 
 export let currentSemesterData = [];
 export let newSemesterData = [];
+export let courseDetail = [];
 export default function Data_Form(){
     const [semesterData, setSemesterData] = useState([
         {
@@ -23,7 +24,6 @@ export default function Data_Form(){
     const [term, setTerm] = useState("");
     const [year, setYear] = useState("");
     const [showModal, setShowModal] = useState(false);
-
     const handleCreateSemester = () => {
         const newSemester = {
             term: term,
@@ -35,7 +35,6 @@ export default function Data_Form(){
         setYear("")
         setShowModal(false);
     }; 
-
     const [semesterSelect, setSemesterSelect] = useState([])
     const handleSemesterChange = (e) => {
         const index = e.target.selectedIndex;
@@ -43,6 +42,14 @@ export default function Data_Form(){
         setSemesterSelect(semester)
         currentSemesterData = semester;
     }
+
+    //Course Details - Exclusive for options either YES or NO
+    const [selectedOption, setSelectedOption] = useState("");
+    const handleOptionChange = (e) => {
+        const selectedValue = e.target.value
+        setSelectedOption(selectedValue); // Update the selected option in state
+        console.log(`Selected option: ${selectedValue}`);
+    };
 
     return (
         <>
@@ -83,26 +90,62 @@ export default function Data_Form(){
                         </div>
                         )}
                     </div>
-
+                    {/* COURSE DETAILS */}
                     <div className='Data-Form-Course-Details-Div'>
                         <div className="DF-Input-Div">
                             <h1>Course Details</h1>
                             <input className = "DF-CD-Input-Box" type="number" placeholder="Course Number"/>
                             <input className = "DF-CD-Input-Box" type="number" placeholder="Course Unit"/>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Exclusive"/>
+                            <h3 id="DF-Exclusive-Text">Exclusive: </h3>
+                            <div className="DF-Exclusive-Container">
+                                <label htmlFor="radioYes">
+                                    <input
+                                    type="radio"
+                                    id="radioYes"
+                                    name="radioOption"
+                                    value="YES"
+                                    checked={selectedOption === "YES"} // Set the checked attribute based on selectedOption value
+                                    onChange={handleOptionChange}
+                                    />
+                                    YES
+                                </label>
+                                <label htmlFor="radioNo">
+                                    <input
+                                    type="radio"
+                                    id="radioNo"
+                                    name="radioOption"
+                                    value="NO"
+                                    checked={selectedOption === "NO"} // Set the checked attribute based on selectedOption value
+                                    onChange={handleOptionChange}
+                                    />
+                                    NO
+                                </label>
+                                </div>
+
                             <button className = "DF-CD-Button">Submit Course Data</button>
                         </div>
+                        
+                        {/* PROFESSOR DETAILS */}
                         <div className="DF-Input-Div">
                             <h1>Professor Details</h1> 
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Add Professor"/>
-                            <button>Submit Professor Data</button>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="First Name"/>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Last Name"/>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Starting Term"/>
+                            <input className = "DF-CD-Input-Box" type="number" placeholder="Starting Term Year"/>
+                            <button className = "DF-CD-Button">Submit Professor Data</button>
                         </div>
+                        {/* STUDENT DETAILS */}
                         <div className="DF-Input-Div">
                             <h1>Student Details</h1>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Add Student"/>
-                            <button>Submit Student Data</button>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Associated Professor Name"/>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Full Name"/>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Courses"/>
+                            <input className = "DF-CD-Input-Box" type="text" placeholder="Exclusive Courses"/>
+                            <input className = "DF-CD-Input-Box" type="number" placeholder="TA Unit"/>
+                            <button className = "DF-CD-Button">Submit Student Data</button>
                         </div>
                     </div>
+
                 </div>
             </Layout>
         </>
@@ -120,14 +163,6 @@ export default function Data_Form(){
     </div>
 ))} */}
 
-
-// //For any semester
-// const newProfessor = {
-//     first_name: "Bill",
-//     last_name: "Billson",
-//     starting_term: "Spring",
-//     starting_year: 2018
-// };
 
 // //Only for the current semester
 // //NOTE!!: exclusive_courses is the course that the professor guarantees for the student. Using

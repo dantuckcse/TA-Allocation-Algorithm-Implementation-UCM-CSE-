@@ -161,3 +161,18 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
   padding: 0.5vw;
   margin-top: 3vw;
 }
+
+.DF-Exclusive-Div{
+  display: flex;
+  flex-direction: row;
+}
+
+.DF-Exclusive-YES-NO{
+  margin: 1vw;
+}
+
+.DF-Exclusive-Container{
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+}

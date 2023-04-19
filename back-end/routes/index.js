@@ -9,7 +9,8 @@ let currentSemesterId = 27;
 
 // Open the database
 let db;
-let dbFilePath = path.join(__dirname, '/../test.db')
+let dbFilePath = path.join(__dirname, '/../database/TA_Allocation.db')
+console.log(dbFilePath)
 const dbOptions = {
   filename: dbFilePath,
   driver: sqlite3.Database

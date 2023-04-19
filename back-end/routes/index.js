@@ -6,6 +6,7 @@ let { open } = require('sqlite');
 
 // main_pipeline functions/files imports
 let { setup } = require('../main_pipeline/setup');
+let { cleanRankings } = require('../main_pipeline/ranking')
 
 // Global variable for current semester
 let currentSemesterId = 27;
@@ -171,23 +172,12 @@ router.delete('/semester', async function (req, res, next) {
 // Returns the rankings of all the requests
 router.get('/rankings', async function (req, res, next) {
   let sql = `
-    SELECT * 
-    FROM student_rankings;
-  `;
-  const rankings = await db.all(sql);
-
-  const cleanRankings = rankings.map((request) => {
-    let courses = request['courses'].split(',');
-    let cleanCourses = courses.map(course => parseInt(course)); //Convert string course values to ints
-
-    newObj = {
-      ...request,
-      courses: cleanCourses
-    }
-    return newObj;
-  });
-
-  return res.json(cleanRankings);
+      SELECT * 
+      FROM student_rankings;
+    `;
+  const rows = await db.all(sql);
+  const cleanRows = cleanRankings(rows);
+  return res.json(cleanRows);
 });
 
 // ---------------

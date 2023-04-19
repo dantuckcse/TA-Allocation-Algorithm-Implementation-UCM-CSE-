@@ -34,11 +34,4 @@ const addStudent = {
     percentage: 0.5
 };
 
-//This is semester that the TA allocation is happening for
-//This should be sent with all the other objects
-const currentSemester = {
-    term: "Spring",
-    year: 2023
-}
-
 export {newSemester, newProfessor, addCourse, addStudent};

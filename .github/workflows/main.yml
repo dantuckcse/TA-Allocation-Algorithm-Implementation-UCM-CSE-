@@ -49,7 +49,7 @@ jobs:
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
         echo "Kubectl installed"
-        printf '%s' "${{ secrets.GCR_JSON_KEY }}" > gcp-key.json
+        echo '${{ secrets.GCR_JSON_KEY }}' > gcp-key.json
         echo "GCP Key saved to gcp-key.json"
         gcloud auth activate-service-account --key-file gcp-key.json
         echo "Service account activated"

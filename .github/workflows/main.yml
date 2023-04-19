@@ -41,24 +41,24 @@ jobs:
         push: true
         tags: gcr.io/ta-allocation-382919/myfrontend:latest
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
-      with:
-        version: '>= 363.0.0'
-
     - name: Install and configure gcloud CLI
       run: |
         VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+        echo "VERSION: $VERSION"
         curl -LO https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
+        echo "Kubectl installed"
         echo ${{ secrets.GCR_JSON_KEY }} > gcp-key.json
+        echo "GCP Key saved to gcp-key.json"
         gcloud auth activate-service-account --key-file gcp-key.json
+        echo "Service account activated"
         gcloud config set project ta-allocation-382919
+        echo "Project set"
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
+        echo "Cluster credentials fetched"
 
     - name: Deploy to Google Kubernetes Engine
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest
         kubectl set image deployment/frontend frontend=gcr.io/ta-allocation-382919/myfrontend:latest
-

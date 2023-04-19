@@ -40,9 +40,9 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: gcr.io/ta-allocation-382919/myfrontend:latest
-        
-   - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
       with:
         version: '>= 363.0.0'
 
@@ -61,3 +61,4 @@ jobs:
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest
         kubectl set image deployment/frontend frontend=gcr.io/ta-allocation-382919/myfrontend:latest
+

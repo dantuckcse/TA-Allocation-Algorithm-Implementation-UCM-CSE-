@@ -49,9 +49,6 @@ jobs:
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
         echo "Kubectl installed"
-        sudo apt-get update
-        sudo apt-get install -y google-cloud-sdk-kubectl-auth-plugin
-        echo "GKE gcloud auth plugin installed"
         echo '${{ secrets.GCR_JSON_KEY }}' > gcp-key.json
         echo "GCP Key saved to gcp-key.json"
         gcloud auth activate-service-account --key-file gcp-key.json

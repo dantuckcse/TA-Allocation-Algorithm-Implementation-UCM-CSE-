@@ -41,6 +41,11 @@ jobs:
         push: true
         tags: gcr.io/ta-allocation-382919/myfrontend:latest
 
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        version: '>= 363.0.0'
+
     - name: Install and configure gcloud CLI
       run: |
         VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -56,3 +61,4 @@ jobs:
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest
         kubectl set image deployment/frontend frontend=gcr.io/ta-allocation-382919/myfrontend:latest
+

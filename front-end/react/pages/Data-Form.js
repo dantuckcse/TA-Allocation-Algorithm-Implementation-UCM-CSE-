@@ -1,6 +1,7 @@
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useState } from "react";
+// import app from './path/to/module.js';
 import newSemesterFunction from "./Export-Data-Form.js"; {/* EXPORT CHECK */}
 
 export let currentSemesterData = [];
@@ -21,6 +22,10 @@ export default function Data_Form(){
             year: 2020
         }
     ]) //imported data inside useState[]
+    // const [senesterData, setSemesterData] = useState([
+    //     app.then((result) => {
+    //     })
+    // ])
     const [term, setTerm] = useState("");
     const [year, setYear] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -49,6 +54,11 @@ export default function Data_Form(){
         const selectedValue = e.target.value
         setSelectedOption(selectedValue); // Update the selected option in state
         console.log(`Selected option: ${selectedValue}`);
+    };
+
+    //Handle Export Course Details
+    const [courseDetails, setCourseDetails] = useState("");
+    const exportCourseDetails = (e) => {
     };
 
     return (
@@ -134,6 +144,7 @@ export default function Data_Form(){
                             <input className = "DF-CD-Input-Box" type="number" placeholder="Starting Term Year"/>
                             <button className = "DF-CD-Button">Submit Professor Data</button>
                         </div>
+
                         {/* STUDENT DETAILS */}
                         <div className="DF-Input-Div">
                             <h1>Student Details</h1>

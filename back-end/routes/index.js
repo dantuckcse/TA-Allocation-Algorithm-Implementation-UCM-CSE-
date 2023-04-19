@@ -4,6 +4,9 @@ let path = require('path')
 let sqlite3 = require('sqlite3').verbose();
 let { open } = require('sqlite');
 
+// main_pipeline functions/files imports
+let { setup } = require('../main_pipeline/setup');
+
 // Global variable for current semester
 let currentSemesterId = 27;
 
@@ -186,5 +189,16 @@ router.get('/rankings', async function (req, res, next) {
 
   return res.json(cleanRankings);
 });
+
+// ---------------
+// New routes are below, all the routes above might get deleted
+// ---------------
+
+router.post('/setup', async function (req, res, next) {
+  const semesterInput = req.body
+  await setup(db, semesterInput);
+  res.json('successfully set up') //Replace this w/ what he wants to return to them
+});
+
 
 module.exports = router;

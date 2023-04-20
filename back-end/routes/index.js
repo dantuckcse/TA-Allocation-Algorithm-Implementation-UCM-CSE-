@@ -188,13 +188,13 @@ router.get('/rankings', async function (req, res, next) {
 router.post('/setup', async function (req, res, next) {
   const semesterInput = req.body
   await setup(db, semesterInput);
-  return res.json('successfully set up') //Replace this w/ what he wants to return to them
+  return res.redirect('/rankings')
 });
 
 router.put('/reranking', async function (req, res, next) {
   const { assignment, semester } = req.body
   await reranking(db, assignment, semester);
   return res.redirect('/rankings');
-})
+});
 
 module.exports = router;

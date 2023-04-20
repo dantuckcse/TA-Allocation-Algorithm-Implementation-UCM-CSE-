@@ -8,7 +8,11 @@ let { open } = require('sqlite');
 let { setup } = require('../main_pipeline/setup');
 let { cleanRankings } = require('../main_pipeline/ranking');
 let { reranking } = require('../main_pipeline/reranking');
-let { getList } = require('../main_pipeline/semester_list')
+let { getList } = require('../main_pipeline/semester_list');
+let { addCourseData } = require('../input/add_course');
+let { addStudent } = require('../input/add_student');
+let { addProfessor } = require('../input/new_professor');
+let { addSemester } = require('../input/new_semester');
 
 // Global variable for current semester
 let currentSemesterId = 27;
@@ -116,36 +120,6 @@ router.get('/total_available/', async function (req, res, next) {
   return res.json({ details: availableCourses, total: totalSpace })
 });
 
-// Takes in a new semester as input and creates it in the database
-// The input is a json object w/ the following format and is contained in req.body: 
-// { term: "fall", year: "2023"}
-router.post('/semester', async function (req, res, next) {
-  const { term, year } = req.body
-
-  // Check if the semester they put in already exists:
-  const semester = await getSemester(term, year);
-
-  let body;
-
-  // If the inputted semester doesn't exist, create it
-  if (semester == undefined) {
-    let id = await generateSemesterId();
-    sql = `
-      INSERT INTO Semester (pk, term, year)
-      VALUES (?, ?, ?)
-    `;
-    args = [id, term, year]
-    await db.run(sql, args)
-    body = { msg: "Created a new semester" }
-  }
-  // If the inputted semester does exist, send a message saying it does and don't alter the db
-  else {
-    body = { msg: "Semester already exists" }
-  }
-
-  return res.json(body)
-});
-
 // Delete a semester (the semester to delete is in the body)
 router.delete('/semester', async function (req, res, next) {
   const { term, year } = req.body;
@@ -198,8 +172,32 @@ router.put('/reranking', async function (req, res, next) {
 });
 
 router.get('/allSemesters', async function (req, res, next) {
-  semesters = await getList(db);
-  res.json(semesters)
+  let semesters = await getList(db);
+  return res.json(semesters)
+});
+
+router.post('/course', async function (req, res, next) {
+  const course = req.body;
+  await addCourseData(db, course);
+  return res.json("Added course");
+});
+
+router.post('/student', async function (req, res, next) {
+  const { student, semester } = req.body;
+  await addStudent(db, student, semester);
+  return res.json("Added student")
+});
+
+router.post('/professor', async function (req, res, next) {
+  const { professor, semester } = req.body;
+  await addProfessor(db, professor, semester);
+  return res.json("Added Professor");
+});
+
+router.post('/semester', async function (req, res, next) {
+  const semester = req.body;
+  await addSemester(db, semester);
+  return res.json('Added Semester')
 });
 
 module.exports = router;

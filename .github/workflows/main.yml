@@ -41,13 +41,14 @@ jobs:
         push: true
         tags: gcr.io/ta-allocation-382919/myfrontend:latest
 
+    - name: Create gcp-key.json file
+      run: echo '${{ secrets.GCP_JSON_KEY }}' > gcp-key.json
+
     - name: Install and configure gcloud CLI
       run: |
         curl https://sdk.cloud.google.com | bash > /dev/null
         exec -l $SHELL
         gcloud components install kubectl
-        echo '${{ secrets.GCP_JSON_KEY }}' > gcp-key.json
-        echo "GCP Key saved to gcp-key.json"
         gcloud auth activate-service-account --key-file gcp-key.json
         echo "Service account activated"
         gcloud config set project ta-allocation-382919

@@ -59,9 +59,15 @@ jobs:
 
     - name: Authenticate service account
       run: |
+        echo "Activating service account..."
         gcloud auth activate-service-account --key-file=gcp-key.json
+        echo "Service account activated"
+        echo "Setting project..."
         gcloud config set project ta-allocation-382919
+        echo "Project set"
+        echo "Getting cluster credentials..."
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
+        echo "Cluster credentials fetched"
 
     - name: Deploy to Google Kubernetes Engine
       run: |

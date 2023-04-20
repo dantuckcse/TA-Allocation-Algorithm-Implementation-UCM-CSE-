@@ -56,11 +56,11 @@ jobs:
         echo "Cluster credentials fetched"
         gcloud components install gke-gcloud-auth-plugin
 
-    - name: Set up service account
+    - name: Authenticate service account
       run: |
-        export SERVICE_ACCOUNT_NAME=1031482042151-compute@developer.gserviceaccount.com
-        gcloud iam service-accounts keys create --iam-account=$SERVICE_ACCOUNT_NAME key.json
-        gcloud auth activate-service-account --key-file=key.json
+        gcloud auth activate-service-account --key-file=gcp-key.json
+        gcloud config set project ta-allocation-382919
+        gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
 
     - name: Deploy to Google Kubernetes Engine
       run: |

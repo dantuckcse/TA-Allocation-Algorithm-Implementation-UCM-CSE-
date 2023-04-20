@@ -7,17 +7,17 @@ const newSemester = {
 
 //For any semester
 const newProfessor = {
-    first_name: "Bill",
-    last_name: "Billson",
-    starting_term: "Spring",
-    starting_year: 2018
+    first_name: "Bobby",
+    last_name: "Jones",
+    starting_term: "Fall",
+    starting_year: 2019
 };
 
 //Only for the current semester
 //NOTE: exclusive are for courses that are reserved for specific students
 const addCourse = {
-    number: 177,
-    percentage: 0.5,
+    number: 188,
+    percentage: 1.25,
     exclusive: 'NO'
 };
 
@@ -33,12 +33,5 @@ const addStudent = {
     exclusive_course: 185,
     percentage: 0.5
 };
-
-//This is semester that the TA allocation is happening for
-//This should be sent with all the other objects
-const currentSemester = {
-    term: "Spring",
-    year: 2023
-}
 
 export {newSemester, newProfessor, addCourse, addStudent};

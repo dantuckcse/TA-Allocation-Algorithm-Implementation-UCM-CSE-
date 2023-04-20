@@ -4,12 +4,24 @@ let path = require('path')
 let sqlite3 = require('sqlite3').verbose();
 let { open } = require('sqlite');
 
+// main_pipeline functions/files imports
+let { setup } = require('../main_pipeline/setup');
+let { cleanRankings } = require('../main_pipeline/ranking');
+let { reranking } = require('../main_pipeline/reranking');
+let { getList } = require('../main_pipeline/semester_list');
+let { addCourseData } = require('../input/add_course');
+let { addStudent } = require('../input/add_student');
+let { addProfessor } = require('../input/new_professor');
+let { addSemester } = require('../input/new_semester');
+let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
+let { available_condition, finalized_condition, display_allocation } = require('../main_pipeline/display_semester');
+
 // Global variable for current semester
 let currentSemesterId = 27;
 
 // Open the database
 let db;
-let dbFilePath = path.join(__dirname, '/../test.db')
+let dbFilePath = path.join(__dirname, '/../database/TA_Allocation.db')
 const dbOptions = {
   filename: dbFilePath,
   driver: sqlite3.Database
@@ -110,36 +122,6 @@ router.get('/total_available/', async function (req, res, next) {
   return res.json({ details: availableCourses, total: totalSpace })
 });
 
-// Takes in a new semester as input and creates it in the database
-// The input is a json object w/ the following format and is contained in req.body: 
-// { term: "fall", year: "2023"}
-router.post('/semester', async function (req, res, next) {
-  const { term, year } = req.body
-
-  // Check if the semester they put in already exists:
-  const semester = await getSemester(term, year);
-
-  let body;
-
-  // If the inputted semester doesn't exist, create it
-  if (semester == undefined) {
-    let id = await generateSemesterId();
-    sql = `
-      INSERT INTO Semester (pk, term, year)
-      VALUES (?, ?, ?)
-    `;
-    args = [id, term, year]
-    await db.run(sql, args)
-    body = { msg: "Created a new semester" }
-  }
-  // If the inputted semester does exist, send a message saying it does and don't alter the db
-  else {
-    body = { msg: "Semester already exists" }
-  }
-
-  return res.json(body)
-});
-
 // Delete a semester (the semester to delete is in the body)
 router.delete('/semester', async function (req, res, next) {
   const { term, year } = req.body;
@@ -167,23 +149,83 @@ router.delete('/semester', async function (req, res, next) {
 // Returns the rankings of all the requests
 router.get('/rankings', async function (req, res, next) {
   let sql = `
-    SELECT * 
-    FROM student_rankings;
-  `;
-  const rankings = await db.all(sql);
+      SELECT * 
+      FROM student_rankings;
+    `;
+  const rows = await db.all(sql);
+  const cleanRows = cleanRankings(rows);
+  return res.json(cleanRows);
+});
 
-  const cleanRankings = rankings.map((request) => {
-    let courses = request['courses'].split(',');
-    let cleanCourses = courses.map(course => parseInt(course)); //Convert string course values to ints
+// ---------------
+// New routes are below, all the routes above might get deleted
+// ---------------
 
-    newObj = {
-      ...request,
-      courses: cleanCourses
-    }
-    return newObj;
-  });
+router.post('/setup', async function (req, res, next) {
+  const semesterInput = req.body
+  await setup(db, semesterInput);
+  return res.redirect('/rankings')
+});
 
-  return res.json(cleanRankings);
+router.put('/reranking', async function (req, res, next) {
+  const { assignment, semester } = req.body
+  await reranking(db, assignment, semester);
+  return res.redirect('/rankings');
+});
+
+router.get('/allSemesters', async function (req, res, next) {
+  let semesters = await getList(db);
+  return res.json(semesters)
+});
+
+router.post('/course', async function (req, res, next) {
+  const course = req.body;
+  await addCourseData(db, course);
+  return res.json("Added course");
+});
+
+router.post('/student', async function (req, res, next) {
+  const { student, semester } = req.body;
+  await addStudent(db, student, semester);
+  return res.json("Added student")
+});
+
+router.post('/professor', async function (req, res, next) {
+  const { professor, semester } = req.body;
+  await addProfessor(db, professor, semester);
+  return res.json("Added Professor");
+});
+
+router.post('/semester', async function (req, res, next) {
+  const semester = req.body;
+  await addSemester(db, semester);
+  return res.json('Added Semester')
+});
+
+router.get('/finalized', async (req, res) => {
+  const semester = req.body;
+  await finalize_semester(db, semester);
+  const finalized = await finalized_confirmation(db, semester);
+
+  if (finalized === 'YES') {
+    res.send("Finalization completed");
+  }
+  else {
+    res.send("Not all students have been finalized");
+  }
+});
+
+router.get('/allocation', async (req, res) => {
+  const semesterInput = req.body;
+  const finalized = await finalized_condition(db, semesterInput);
+  const available = await available_condition(db, semesterInput);
+  if (finalized === 'YES' && available === 'YES') {
+    const allocation = await display_allocation(db, semesterInput);
+    res.json(allocation);
+  }
+  else {
+    res.status(400).json({ error: 'Allocation not finalized or not available' });
+  }
 });
 
 module.exports = router;

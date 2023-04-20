@@ -43,9 +43,14 @@ jobs:
 
     - name: Install and configure gcloud CLI
       run: |
+        ARCH=$(uname -m)
+        case $ARCH in
+          "x86_64") ARCH="amd64" ;;
+          *) echo "Unsupported architecture"; exit 1 ;;
+        esac
         VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
         echo "VERSION: $VERSION"
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/$ARCH/kubectl
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
         echo "Kubectl installed"
@@ -75,4 +80,4 @@ jobs:
     - name: Deploy to Google Kubernetes Engine
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest
-        kubectl set image deployment/frontend frontend=gcr.io/ta-allocation-382919/myfrontend:latest
+        kubectl set image deployment/frontend frontend=gcr.io/ta-allocation-382919

@@ -70,11 +70,18 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
   align-items: center;
 }
 
-.requests--container, .courses--container, .slots--container {
+.requests--container, .courses--container{
   background: #FFFFFF;
   border-radius: 9.1px;
   margin: 5px;
   overflow-wrap: break-word;
+  display: flex;
+}
+
+.slots--container {
+  margin: 5px;
+  overflow-wrap: break-word;
+  display: flex;
 }
 
 .courses--container {
@@ -87,21 +94,27 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
   width: 10%;
 }
 
-.slots--container {
+.items-dropped {
   font-weight: bold;
   font-size: 10px;
   background: #A29061;
   box-shadow: inset 0px 0px 8px 2px rgba(11, 14, 51, 0.6);
   border-radius: 9.1px;
-  width: 20%;
-  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.empty-slot {
+  font-weight: bold;
+  font-size: 10px;
+  background: #A29061;
+  box-shadow: inset 0px 0px 8px 2px rgba(11, 14, 51, 0.6);
+  border-radius: 9.1px;
+  padding: 23px;
 }
 
 .student--info {
   font-size: 10px;
-  margin: 5px;
-  margin-bottom: -15px;
-  margin-top: -5px;
   font-weight: bold;
   padding: 0.1px;
 }

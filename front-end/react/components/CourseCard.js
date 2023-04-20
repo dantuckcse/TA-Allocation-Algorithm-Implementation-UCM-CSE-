@@ -66,16 +66,21 @@ export default function CourseCard(prop){
                         }),
                     }))  
                     return(
-                        <div className="slots--container" ref={drop} id={ isOver ? "hover-region" : ""} key={index} test={didDrop? console.log('test') : ""}>
-                            <span className="prop--slot"> {b}
-                                <CardContext.Provider value={{ markAsFinalized }}>
-                                    {index < slottedStudents.length ? slottedStudents[index] : null}
-                                </CardContext.Provider>
-                            </span>
-                        </div>
+                            <div className="slots--container"> 
+                            {slottedStudents[index] ? (
+                                <div className="items-dropped" ref={drop} id={ isOver ? "hover-region" : ""} key={index}>
+                                    <CardContext.Provider value={{ markAsFinalized }}>
+                                    {slottedStudents[index]}
+                                    </CardContext.Provider>
+                                </div>
+                            ) : (
+                                <div className="empty-slot" ref={drop} id={ isOver ? "hover-region" : ""} key={index}>
+                                    <span id="slot-amount">{b}</span>
+                                </div>
+                            )}
+                            </div>
                     )  
                 })}
-
             </div>
         </div>
     )

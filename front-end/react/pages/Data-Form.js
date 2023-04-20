@@ -2,11 +2,15 @@ import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useState } from "react";
 // import app from './path/to/module.js';
-import newSemesterFunction from "./Export-Data-Form.js"; {/* EXPORT CHECK */}
+import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */}
+import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */}
 
 export let currentSemesterData = [];
 export let newSemesterData = [];
-export let courseDetail = [];
+export let courseDetailData = [];
+export let professorDetailData = [];
+export let studentDetailData = [];
+
 export default function Data_Form(){
     const [semesterData, setSemesterData] = useState([
         {
@@ -48,18 +52,88 @@ export default function Data_Form(){
         currentSemesterData = semester;
     }
 
+    //HANDLE EXPORT COURSE DETAILS
+    const [courseDetail, setCourseDetails] = useState([]);
+    const exportCourseNumber = (e) =>{
+        const updatedCourseDetail = {...courseDetail, courseNumber: e.target.value};
+        setCourseDetails(updatedCourseDetail)
+    }
+    const exportCourseUnit = (e) => {
+        const updatedCourseDetail = { ...courseDetail, courseUnit: e.target.value };
+        setCourseDetails(updatedCourseDetail)
+    };
     //Course Details - Exclusive for options either YES or NO
-    const [selectedOption, setSelectedOption] = useState("");
+    const [exclusive, setSelectedOption] = useState("");
     const handleOptionChange = (e) => {
-        const selectedValue = e.target.value
-        setSelectedOption(selectedValue); // Update the selected option in state
-        console.log(`Selected option: ${selectedValue}`);
+        setSelectedOption(e.target.value); // Update the selected option in state
+    };
+    const exportCourseDetails = () => {
+        courseDetailData = {...courseDetail, exclusive};
+        console.log("Submitted Course Data: ", courseDetailData)
     };
 
-    //Handle Export Course Details
-    const [courseDetails, setCourseDetails] = useState("");
-    const exportCourseDetails = (e) => {
-    };
+    //HANDLE EXPORT PROFESSOR DETAILS
+    const [professorDetail, setProfessorDetails] = useState([]);
+    const exportProfessorFirstName = (e) => {
+        const updatedProfessorDetail = {...professorDetail, FirstName: e.target.value}
+        setProfessorDetails(updatedProfessorDetail)
+    }
+    const exportProfessorLastName = (e) => {
+        const updatedProfessorDetail = {...professorDetail, LastName: e.target.value}
+        setProfessorDetails(updatedProfessorDetail)
+    }
+    const exportProfessorStartingTerm = (e) => {
+        const updatedProfessorDetail = {...professorDetail, StartingTerm: e.target.value}
+        setProfessorDetails(updatedProfessorDetail)
+    }
+    const exportProfessorStartingYear = (e) => {
+        const updatedProfessorDetail = {...professorDetail, StartingYear: e.target.value}
+        setProfessorDetails(updatedProfessorDetail)
+    }
+    const exportProfessorDetails = () => {
+        professorDetailData = professorDetail
+        console.log(professorDetailData)
+    }
+
+
+    //HANDLE EXPORT STUDENT DETAILS
+    // const addStudent = {
+    //     professor_name: "Wan Du",
+    //     student_name: "Bobby Hill",
+    //     courses: [5,15,20,30,31,100,165,185],
+    //     exclusive_courses: [185],
+    //     percentage: 0.5
+    // };
+    
+    const [studentDetails, setStudentDetails] = useState([]);
+
+
+    const exportAssociatedProfessorName = (e) => {
+        const updateStudentDetails = {...studentDetails, associatedProfessorName : e.target.value  }
+        setStudentDetails(updateStudentDetails)
+    }
+    const exportStudentFullName = (e) => {
+        const updateStudentDetails = {...studentDetails, fullName : e.target.value }
+        setStudentDetails(updateStudentDetails)
+    }
+    const exportStudentCourses = (e) => {
+        const newArray = e.target.value.split(',').map(str => str.trim());
+        const updateStudentDetails = {...studentDetails, studentCourses : newArray }
+        setStudentDetails(updateStudentDetails)
+    }
+    const exportStudentExclusiveCourses = (e) => {
+        const updateStudentDetails = {...studentDetails, studentExclusiveCourses: e.target.value}
+        setStudentDetails(updateStudentDetails)
+    }
+    const exportStudentTAUnit = (e) => {
+        const updateStudentDetails = {...studentDetails, studentTAUnit: e.target.value }
+        setStudentDetails(updateStudentDetails)
+    }
+
+    const exportStudentDetails = () => {
+        studentDetailData = studentDetails
+        console.log(studentDetailData)
+    }
 
     return (
         <>
@@ -74,7 +148,6 @@ export default function Data_Form(){
                                 <option key={i} value = {s}>{s.term} {s.year}</option>
                             ))}
                         </select>
-                        <button onClick = {newSemesterFunction}>Export Check</button> {/* EXPORT CHECK */}
                         <button onClick={() => setShowModal(true)}>Add Semesters</button>
 
                         {showModal && (
@@ -104,8 +177,8 @@ export default function Data_Form(){
                     <div className='Data-Form-Course-Details-Div'>
                         <div className="DF-Input-Div">
                             <h1>Course Details</h1>
-                            <input className = "DF-CD-Input-Box" type="number" placeholder="Course Number"/>
-                            <input className = "DF-CD-Input-Box" type="number" placeholder="Course Unit"/>
+                            <input onChange = {exportCourseNumber} className = "DF-CD-Input-Box" type="number" placeholder="Course Number"/>
+                            <input onChange = {exportCourseUnit} className = "DF-CD-Input-Box" type="number" placeholder="Course Unit"/>
                             <h3 id="DF-Exclusive-Text">Exclusive: </h3>
                             <div className="DF-Exclusive-Container">
                                 <label htmlFor="radioYes">
@@ -114,7 +187,7 @@ export default function Data_Form(){
                                     id="radioYes"
                                     name="radioOption"
                                     value="YES"
-                                    checked={selectedOption === "YES"} // Set the checked attribute based on selectedOption value
+                                    checked={exclusive === "YES"} // Set the checked attribute based on selectedOption value
                                     onChange={handleOptionChange}
                                     />
                                     YES
@@ -125,65 +198,40 @@ export default function Data_Form(){
                                     id="radioNo"
                                     name="radioOption"
                                     value="NO"
-                                    checked={selectedOption === "NO"} // Set the checked attribute based on selectedOption value
+                                    checked={exclusive === "NO"} // Set the checked attribute based on selectedOption value
                                     onChange={handleOptionChange}
                                     />
                                     NO
                                 </label>
                                 </div>
-
-                            <button className = "DF-CD-Button">Submit Course Data</button>
+                            <button className = "DF-CD-Button" onClick = {exportCourseDetails}>Submit Course Data</button>
                         </div>
                         
                         {/* PROFESSOR DETAILS */}
                         <div className="DF-Input-Div">
                             <h1>Professor Details</h1> 
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="First Name"/>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Last Name"/>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Starting Term"/>
-                            <input className = "DF-CD-Input-Box" type="number" placeholder="Starting Term Year"/>
-                            <button className = "DF-CD-Button">Submit Professor Data</button>
+                            <input onChange = {exportProfessorFirstName} className = "DF-CD-Input-Box" type="text" placeholder="First Name"/>
+                            <input onChange = {exportProfessorLastName} className = "DF-CD-Input-Box" type="text" placeholder="Last Name"/>
+                            <input onChange = {exportProfessorStartingTerm} className = "DF-CD-Input-Box" type="text" placeholder="Starting Term"/>
+                            <input onChange = {exportProfessorStartingYear} className = "DF-CD-Input-Box" type="number" placeholder="Starting Term Year"/>
+                            <button onClick = {exportProfessorDetails} className = "DF-CD-Button">Submit Professor Data</button>
                         </div>
 
                         {/* STUDENT DETAILS */}
                         <div className="DF-Input-Div">
                             <h1>Student Details</h1>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Associated Professor Name"/>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Full Name"/>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Courses"/>
-                            <input className = "DF-CD-Input-Box" type="text" placeholder="Exclusive Courses"/>
-                            <input className = "DF-CD-Input-Box" type="number" placeholder="TA Unit"/>
-                            <button className = "DF-CD-Button">Submit Student Data</button>
+                            <input className = "DF-CD-Input-Box" onChange={exportAssociatedProfessorName} type="text" placeholder="Associated Professor Name"/>
+                            <input className = "DF-CD-Input-Box" onChange={exportStudentFullName} type="text" placeholder="Full Name"/>
+                            <input className = "DF-CD-Input-Box" onChange={exportStudentCourses} type="text" placeholder="Courses"/>
+                            <input className = "DF-CD-Input-Box" onChange={exportStudentExclusiveCourses} type="number" placeholder="Exclusive Course"/>
+                            <input className = "DF-CD-Input-Box" onChange={exportStudentTAUnit} type="number" placeholder="TA Unit"/>
+                            <button className = "DF-CD-Button" onClick={exportStudentDetails}>Submit Student Data</button>
                         </div>
                     </div>
-
+                    <button onClick = {newSemesterFunction}>New Semester</button> {/* EXPORT CHECK */}
+                    <button onClick = {currentSemesterFunction}>Current Semester</button> {/* EXPORT CHECK */}
                 </div>
             </Layout>
         </>
     )
 }
-
-
-//Select Semester (Have to create them to select them): Current Semester
-//Issue: page cannot save, on refresh, all the data will be lost.
-
-{/* 
-{semesterData.map((semester, index) => (
-    <div key={index}>
-    <h3>{semester.term} {semester.year}</h3>
-    </div>
-))} */}
-
-
-// //Only for the current semester
-// //NOTE!!: exclusive_courses is the course that the professor guarantees for the student. Using
-// //this object as an example, Professor Wan Du is teaching CSE 185 and wants to reserve TA spots 
-// //for his graduate students, such Bobby Hill. So the exclusive course is 185. 
-// //Otherwise make it empty, exclusive_courses: []
-// const addStudent = {
-//     professor_name: "Wan Du",
-//     student_name: "Bobby Hill",
-//     courses: [5,15,20,30,31,100,165,185],
-//     exclusive_courses: [185],
-//     percentage: 0.5
-// };

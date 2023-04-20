@@ -53,7 +53,12 @@ jobs:
         gcloud config set project ta-allocation-382919
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
 
+    - name: Install gke-gcloud-auth-plugin
+      run: |
+        gcloud components install gke-gcloud-auth-plugin
+
     - name: Deploy to Google Kubernetes Engine
       run: |
         kubectl set image deployment/backend backend=gcr.io/ta-allocation-382919/mybackend:latest
         kubectl set image deployment/frontend frontend=gcr.io/ta-allocation-382919/myfrontend:latest
+l set image deployment/frontend frontend=gcr.io/ta-allocation-382919/myfrontend:latest

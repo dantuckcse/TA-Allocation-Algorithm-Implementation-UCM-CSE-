@@ -1,9 +1,13 @@
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useEffect, useState } from "react";
-import semester_list from '../../../back-end/main_pipeline/semester_list.js'
+// import semester_list from '../../../back-end/main_pipeline/semester_list.js'
 import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */}
 import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */}
+// import sqlite3 from 'sqlite3';
+// import {open} from 'sqlite';
+
+
 
 export let currentSemesterData = [];
 export let newSemesterData = [];
@@ -27,9 +31,18 @@ export default function Data_Form() {
         }
     ])
 
-    const semesterListCheck = () =>{
-        console.log(semester_list);
-    };
+    // const [app, setApp] = useState([]);
+    // useEffect (() => {
+    //     const fetchData = async () => {
+    //         const dbPromise = open({
+    //             filename: '../../'
+    //         })
+    //     }
+    // })
+
+    // const semesterListCheck = () =>{
+    //     console.log(semester_list);
+    // };
 
     const [term, setTerm] = useState("");
     const [year, setYear] = useState("");
@@ -129,7 +142,7 @@ export default function Data_Form() {
     return (
         <>
             <Layout dataform>
-                <button onClick = {semesterListCheck}>check</button>
+                {/* <button onClick = {semesterListCheck}>check</button> */}
                 <div className='Data-Form-Div'>
                     <div id="DF-Title">Data Form</div>
                     <div id="DF-Semester-Title">{semesterSelect.term} {semesterSelect.year}</div>

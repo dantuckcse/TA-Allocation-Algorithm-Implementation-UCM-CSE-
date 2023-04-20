@@ -43,13 +43,10 @@ jobs:
 
     - name: Install and configure gcloud CLI
       run: |
-        VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-        echo "VERSION: $VERSION"
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
-        echo "Kubectl installed"
-        echo '${{ secrets.GCR_JSON_KEY }}' > gcp-key.json
+        curl https://sdk.cloud.google.com | bash > /dev/null
+        exec -l $SHELL
+        gcloud components install kubectl
+        echo '${{ secrets.GCP_JSON_KEY }}' > gcp-key.json
         echo "GCP Key saved to gcp-key.json"
         gcloud auth activate-service-account --key-file gcp-key.json
         echo "Service account activated"
@@ -57,8 +54,13 @@ jobs:
         echo "Project set"
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
         echo "Cluster credentials fetched"
-        sudo apt-get update && sudo apt-get install -y google-cloud-sdk-kubectl-auth-plugin
-        echo "gke-gcloud-auth-plugin installed"
+        gcloud components install gke-gcloud-auth-plugin
+
+    - name: Authenticate service account
+      run: |
+        gcloud auth activate-service-account --key-file=gcp-key.json
+        gcloud config set project ta-allocation-382919
+        gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
 
     - name: Deploy to Google Kubernetes Engine
       run: |

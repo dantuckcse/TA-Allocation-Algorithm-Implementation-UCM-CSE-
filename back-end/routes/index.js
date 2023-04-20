@@ -14,6 +14,7 @@ let { addStudent } = require('../input/add_student');
 let { addProfessor } = require('../input/new_professor');
 let { addSemester } = require('../input/new_semester');
 let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
+let { available_condition, finalized_condition, display_allocation } = require('../main_pipeline/display_semester');
 
 // Global variable for current semester
 let currentSemesterId = 27;
@@ -211,6 +212,19 @@ router.get('/finalized', async (req, res) => {
   }
   else {
     res.send("Not all students have been finalized");
+  }
+});
+
+router.get('/allocation', async (req, res) => {
+  const semesterInput = req.body;
+  const finalized = await finalized_condition(db, semesterInput);
+  const available = await available_condition(db, semesterInput);
+  if (finalized === 'YES' && available === 'YES') {
+    const allocation = await display_allocation(db, semesterInput);
+    res.json(allocation);
+  }
+  else {
+    res.status(400).json({ error: 'Allocation not finalized or not available' });
   }
 });
 

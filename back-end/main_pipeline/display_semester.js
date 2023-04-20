@@ -1,18 +1,4 @@
-import express from 'express';
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
-import semesterInput from '../test_data/test_year.js';
-
-const app = express();
-
-const dbPromise = open({
-
-  filename: '../database/TA_Allocation.db',
-  driver: sqlite3.Database
-});
-
-
-const available_condition = async (semesterInput) => {
+exports.available_condition = async (_db, semesterInput) => {
   const sql = `
     SELECT data_available
     FROM Semester
@@ -20,14 +6,13 @@ const available_condition = async (semesterInput) => {
   `;
 
   const args = [semesterInput.term, semesterInput.year];
-  const db = await dbPromise;
-  const result = await db.get(sql, args);
+  const result = await _db.get(sql, args);
 
   return result.finalized;
 };
 
 
-const finalized_condition = async (semesterInput) => {
+exports.finalized_condition = async (_db, semesterInput) => {
   const sql = `
     SELECT finalized
     FROM Semester
@@ -35,14 +20,13 @@ const finalized_condition = async (semesterInput) => {
   `;
 
   const args = [semesterInput.term, semesterInput.year];
-  const db = await dbPromise;
-  const result = await db.get(sql, args);
+  const result = await _db.get(sql, args);
 
   return result.finalized;
 };
 
 
-const display_allocation = async (semesterInput) => {
+exports.display_allocation = async (_db, semesterInput) => {
   const sql = `
     SELECT
       A.rank AS rank,
@@ -61,34 +45,7 @@ const display_allocation = async (semesterInput) => {
   `;
 
   const args = [semesterInput.term, semesterInput.year];
-  const db = await dbPromise;
-  const rows = await db.all(sql, args);
+  const rows = await _db.all(sql, args);
 
   return rows;
 };
-
-
-app.get('/allocation', async (req, res) => {
-
-  const finalized = await finalized_condition(semesterInput);
-  const available = await available_condition(semesterInput);
-
-  if (finalized === 'YES' && available === 'YES') {
-
-    
-    const allocation = await display_allocation(semesterInput);
-    res.json(allocation);
-  } 
-
-  else {
-
-    res.status(400).json({ error: 'Allocation not finalized or not available' });
-  }
-  
-});
-
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
-

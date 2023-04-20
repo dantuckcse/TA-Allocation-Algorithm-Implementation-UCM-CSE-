@@ -52,18 +52,10 @@ jobs:
       run: |
         gcloud config set project ta-allocation-382919
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
-        gcloud auth configure-kubectl
 
     - name: Install gke-gcloud-auth-plugin
       run: |
-        ARCH=$(uname -m)
-        case $ARCH in
-          "x86_64") ARCH="amd64" ;;
-          *) echo "Unsupported architecture"; exit 1 ;;
-        esac
-        curl -LO "https://storage.googleapis.com/gke-gcloud-auth-plugin/latest/gke-gcloud-auth-plugin-linux-$ARCH"
-        chmod +x gke-gcloud-auth-plugin-linux-$ARCH
-        sudo mv gke-gcloud-auth-plugin-linux-$ARCH /usr/local/bin/gke-gcloud-auth-plugin
+        gcloud components install gke-gcloud-auth-plugin
 
     - name: Deploy to Google Kubernetes Engine
       run: |

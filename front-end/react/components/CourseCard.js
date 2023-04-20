@@ -1,11 +1,11 @@
 import { useDrop } from 'react-dnd'
 import { useContext, useState } from "react"
-import  itemTypes  from "../utils/itemType"
-import  { CardContext }  from "../pages/TA-Allocation/allocation.js"
+import itemTypes from "../utils/itemType"
+import { CardContext } from "../pages/TA-Allocation/allocation.js"
 import StudentCard from "./StudentCard"
 import { requestData } from "../pages/TA-Allocation/data/requests"
 
-export default function CourseCard(prop){
+export default function CourseCard(prop) {
     const { markAsFinalized } = useContext(CardContext);
     const [students, setStudents] = useState(() => requestData)
 
@@ -18,7 +18,7 @@ export default function CourseCard(prop){
 
     const slottedStudents = addingStudent
         .filter((f_student, i) => f_student.finalized === "YES")
-        .map((f_student, i) => 
+        .map((f_student, i) =>
             <StudentCard
                 key={f_student.id.toString()}
                 index={i}
@@ -32,23 +32,23 @@ export default function CourseCard(prop){
 
     let boxTotal = prop.slots;
     const boxes = [];
-    while (boxTotal != 0 && boxTotal != undefined){
-        if(boxTotal >= 0.5){
+    while (boxTotal != 0 && boxTotal != undefined) {
+        if (boxTotal >= 0.5) {
             boxes.push(0.5);
             boxTotal -= (0.5)
-        } else if(boxTotal >= 0.25){
+        } else if (boxTotal >= 0.25) {
             boxes.push(0.25);
             boxTotal -= 0.25;
         }
     }
-    return(
+    return (
         <div>
             <div className="drop-items-here">
                 <div className="courses--container">
                     <p>CSE {prop.CSE}</p>
                     <br></br>
                 </div>
-                {boxes.map((b, index) =>{ // Added index to map
+                {boxes.map((b, index) => { // Added index to map
                     const [{ isOver, didDrop, getDropResult }, drop] = useDrop(() => ({
                         accept: itemTypes.UNSLOTTED_STUDENT,
                         // canDrop: (item, monitor) => {  // will use later for "prevent" cases
@@ -57,6 +57,7 @@ export default function CourseCard(prop){
                         drop(item, monitor) {
                             markAsFinalized(item.id)
                             addStudent(item.id)
+                            // reranking request here
                             return monitor.getItem()
                         },
                         collect: monitor => ({

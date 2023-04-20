@@ -162,20 +162,20 @@ router.get('/rankings', async function (req, res, next) {
 // ---------------
 
 router.post('/setup', async function (req, res, next) {
-  const semesterInput = req.body
+  const semesterInput = req.body;
   await setup(db, semesterInput);
-  return res.redirect('/rankings')
+  return res.json('setup was run');
 });
 
 router.put('/reranking', async function (req, res, next) {
   const { assignment, semester } = req.body
   await reranking(db, assignment, semester);
-  return res.redirect('/rankings');
+  return res.json("reranking was run");
 });
 
 router.get('/allSemesters', async function (req, res, next) {
   let semesters = await getList(db);
-  return res.json(semesters)
+  return res.json(semesters);
 });
 
 router.post('/course', async function (req, res, next) {
@@ -187,7 +187,7 @@ router.post('/course', async function (req, res, next) {
 router.post('/student', async function (req, res, next) {
   const { student, semester } = req.body;
   await addStudent(db, student, semester);
-  return res.json("Added student")
+  return res.json("Added student");
 });
 
 router.post('/professor', async function (req, res, next) {
@@ -199,7 +199,7 @@ router.post('/professor', async function (req, res, next) {
 router.post('/semester', async function (req, res, next) {
   const semester = req.body;
   await addSemester(db, semester);
-  return res.json('Added Semester')
+  return res.json('Added Semester');
 });
 
 router.get('/finalized', async (req, res) => {

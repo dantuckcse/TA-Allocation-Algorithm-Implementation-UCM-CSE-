@@ -1,10 +1,24 @@
-exports.getList = async (_db) => {
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 
-  let sql = `
+const dbPromise = open({
+  filename: '../database/TA_Allocation.db',
+  driver: sqlite3.Database
+});
+
+
+const getList =  async () => {
+
+    let sql = `
         SELECT term, year
         FROM Semester;
     `;
 
-  const rows = await _db.all(sql);
-  return rows;
+    const db = await dbPromise;
+    const rows = await db.all(sql);
+    return rows;
 };
+
+const app = await getList();
+
+export default app;

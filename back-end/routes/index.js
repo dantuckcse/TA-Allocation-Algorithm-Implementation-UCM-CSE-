@@ -162,7 +162,7 @@ router.get('/rankings', async function (req, res, next) {
 // ---------------
 
 router.post('/setup', async function (req, res, next) {
-  const semesterInput = req.body
+  const semesterInput = req.body;
   await setup(db, semesterInput);
   return res.json('setup was run');
 });

@@ -68,20 +68,9 @@ const clearStudentRankings = async () => {
     await db.run(sql);
 };
 
-const reindexStudentRankings = async () => {
-
-    let sql = `
-    REINDEX Student_Rankings;
-    `;
-
-    const db = await dbPromise;
-    await db.run(sql);
-};
-
 
 await clearAvailableCourses();
 await reindexAvailableCourses();
 await clearRequestedCourses();
 await reindexRequestedCourses();
 await clearStudentRankings();
-await reindexStudentRankings();

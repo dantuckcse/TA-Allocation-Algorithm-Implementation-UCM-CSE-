@@ -13,6 +13,7 @@ let { addCourseData } = require('../input/add_course');
 let { addStudent } = require('../input/add_student');
 let { addProfessor } = require('../input/new_professor');
 let { addSemester } = require('../input/new_semester');
+let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
 
 // Global variable for current semester
 let currentSemesterId = 27;
@@ -198,6 +199,19 @@ router.post('/semester', async function (req, res, next) {
   const semester = req.body;
   await addSemester(db, semester);
   return res.json('Added Semester')
+});
+
+router.get('/finalized', async (req, res) => {
+  const semester = req.body;
+  await finalize_semester(db, semester);
+  const finalized = await finalized_confirmation(db, semester);
+
+  if (finalized === 'YES') {
+    res.send("Finalization completed");
+  }
+  else {
+    res.send("Not all students have been finalized");
+  }
 });
 
 module.exports = router;

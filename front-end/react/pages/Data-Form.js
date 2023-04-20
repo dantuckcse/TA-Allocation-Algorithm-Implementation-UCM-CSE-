@@ -33,19 +33,6 @@ export default function Data_Form() {
         setSemesterData(semesterDataList)
     }, []);
 
-    // const [app, setApp] = useState([]);
-    // useEffect (() => {
-    //     const fetchData = async () => {
-    //         const dbPromise = open({
-    //             filename: '../../'
-    //         })
-    //     }
-    // })
-
-    // const semesterListCheck = () =>{
-    //     console.log(semester_list);
-    // };
-
     const [term, setTerm] = useState("");
     const [year, setYear] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -144,7 +131,6 @@ export default function Data_Form() {
     return (
         <>
             <Layout dataform>
-                {/* <button onClick = {semesterListCheck}>check</button> */}
                 <div className='Data-Form-Div'>
                     <div id="DF-Title">Data Form</div>
                     <div id="DF-Semester-Title">{semesterSelect.term} {semesterSelect.year}</div>

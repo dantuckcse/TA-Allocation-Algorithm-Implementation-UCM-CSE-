@@ -6,7 +6,8 @@ let { open } = require('sqlite');
 
 // main_pipeline functions/files imports
 let { setup } = require('../main_pipeline/setup');
-let { cleanRankings } = require('../main_pipeline/ranking')
+let { cleanRankings } = require('../main_pipeline/ranking');
+let { reranking } = require('../main_pipeline/reranking');
 
 // Global variable for current semester
 let currentSemesterId = 27;
@@ -187,8 +188,13 @@ router.get('/rankings', async function (req, res, next) {
 router.post('/setup', async function (req, res, next) {
   const semesterInput = req.body
   await setup(db, semesterInput);
-  res.json('successfully set up') //Replace this w/ what he wants to return to them
+  return res.json('successfully set up') //Replace this w/ what he wants to return to them
 });
 
+router.put('/reranking', async function (req, res, next) {
+  const { assignment, semester } = req.body
+  await reranking(db, assignment, semester);
+  return res.redirect('/rankings');
+})
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
-import React, { useState } from "react";
-// import app from './path/to/module.js';
+import React, { useEffect, useState } from "react";
+import semester_list from '../../../back-end/main_pipeline/semester_list.js'
 import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */}
 import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */}
 
@@ -25,11 +25,12 @@ export default function Data_Form(){
             term: "Fall",
             year: 2020
         }
-    ]) //imported data inside useState[]
-    // const [senesterData, setSemesterData] = useState([
-    //     app.then((result) => {
-    //     })
-    // ])
+    ])
+
+    const semesterListCheck = () =>{
+        console.log(semester_list);
+    };
+
     const [term, setTerm] = useState("");
     const [year, setYear] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -44,6 +45,7 @@ export default function Data_Form(){
         setYear("")
         setShowModal(false);
     }; 
+
     const [semesterSelect, setSemesterSelect] = useState([])
     const handleSemesterChange = (e) => {
         const index = e.target.selectedIndex;
@@ -97,17 +99,7 @@ export default function Data_Form(){
 
 
     //HANDLE EXPORT STUDENT DETAILS
-    // const addStudent = {
-    //     professor_name: "Wan Du",
-    //     student_name: "Bobby Hill",
-    //     courses: [5,15,20,30,31,100,165,185],
-    //     exclusive_courses: [185],
-    //     percentage: 0.5
-    // };
-    
     const [studentDetails, setStudentDetails] = useState([]);
-
-
     const exportAssociatedProfessorName = (e) => {
         const updateStudentDetails = {...studentDetails, associatedProfessorName : e.target.value  }
         setStudentDetails(updateStudentDetails)
@@ -138,16 +130,19 @@ export default function Data_Form(){
     return (
         <>
             <Layout dataform>
+                <button onClick = {semesterListCheck}>check</button>
                 <div className='Data-Form-Div'>
                     <div id="DF-Title">Data Form</div>
                     <div id= "DF-Semester-Title">{semesterSelect.term} {semesterSelect.year}</div>
                     <div className='Data-Form-DropDown'>
                         <label id = "DF-Select-Semester-Title">Select Semester:</label>
+
                         <select id = "semester-drop-down" onChange={handleSemesterChange}>
                             {semesterData.map((s, i) => ( 
                                 <option key={i} value = {s}>{s.term} {s.year}</option>
                             ))}
                         </select>
+
                         <button onClick={() => setShowModal(true)}>Add Semesters</button>
 
                         {showModal && (

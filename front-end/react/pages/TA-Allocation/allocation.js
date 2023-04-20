@@ -26,6 +26,8 @@ export default function Allocation() {
     }
 
     // Setup
+    // go to data form, click semester, then go to TA allocation
+    console.log(currentSemesterData);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -42,7 +42,7 @@ jobs:
         tags: gcr.io/ta-allocation-382919/myfrontend:latest
 
     - name: Create gcp-key.json file
-      run: echo '${{ secrets.GCP_JSON_KEY }}' > gcp-key.json
+      run: echo '${{ secrets.GCP_JSON_KEY }}' | tr -d '\r' > gcp-key.json
 
     - name: Install and configure gcloud CLI
       run: |

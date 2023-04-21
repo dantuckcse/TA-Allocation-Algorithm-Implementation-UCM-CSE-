@@ -61,7 +61,6 @@ export default function CourseCard(prop) {
                             addStudent(item.id)
 
                             // reranking & ranking requests here
-                            /*
                             const body = {
                                 assignment: {
                                     id: 502,
@@ -80,7 +79,7 @@ export default function CourseCard(prop) {
                                 .then(data => fetch(`${url}/rankings`))
                                 .then(response => response.json())
                                 .then(data => console.log(data))
-                            */
+
                             return monitor.getItem()
                         },
                         collect: monitor => ({

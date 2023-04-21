@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 import StudentCard from "../../components/StudentCard"
 import CourseCard from "../../components/CourseCard"
 import AssignedStudents from "../../components/AssignedStudents"
@@ -27,17 +27,19 @@ export default function Allocation() {
 
     // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
-    // console.log(currentSemesterData);
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(currentSemesterData)
-    // };
-    // fetch(`${url}/setup`, requestOptions)
-    //     .then(response => response.json())
-    //     .then(data => fetch(`${url}/rankings`))
-    //     .then(response => response.json())
-    //     .then(data => data)
+    useEffect(() => {
+        console.log(currentSemesterData);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentSemesterData)
+        };
+        fetch(`${url}/setup`, requestOptions)
+            .then(response => response.json())
+            .then(data => fetch(`${url}/rankings`))
+            .then(response => response.json())
+            .then(data => console.log(data))
+    }, []);
 
     return (
         <Layout>

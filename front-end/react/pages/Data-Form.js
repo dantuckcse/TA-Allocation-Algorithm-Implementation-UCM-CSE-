@@ -1,10 +1,9 @@
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useEffect, useState } from "react";
-// import semester_list from '../../../back-end/main_pipeline/semester_list.js'
+import semesterDataList from '../../../back-end/main_pipeline/semester_list.json'
 import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */}
 import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */}
-import semesterDataList from './semester_data.json'
 
 export let currentSemesterData = [];
 export let newSemesterData = [];
@@ -13,21 +12,6 @@ export let professorDetailData = [];
 export let studentDetailData = [];
 
 export default function Data_Form() {
-    // const [semesterData, setSemesterData] = useState([
-    //     {
-    //         term: "Summer",
-    //         year: 2020
-    //     },
-    //     {
-    //         term: "Spring",
-    //         year: 2022
-    //     },
-    //     {
-    //         term: "Fall",
-    //         year: 2020
-    //     }
-    // ])
-
     const [semesterData, setSemesterData] = useState([]);
     useEffect(()=>{
         setSemesterData(semesterDataList)

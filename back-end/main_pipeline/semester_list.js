@@ -1,15 +1,25 @@
-let sqlite3 = require('sqlite3').verbose();
-let { open } = require('sqlite');
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
+import fs from 'fs';
 
-const getList = async (_db) => {
+const dbPromise = open({
+  filename: '../database/TA_Allocation.db',
+  driver: sqlite3.Database
+});
 
-  let sql = `
+
+const getList =  async () => {
+
+    let sql = `
         SELECT term, year
         FROM Semester;
     `;
 
-  const rows = await _db.all(sql);
-  return rows;
+    const db = await dbPromise;
+    const rows = await db.all(sql);
+    return rows;
 };
 
-exports.app = getList;
+const app = await getList();
+fs.writeFileSync('semester_list.json', JSON.stringify(app,null,2));
+export default app;

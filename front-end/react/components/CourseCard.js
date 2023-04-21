@@ -4,6 +4,8 @@ import itemTypes from "../utils/itemType"
 import { CardContext } from "../pages/TA-Allocation/allocation.js"
 import StudentCard from "./StudentCard"
 import { requestData } from "../pages/TA-Allocation/data/requests"
+import { currentSemesterData } from '@/pages/Data-Form'
+import { url } from '../components/url'
 
 export default function CourseCard(prop) {
     const { markAsFinalized } = useContext(CardContext);
@@ -57,7 +59,28 @@ export default function CourseCard(prop) {
                         drop(item, monitor) {
                             markAsFinalized(item.id)
                             addStudent(item.id)
-                            // reranking request here
+
+                            // reranking & ranking requests here
+                            /*
+                            const body = {
+                                assignment: {
+                                    id: 502,
+                                    rank: 5,
+                                    courses: "15"
+                                },
+                                semester: currentSemesterData
+                            }
+                            const requestOptions = {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(body)
+                            };
+                            fetch(`${url}/reranking`, requestOptions)
+                                .then(response => response.json())
+                                .then(data => fetch(`${url}/rankings`))
+                                .then(response => response.json())
+                                .then(data => console.log(data))
+                            */
                             return monitor.getItem()
                         },
                         collect: monitor => ({
@@ -65,22 +88,22 @@ export default function CourseCard(prop) {
                             didDrop: monitor.didDrop(),
                             canDrop: !!monitor.canDrop()
                         }),
-                    }))  
-                    return(
-                            <div className="slots--container"> 
+                    }))
+                    return (
+                        <div className="slots--container">
                             {slottedStudents[index] ? (
-                                <div className="items-dropped" ref={drop} id={ isOver ? "hover-region" : ""} key={index}>
+                                <div className="items-dropped" ref={drop} id={isOver ? "hover-region" : ""} key={index}>
                                     <CardContext.Provider value={{ markAsFinalized }}>
-                                    {slottedStudents[index]}
+                                        {slottedStudents[index]}
                                     </CardContext.Provider>
                                 </div>
                             ) : (
-                                <div className="empty-slot" ref={drop} id={ isOver ? "hover-region" : ""} key={index}>
+                                <div className="empty-slot" ref={drop} id={isOver ? "hover-region" : ""} key={index}>
                                     <span id="slot-amount">{b}</span>
                                 </div>
                             )}
-                            </div>
-                    )  
+                        </div>
+                    )
                 })}
             </div>
         </div>

@@ -6,7 +6,7 @@ import StudentCard from "./StudentCard"
 import { requestData } from "../pages/TA-Allocation/data/requests"
 import { currentSemesterData } from '@/pages/Data-Form'
 import { url } from '../components/url'
-import { assigned_student } from "/components/StudentCard"
+import { assigned_student } from './AssignedStudents'
 
 export default function CourseCard(prop) {
     const { markAsFinalized } = useContext(CardContext);

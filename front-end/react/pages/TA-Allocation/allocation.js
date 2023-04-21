@@ -25,17 +25,19 @@ export default function Allocation() {
         setStudents(students.filter((f_student, i) => f_student.id !== id).concat(f_student[0]))
     }
 
-    // Setup
+    // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
-    console.log(currentSemesterData);
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(currentSemesterData)
-    };
-    fetch(`${url}/setup`, requestOptions)
-        .then(response => response.json())
-        .then(data => console.log(data));
+    // console.log(currentSemesterData);
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(currentSemesterData)
+    // };
+    // fetch(`${url}/setup`, requestOptions)
+    //     .then(response => response.json())
+    //     .then(data => fetch(`${url}/rankings`))
+    //     .then(response => response.json())
+    //     .then(data => data)
 
     return (
         <Layout>

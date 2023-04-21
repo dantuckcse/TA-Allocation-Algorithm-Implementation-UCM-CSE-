@@ -25,7 +25,7 @@ export default function Allocation() {
         setStudents(students.filter((f_student, i) => f_student.id !== id).concat(f_student[0]))
     }
 
-    // Setup
+    // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
     console.log(currentSemesterData);
     const requestOptions = {
@@ -35,7 +35,9 @@ export default function Allocation() {
     };
     fetch(`${url}/setup`, requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => fetch(`${url}/rankings`))
+        .then(response => response.json())
+        .then(data => console.log(data))
 
     return (
         <Layout>

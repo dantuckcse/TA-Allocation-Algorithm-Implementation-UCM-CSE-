@@ -6,6 +6,7 @@ import StudentCard from "./StudentCard"
 import { requestData } from "../pages/TA-Allocation/data/requests"
 import { currentSemesterData } from '@/pages/Data-Form'
 import { url } from '../components/url'
+import { assigned_student } from "/components/StudentCard"
 
 export default function CourseCard(prop) {
     const { markAsFinalized } = useContext(CardContext);
@@ -61,14 +62,16 @@ export default function CourseCard(prop) {
                             addStudent(item.id)
 
                             // reranking & ranking requests here
+                            // For some reason the assigned_student object is empty when it's sent to the backend
+                            // When I console.log it here, it's full, but then when I try and console.log the id
+                            // it's undefined
+                            console.log("assigned_student: ", assigned_student)
+                            console.log("assigned_student.id ", assigned_student.id)
                             const body = {
-                                assignment: {
-                                    id: 502,
-                                    rank: 5,
-                                    courses: "15"
-                                },
+                                assignment: assigned_student,
                                 semester: currentSemesterData
                             }
+                            console.log("body", body);
                             const requestOptions = {
                                 method: 'PUT',
                                 headers: { 'Content-Type': 'application/json' },

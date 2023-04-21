@@ -168,7 +168,14 @@ router.post('/setup', async function (req, res, next) {
 });
 
 router.put('/reranking', async function (req, res, next) {
-  const { assignment, semester } = req.body
+  let { assignment, semester } = req.body
+  console.log("assignment", assignment)
+  let courseListString = assignment.courses.toString();
+  assignment = {
+    ...assignment,
+    courses: courseListString
+  }
+  console.log(assignment)
   await reranking(db, assignment, semester);
   return res.json("reranking was run");
 });

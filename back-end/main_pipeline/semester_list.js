@@ -22,4 +22,5 @@ const getList =  async () => {
 
 const app = await getList();
 fs.writeFileSync('semester_list.json', JSON.stringify(app,null,2));
+console.log('success')
 export default app;

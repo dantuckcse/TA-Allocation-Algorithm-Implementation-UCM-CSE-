@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:semester-list": "node ../../back-end/main_pipeline/semester_list.js"
   },
   "dependencies": {
     "next": "13.2.4",

@@ -68,7 +68,6 @@ const clearStudentRankings = async () => {
     await db.run(sql);
 };
 
-
 await clearAvailableCourses();
 await reindexAvailableCourses();
 await clearRequestedCourses();

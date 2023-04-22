@@ -1,6 +1,18 @@
 //Calculates the initial ranks of the students
 
-const starting = async (_db, semesterInput) => {
+
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
+import semesterInput from '../test_data/test_year.js';
+
+
+const dbPromise = open({
+
+    filename: '../database/TA_Allocation.db',
+    driver: sqlite3.Database
+});
+
+const starting = async (semesterInput) => {
 
     //calculates the total semesters a professor has been at UCM
     const totalSemesters = async (semesterInput) => {
@@ -32,7 +44,8 @@ const starting = async (_db, semesterInput) => {
         `;
 
         let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
-        await _db.run(sql, args);
+        const db = await dbPromise;
+        await db.run(sql, args);
     };
 
 
@@ -46,7 +59,8 @@ const starting = async (_db, semesterInput) => {
             END);
         `;
 
-        await _db.run(sql);
+        const db = await dbPromise;
+        await db.run(sql);
 
     };
 
@@ -92,32 +106,125 @@ const starting = async (_db, semesterInput) => {
         `;
 
         let args = [semesterInput.term, semesterInput.year];
-        await _db.run(sql, args);
+        const db = await dbPromise
+        await db.run(sql, args);
 
     };
+
+
+    const clearCopyRank = async () => {
+
+        let sql = `
+            DELETE 
+            FROM Student_Rankings_Copy;
+        `;
+
+        const db = await dbPromise;
+        await db.run(sql);
+
+    };
+
+
+    const clearCopyFaculty = async () => {
+
+        let sql = `
+            DELETE 
+            FROM Faculty_Copy;
+        `;
+
+        const db = await dbPromise;
+        await db.run(sql);
+
+    };
+
+
+    const copyRank = async (semesterInput) => {
+
+        let sql = `
+        INSERT INTO Student_Rankings_Copy (id, rank, professor, student, percentage, courses, finalized)
+        SELECT
+            A.pk AS id,
+            ROW_NUMBER() OVER (ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name)) AS rank,
+            (F.first_name || ' ' || F.last_name) AS professor,
+            (SELECT DISTINCT(A.student_name)) AS student,
+            A.percentage AS percentage,
+            T.course_list AS courses,
+            A.finalized as finalized
+        FROM
+            Faculty F
+            INNER JOIN Assignments A ON A.faculty_fk = F.pk
+            INNER JOIN
+            (SELECT
+                T.SN, 
+                GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
+                                WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
+                                ELSE T.CN END, ',') as course_list
+            FROM
+                (SELECT DISTINCT
+                    A.student_name AS SN, RC.course_number AS CN, RC.category AS cat
+                FROM
+                    Requested_Courses RC
+                    INNER JOIN Requested_Courses CR ON RC.pk = CR.pk
+                    INNER JOIN Assignments A ON RC.assignment_fk = A.pk
+                ORDER BY cast(RC.course_number AS INTEGER) ASC) AS T
+            GROUP BY T.SN) T ON A.student_name = T.SN
+        WHERE A.semester_fk IN (SELECT semester_fk 
+                                FROM Assignments, Semester
+                                WHERE semester_fk = Semester.pk
+                                AND term = ? AND year = ?)
+            AND A.finalized = 'NO'
+        GROUP BY A.student_name
+        ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
+        `;
+
+        let args = [semesterInput.term, semesterInput.year];
+        const db = await dbPromise
+        await db.run(sql, args);
+
+    };
+
+
+    const copyFaculty = async () => {
+
+        let sql = `
+            INSERT INTO Faculty_Copy (pk, first_name, last_name, start_semester_fk, students_assigned, total_semesters, score)
+            SELECT pk, first_name, last_name, start_semester_fk, students_assigned, total_semesters, score
+            FROM Faculty;
+        `;
+
+        const db = await dbPromise
+        await db.run(sql);
+
+    };
+
 
     //runs all functions in order
     await totalSemesters(semesterInput);
     await calcScore();
     await initalRank(semesterInput);
+    await clearCopyRank();
+    await clearCopyFaculty();
+    await copyRank(semesterInput);
+    await copyFaculty();
 };
 
 
-const clearTable = async (_db) => {
+const clearTable = async () => {
 
-
+    
     let sql = `
     DELETE 
     FROM Student_Rankings;
     `;
 
-    await _db.run(sql)
+    const db = await dbPromise;
+    await db.run(sql)
 };
 
 
-const continuing = async (_db, semesterInput) => {
+const continuing = async (semesterInput) => {;
 
-    await clearTable(_db);
+    await clearTable();
 
     let sql = `
             INSERT INTO Student_Rankings (id, rank, professor, student, percentage, courses, finalized)
@@ -163,12 +270,13 @@ const continuing = async (_db, semesterInput) => {
             ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name) + R.previous;
         `;
 
-    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
-    const semesters = await _db.get(sql, args);
+        let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
+        const db = await dbPromise;
+        const semesters = await db.get(sql, args);
 };
 
 
-const save_condition = async (_db, semesterInput) => {
+const save_condition = async (semesterInput) => {
 
     let sql = `
             SELECT MAX(rank) AS max 
@@ -176,24 +284,27 @@ const save_condition = async (_db, semesterInput) => {
             WHERE A.semester_fk = S.pk AND S.term = ? AND year = ?;
         `;
 
-    let args = [semesterInput.term, semesterInput.year];
-    const maximum = await _db.get(sql, args);
+        let args = [semesterInput.term, semesterInput.year];
+        const db = await dbPromise;
+        const maximum = await db.get(sql, args);
 
-    return maximum.max;
+        return maximum.max;
 };
 
 
-exports.setup = async (_db, semesterInput) => {
+const setup = async (semesterInput) => {
 
-    const condition = await save_condition(_db, semesterInput);
+    const condition = await save_condition(semesterInput);
 
     if (condition == null) {
-
-        await starting(_db, semesterInput);
+        
+        await starting(semesterInput);
     }
 
     else {
 
-        await continuing(_db, semesterInput);
+        await continuing(semesterInput);
     }
 };
+
+setup(semesterInput);

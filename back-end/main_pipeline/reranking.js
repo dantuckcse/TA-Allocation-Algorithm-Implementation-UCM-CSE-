@@ -1,7 +1,19 @@
 //Recalculates the ranking of the students
 
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
+import semesterInput from '../test_data/test_year.js';
+import assignment1 from '../test_data/test_student1.js';
+
+
+const dbPromise = open({
+
+    filename: '../database/TA_Allocation.db',
+    driver: sqlite3.Database
+});
+
 //takes data from fron-end and inputs into table for conditions
-const update_student = async (_db, assignment) => {
+const update_student = async (assignment1) => {
 
     let sql = `
     UPDATE Assignments
@@ -11,15 +23,16 @@ const update_student = async (_db, assignment) => {
         pk = ?;
     `;
 
-    let args = [assignment.courses, assignment.rank, assignment.id];
-    await _db.run(sql, args);
+    let args = [assignment1.courses, assignment1.rank, assignment1.id];
+    const db = await dbPromise;
+    await db.run(sql, args);
 };
 
 
 //recounts total students for professor
 //Note could have done it by simply doing students_assigned = students_assigned + 1, but
 //this allows counting for previous semesters. Allows for future modification for real data.
-const recount = async (_db, semester) => {
+const recount = async (semesterInput) => {
 
     let sql = `
     UPDATE Faculty
@@ -44,13 +57,14 @@ const recount = async (_db, semester) => {
     );
     `;
 
-    let args = [semester.term, semester.year, semester.term, semester.year];
-    await _db.run(sql, args);
+    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
+    const db = await dbPromise;
+    await db.run(sql, args);
 };
 
 
 //recalcuates score for professor based on assignment
-const rescore = async (_db) => {
+const rescore = async () => {
 
     let sql = `
         UPDATE Faculty
@@ -59,12 +73,13 @@ const rescore = async (_db) => {
         END);
     `;
 
-    await _db.run(sql);
+    const db = await dbPromise;
+    await db.run(sql);
 };
 
 
 //finalizes the students assignment for to meet conditions for future iterations
-const finalize_student = async (_db) => {
+const finalize_student = async () => {
 
     let sql = `
         UPDATE Assignments
@@ -72,26 +87,28 @@ const finalize_student = async (_db) => {
         WHERE finalized = 'NO' AND assigned_course IS NOT NULL;
     `;
 
-    await _db.run(sql);
+    const db = await dbPromise;
+    await db.run(sql);
 };
 
 
 //clears Student_Rankings table for new recalcuated data
-const clearTable = async (_db) => {
+const clearTable = async () => {
 
     let sql = `
     DELETE 
     FROM Student_Rankings;
     `;
 
-    await _db.run(sql);
+    const db = await dbPromise;
+    await db.run(sql);
 };
 
 
 //reranks the students
 //slightly different from the version in setup.js
 //This one starts from the rank after the assignment students rank
-const rerank = async (_db, semester) => {
+const rerank = async (semesterInput) => {
 
     let sql = `
     INSERT INTO Student_Rankings (id, rank, professor, student, percentage, courses, finalized)
@@ -137,18 +154,17 @@ const rerank = async (_db, semester) => {
     ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name) + R.previous;
     `;
 
-    let args = [semester.term, semester.year, semester.term, semester.year];
-    await _db.run(sql, args);
+    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
+    const db = await dbPromise
+    await db.run(sql, args);
 
 };
 
 
 //runs all functions in order
-exports.reranking = async (_db, assignment, semester) => {
-    await update_student(_db, assignment);
-    await recount(_db, semester);
-    await rescore(_db,);
-    await finalize_student(_db,);
-    await clearTable(_db,);
-    await rerank(_db, semester);
-}
+await update_student(assignment1);
+await recount(semesterInput);
+await rescore();
+await finalize_student();
+await clearTable();
+await rerank(semesterInput);

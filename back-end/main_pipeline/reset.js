@@ -1,5 +1,6 @@
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
+import semesterInput from '../test_data/test_year.js';
 
 
 const dbPromise = open({
@@ -48,8 +49,8 @@ const clearFaculty = async () => {
 const insertFaculty = async () => {
 
     let sql = `
-        INSERT INTO Faculty (pk, first_name, last_name, start_semester_fk, students_assigned, total_semester, score)
-        SELECT pk, first_name, last_name, start_semester_fk, students_assigned, total_semester, score
+        INSERT INTO Faculty (pk, first_name, last_name, start_semester_fk, students_assigned, total_semesters, score)
+        SELECT pk, first_name, last_name, start_semester_fk, students_assigned, total_semesters, score
         FROM Faculty_Copy;
     `;
 
@@ -64,13 +65,14 @@ const resetAssignments = async (semesterInput) => {
     let sql = `
     UPDATE Assignments
     SET assigned_course = NULL,
-        rank = NULL
+        rank = NULL, 
+        finalized = 'NO'
     WHERE Assignments.semester_fk IN (SELECT DISTINCT semester_fk 
                                       FROM Assignments A, Semester S 
                                       WHERE A.semester_fk = S.pk AND S.term = ? AND S.year = ?);
     `;
 
-    let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
+    let args = [semesterInput.term, semesterInput.year];
         const db = await dbPromise;
         await db.run(sql, args);
 };

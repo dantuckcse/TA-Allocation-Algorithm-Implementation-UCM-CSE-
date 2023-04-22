@@ -15,6 +15,7 @@ let { addProfessor } = require('../input/new_professor');
 let { addSemester } = require('../input/new_semester');
 let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
 let { available_condition, finalized_condition, display_allocation } = require('../main_pipeline/display_semester');
+let { clear_data } = require('../main_pipeline/clear_data');
 
 // Global variable for current semester
 let currentSemesterId = 27;

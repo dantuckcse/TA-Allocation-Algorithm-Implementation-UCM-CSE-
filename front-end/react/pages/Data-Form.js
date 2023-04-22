@@ -58,7 +58,6 @@ export default function Data_Form() {
     };
     const exportCourseDetails = () => {
         courseDetailData = { ...courseDetail, exclusive };
-        console.log(currentSemesterData);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -90,7 +89,19 @@ export default function Data_Form() {
     }
     const exportProfessorDetails = () => {
         professorDetailData = professorDetail
-        console.log(professorDetailData)
+        const body = {
+            professor: professorDetailData,
+            semester: currentSemesterData
+        }
+        console.log("body", body);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
+        fetch(`${url}/professor`, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log("inputted new professor"))
     }
 
     //HANDLE EXPORT STUDENT DETAILS

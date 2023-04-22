@@ -62,16 +62,10 @@ export default function CourseCard(prop) {
                             addStudent(item.id)
 
                             // reranking & ranking requests here
-                            // For some reason the assigned_student object is empty when it's sent to the backend
-                            // When I console.log it here, it's full, but then when I try and console.log the id
-                            // it's undefined
-                            console.log("assigned_student: ", assigned_student)
-                            console.log("assigned_student.id ", assigned_student.id)
                             const body = {
-                                assignment: assigned_student,
+                                assignment: item,
                                 semester: currentSemesterData
                             }
-                            console.log("body", body);
                             const requestOptions = {
                                 method: 'PUT',
                                 headers: { 'Content-Type': 'application/json' },

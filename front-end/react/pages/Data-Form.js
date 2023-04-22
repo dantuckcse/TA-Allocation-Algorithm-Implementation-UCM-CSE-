@@ -2,8 +2,9 @@ import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useEffect, useState } from "react";
 import semesterDataList from '../../../back-end/main_pipeline/semester_list.json'
-import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */}
-import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */}
+import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */ }
+import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */ }
+import { url } from "../components/url.js";
 
 export let currentSemesterData = [];
 export let newSemesterData = [];
@@ -13,7 +14,7 @@ export let studentDetailData = [];
 
 export default function Data_Form() {
     const [semesterData, setSemesterData] = useState([]);
-    useEffect(()=>{
+    useEffect(() => {
         setSemesterData(semesterDataList)
     }, []);
 
@@ -30,7 +31,7 @@ export default function Data_Form() {
         setTerm("");
         setYear("")
         setShowModal(false);
-    }; 
+    };
 
     const [semesterSelect, setSemesterSelect] = useState([])
     const handleSemesterChange = (e) => {
@@ -57,6 +58,15 @@ export default function Data_Form() {
     };
     const exportCourseDetails = () => {
         courseDetailData = { ...courseDetail, exclusive };
+        console.log(currentSemesterData);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(courseDetailData)
+        };
+        fetch(`${url}/course`, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log("inputted new course"))
         console.log("Submitted Course Data: ", courseDetailData)
     };
 
@@ -119,11 +129,11 @@ export default function Data_Form() {
                     <div id="DF-Title">Data Form</div>
                     <div id="DF-Semester-Title">{semesterSelect.term} {semesterSelect.year}</div>
                     <div className='Data-Form-DropDown'>
-                        <label id = "DF-Select-Semester-Title">Select Semester:</label>
+                        <label id="DF-Select-Semester-Title">Select Semester:</label>
 
-                        <select id = "semester-drop-down" onChange={handleSemesterChange}>
-                            {semesterData.map((s, i) => ( 
-                                <option key={i} value = {s}>{s.term} {s.year}</option>
+                        <select id="semester-drop-down" onChange={handleSemesterChange}>
+                            {semesterData.map((s, i) => (
+                                <option key={i} value={s}>{s.term} {s.year}</option>
                             ))}
                         </select>
 

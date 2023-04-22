@@ -185,7 +185,12 @@ router.get('/allSemesters', async function (req, res, next) {
 });
 
 router.post('/course', async function (req, res, next) {
-  const course = req.body;
+  let inputCourse = req.body;
+  const course = {
+    number: inputCourse.courseNumber,
+    percentage: inputCourse.courseUnit,
+    exclusive: inputCourse.exclusive
+  };
   await addCourseData(db, course);
   return res.json("Added course");
 });

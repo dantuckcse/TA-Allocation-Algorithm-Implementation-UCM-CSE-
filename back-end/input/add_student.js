@@ -1,4 +1,17 @@
-const courseRestriction = async (_db, course) => {
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
+import { addStudent } from '../test_data/test_data.js';
+import semesterInput from '../test_data/test_year.js';
+
+
+const dbPromise = open({
+
+    filename: '../database/TA_Allocation.db',
+    driver: sqlite3.Database
+});
+
+
+const courseRestriction = async (course) => {
 
     let sql = `
         SELECT exclusive
@@ -7,16 +20,17 @@ const courseRestriction = async (_db, course) => {
     `;
 
     let args = [course];
-    const result = await _db.get(sql, args);
-
+    const db = await dbPromise;
+    const result = await db.get(sql, args);
+  
     return result.exclusive;
 };
 
 
-const addAssignmentData = async (_db, student, semester) => {
+const addAssignmentData = async (addStudent, semesterInput) => {
 
     let sql = `
-        INSERT INTO Assignments (faculty_fk, semester_fk, percentage, student_name, assigned_course, rank, finalized)
+        INSERT INTO Assignments (faculty_fk, semester_fk, percentage, student_name, student_id, assigned_course, rank, finalized)
         VALUES ( 
             (SELECT pk 
              FROM Faculty 
@@ -27,29 +41,31 @@ const addAssignmentData = async (_db, student, semester) => {
              WHERE term = ? AND year = ?), 
             ?, 
             ?, 
+            ?,
             NULL, 
             NULL,
             'NO');
     `;
 
-    let args = [student.professor_name, student.professor_name, student.professor_name, student.professor_name, semester.term, semester.year, student.percentage, student.student_name];
-    await _db.run(sql, args);
+    let args = [addStudent.professor_name, addStudent.professor_name, addStudent.professor_name, addStudent.professor_name, semesterInput.term, semesterInput.year, addStudent.percentage, addStudent.student_name, addStudent.student_id];
+    const db = await dbPromise;
+    await db.run(sql, args);
 };
 
 
-const addRequestedData = async (_db, student, semester) => {
+const addRequestedData = async (addStudent, semesterInput) => {
 
-    for (let i = 0; i < student.courses.length; i++) {
+    for (let i = 0; i < addStudent.courses.length; i++) {
 
-        let numStr = student.courses[i].toString();
-        let course = student.courses[i];
+        let numStr = addStudent.courses[i].toString();
+        let course = addStudent.courses[i];
 
-        const exclusive_access = await courseRestriction(_db, course);
+        const exclusive_access = await courseRestriction(course);
         let course_category = '';
 
         if (exclusive_access == 'YES') {
-
-            if (course == student.exclusive_course) {
+        
+            if (course == addStudent.exclusive_course) {
 
                 course_category = 'ensure';
             }
@@ -78,14 +94,14 @@ const addRequestedData = async (_db, student, semester) => {
                 ?);
         `;
 
-        let args = [student.student_name, semester.term, semester.year, numStr, course_category];
-        await _db.run(sql, args);
-
+        let args = [addStudent.student_name, semesterInput.term, semesterInput.year, numStr, course_category];
+        const db = await dbPromise;
+        await db.run(sql, args);
+        
     }
 
 };
 
-exports.addStudent = async (_db, student, semester) => {
-    await addAssignmentData(_db, student, semester);
-    await addRequestedData(_db, student, semester);
-}
+
+await addAssignmentData(addStudent, semesterInput);
+await addRequestedData(addStudent, semesterInput);

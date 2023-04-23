@@ -8,19 +8,18 @@ const dbPromise = open({
 });
 
 
-const getList =  async () => {
+const getList = async () => {
 
-    let sql = `
+  let sql = `
         SELECT term, year
         FROM Semester;
     `;
 
-    const db = await dbPromise;
-    const rows = await db.all(sql);
-    return rows;
+  const db = await dbPromise;
+  const rows = await db.all(sql);
+  return rows;
 };
 
 const app = await getList();
-fs.writeFileSync('semester_list.json', JSON.stringify(app,null,2));
-console.log('success')
+fs.writeFileSync('semester_list.json', JSON.stringify(app, null, 2));
 export default app;

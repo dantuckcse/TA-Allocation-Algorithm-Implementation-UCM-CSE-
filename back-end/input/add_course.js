@@ -1,16 +1,4 @@
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
-import { addCourse } from '../test_data/test_data.js';
-
-
-const dbPromise = open({
-
-    filename: '../database/TA_Allocation.db',
-    driver: sqlite3.Database
-});
-
-
-const addCourseData = async (addCourse) => {
+exports.addCourseData = async (_db, addCourse) => {
 
     let sql = `
         INSERT INTO Available_Courses (course_number, percentage, exclusive)
@@ -18,9 +6,5 @@ const addCourseData = async (addCourse) => {
     `;
 
     let args = [addCourse.number, addCourse.percentage, addCourse.exclusive.toUpperCase()];
-    const db = await dbPromise;
-    await db.run(sql, args);
+    await _db.run(sql, args);
 };
-
-
-addCourseData(addCourse);

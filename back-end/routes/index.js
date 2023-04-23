@@ -215,7 +215,9 @@ router.post('/semester', async function (req, res, next) {
 
 router.get('/finalized', async (req, res) => {
   const semester = req.body;
-  await finalize_semester(db, semester);
+  await finalize_semester(db, semester); //This used to be middleware, do I keep it like that?
+
+  //runs after finalize_semester middleware and returns messages for whatever front-end wants when finalizing TA allocation
   const finalized = await finalized_confirmation(db, semester);
 
   if (finalized === 'YES') {

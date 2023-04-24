@@ -221,7 +221,7 @@ router.post('/professor', async function (req, res, next) {
   const { professor, semester } = req.body;
 
   try {
-    await addProfessor(db, professor, semester);
+    await addProfessor(db, professor);
     return res.json("Added Professor");
   }
   catch (error) {
@@ -264,6 +264,7 @@ router.get('/finalized', async (req, res) => {
   }
 
   if (finalized === 'YES') {
+    await clear_data(db);
     return res.json("Finalization completed");
   }
   else {

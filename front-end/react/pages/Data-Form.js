@@ -17,7 +17,9 @@ export let studentDetailData = [];
 export default function Data_Form() {
     const [semesterData, setSemesterData] = useState([]);
     useEffect(() => {
-        setSemesterData(semesterDataList)
+        fetch("/back-end/main_pipeline/semester_list.json")
+          .then((response) => response.json())
+          .then((data) =>  setSemesterData(data));
     }, []);
 
     const [term, setTerm] = useState("");

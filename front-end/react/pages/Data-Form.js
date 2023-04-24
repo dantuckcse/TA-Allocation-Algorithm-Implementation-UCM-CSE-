@@ -145,6 +145,10 @@ export default function Data_Form() {
         const updateStudentDetails = { ...studentDetails, studentTAUnit: e.target.value }
         setStudentDetails(updateStudentDetails)
     }
+    const exportStudentID = (e) => {
+        const updatedStudentDetails = {...studentDetails, studentID: e.target.value }
+        setStudentDetails(updatedStudentDetails)
+    }
 
     const exportStudentDetails = () => {
         studentDetailData = studentDetails
@@ -155,7 +159,7 @@ export default function Data_Form() {
             courses: studentDetailData.studentCourses,
             exclusive_course: studentDetailData.studentExclusiveCourses,
             percentage: studentDetailData.studentTAUnit,
-            student_id: 0, //Fix student_id part
+            student_id: studentDetailData.studentID, //ADDED Student ID
         }
         console.log(student)
 
@@ -267,6 +271,7 @@ export default function Data_Form() {
                             <input className="DF-CD-Input-Box" onChange={exportStudentCourses} type="text" placeholder="Courses" />
                             <input className="DF-CD-Input-Box" onChange={exportStudentExclusiveCourses} type="number" placeholder="Exclusive Course" />
                             <input className="DF-CD-Input-Box" onChange={exportStudentTAUnit} type="number" placeholder="TA Unit" />
+                            <input className="DF-CD-Input-Box" onChange={exportStudentID} type="number" placeholder="Student ID" />
                             <button className="DF-CD-Button" onClick={exportStudentDetails}>Submit Student Data</button>
                         </div>
                     </div>

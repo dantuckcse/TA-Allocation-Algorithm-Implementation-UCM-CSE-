@@ -13,8 +13,8 @@ export default function Header() {
                     </Link>
                 </h3>
                 <h3 id="nav-item">
-                    <Link href="/Initial-Faculty-Ranking">
-                        INITIAL FACULTY RANKING
+                    <Link href="/Data-Form">
+                        DATA FORM
                     </Link>
                 </h3>
                 <h3 id="nav-item">

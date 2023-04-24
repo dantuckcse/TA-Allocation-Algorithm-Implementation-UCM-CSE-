@@ -7,11 +7,7 @@ export default function Home() {
     <Layout home>
       <Head>
         <title>Welcome Page - Sign-In Page</title>
-      </Head>
-      
-      <Link href="/Initial-Faculty-Ranking">
-        <h1>INITIAL FACULTY RANKING</h1>
-      </Link>
+      </Head>      
       <Link href="/TA-Allocation/allocation">
         <h1>TA ALLOCATION</h1>
       </Link>

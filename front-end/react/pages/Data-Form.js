@@ -5,6 +5,9 @@ import semesterDataList from '../../../back-end/main_pipeline/semester_list.json
 import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */ }
 import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */ }
 import { url } from "../components/url.js";
+import { getList } from '../../../back-end/main_pipeline/semester_list.json';
+
+
 
 export let currentSemesterData = [];
 export let newSemesterData = [];

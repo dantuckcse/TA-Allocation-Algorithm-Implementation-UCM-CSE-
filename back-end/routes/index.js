@@ -264,6 +264,7 @@ router.get('/finalized', async (req, res) => {
   }
 
   if (finalized === 'YES') {
+    await clear_data(db);
     return res.json("Finalization completed");
   }
   else {

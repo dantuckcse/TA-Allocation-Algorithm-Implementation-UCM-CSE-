@@ -58,10 +58,15 @@ export default function Data_Form() {
     };
     const exportCourseDetails = () => {
         courseDetailData = { ...courseDetail, exclusive };
+        const course = {
+            number: courseDetailData.courseNumber,
+            percentage: courseDetailData.courseUnit,
+            exclusive: courseDetailData.exclusive
+        };
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(courseDetailData)
+            body: JSON.stringify(course)
         };
         fetch(`${url}/course`, requestOptions)
             .then(response => response.json())

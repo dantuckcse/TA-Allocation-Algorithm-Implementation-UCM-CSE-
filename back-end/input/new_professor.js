@@ -11,19 +11,15 @@ const insertData = async (_db, semesters, professor) => {
 
 
 
-exports.addProfessor = async (_db, professor, semester) => {
+exports.addProfessor = async (_db, professor) => {
 
     let sql = `
-    SELECT 
-        (SELECT semester_order
-         FROM Semester
-         WHERE term = ? AND year = ?) - 
-        (SELECT semester_order
-         FROM Semester
-         WHERE term = ? AND year = ?) AS num_semesters;
+        SELECT pk as num_semesters
+        FROM Semester
+        WHERE term = ? AND year = ?;
     `;
 
-    let args = [semester.term, semester.year, professor.StartingTerm, professor.StartingYear];
+    let args = [professor.StartingTerm, professor.StartingYear];
     const semesters = await _db.get(sql, args);
 
     await insertData(_db, semesters, professor);

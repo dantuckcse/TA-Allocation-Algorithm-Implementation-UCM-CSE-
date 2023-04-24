@@ -99,28 +99,23 @@ router.put('/current_semester/:term/:year', async function (req, res, next) {
   return res.json({ currentSemesterId, msg: "success" })
 });
 
-// Given the current semester, find the amount of space each class has. 
-// Also find the total space in all classes
-router.get('/total_available/', async function (req, res, next) {
-  // Find all the available classes for that semester
+// Find all the classes and how much space they have
+router.get('/available_courses/', async function (req, res, next) {
+  // Find all the available classes
   sql = `
-    SELECT course_number, percentage
+    SELECT *
     FROM Available_Courses
-    WHERE semester_fk = ?
   `;
-  args = [currentSemesterId];
-  const availableCourses = await db.all(sql, args);
 
-  // Add up the total number of spaces for the available courses
-  sql = `
-    SELECT SUM(percentage) AS total_space
-    FROM Available_Courses
-    WHERE semester_fk = ?
-  `;
-  args = [currentSemesterId]
-  const totalSpace = await db.get(sql, args);
-
-  return res.json({ details: availableCourses, total: totalSpace })
+  let availableCourses;
+  try {
+    availableCourses = await db.all(sql);
+    return res.json(availableCourses)
+  }
+  catch (error) {
+    console.error(error);
+    return res.json("Error executing available_courses route");
+  }
 });
 
 // Delete a semester (the semester to delete is in the body)

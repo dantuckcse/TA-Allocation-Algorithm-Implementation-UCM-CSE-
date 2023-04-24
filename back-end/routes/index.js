@@ -237,7 +237,6 @@ router.post('/professor', async function (req, res, next) {
 
 router.post('/semester', async function (req, res, next) {
   const semester = req.body;
-
   try {
     await addSemester(db, semester);
     return res.json('Added Semester');

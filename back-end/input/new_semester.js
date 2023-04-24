@@ -5,6 +5,6 @@ exports.addSemester = async (_db, newSemester) => {
         VALUES (?, ?, 'NO', NULL, (SELECT COALESCE(MAX(semester_order), 0) + 1 FROM Semester));
     `;
 
-    let args = [newSemester.new_term, newSemester.new_year];
+    let args = [newSemester.term, newSemester.year];
     await _db.run(sql, args);
 };

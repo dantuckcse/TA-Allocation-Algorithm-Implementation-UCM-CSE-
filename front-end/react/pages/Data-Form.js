@@ -31,6 +31,16 @@ export default function Data_Form() {
         setTerm("");
         setYear("")
         setShowModal(false);
+
+        // Create new semester on backend
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newSemester)
+        };
+        fetch(`${url}/semester`, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data))
     };
 
     const [semesterSelect, setSemesterSelect] = useState([])

@@ -130,7 +130,31 @@ export default function Data_Form() {
 
     const exportStudentDetails = () => {
         studentDetailData = studentDetails
-        console.log(studentDetailData)
+
+        const student = {
+            professor_name: studentDetailData.associatedProfessorName,
+            student_name: studentDetailData.fullName,
+            courses: studentDetailData.studentCourses,
+            exclusive_course: studentDetailData.studentExclusiveCourses,
+            percentage: studentDetailData.studentTAUnit,
+            student_id: 0, //Fix student_id part
+        }
+        console.log(student)
+
+        // Add new student
+        const body = {
+            student: student,
+            semester: currentSemesterData
+        }
+        console.log("body", body);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
+        fetch(`${url}/student`, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log("inputted new student"))
     }
 
     return (

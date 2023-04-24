@@ -196,7 +196,7 @@ router.post('/course', async function (req, res, next) {
 });
 
 router.post('/student', async function (req, res, next) {
-  const { student, semester } = req.body;
+  let { student, semester } = req.body;
   await addStudent(db, student, semester);
   return res.json("Added student");
 });

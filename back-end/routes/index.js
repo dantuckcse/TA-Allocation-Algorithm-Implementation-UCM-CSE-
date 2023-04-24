@@ -16,6 +16,7 @@ let { addSemester } = require('../input/new_semester');
 let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
 let { available_condition, finalized_condition, display_allocation } = require('../main_pipeline/display_semester');
 let { clear_data } = require('../main_pipeline/clear_data');
+let { reset } = require('../main_pipeline/reset');
 
 // Global variable for current semester
 let currentSemesterId = 27;
@@ -301,5 +302,19 @@ router.get('/allocation', async (req, res) => {
     res.status(400).json({ error: 'Allocation not finalized or not available' });
   }
 });
+
+router.put('/reset', async (req, res, next) => {
+  const { semester } = req.body;
+  let response;
+  try {
+    await reset(db, semester);
+    response = 'successfully reset';
+  }
+  catch (error) {
+    console.error(error);
+    response = 'Error: unable to reset'
+  }
+  return res.json(response);
+})
 
 module.exports = router;

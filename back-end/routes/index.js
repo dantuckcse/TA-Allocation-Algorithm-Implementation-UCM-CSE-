@@ -164,8 +164,14 @@ router.get('/rankings', async function (req, res, next) {
 
 router.post('/setup', async function (req, res, next) {
   const semesterInput = req.body;
-  await setup(db, semesterInput);
-  return res.json('setup was run');
+  try {
+    await setup(db, semesterInput);
+    return res.json('setup was run successfully');
+  }
+  catch (error) {
+    console.error(error);
+    return res.json('Error: Setup did not run properly');
+  }
 });
 
 router.put('/reranking', async function (req, res, next) {
@@ -175,8 +181,14 @@ router.put('/reranking', async function (req, res, next) {
     ...assignment,
     courses: courseListString
   }
-  await reranking(db, assignment, semester);
-  return res.json("reranking was run");
+  try {
+    await reranking(db, assignment, semester);
+    return res.json("reranking was run");
+  }
+  catch (error) {
+    console.error(error);
+    return res.json("Error: reranking was not run properly");
+  }
 });
 
 router.get('/allSemesters', async function (req, res, next) {
@@ -186,50 +198,109 @@ router.get('/allSemesters', async function (req, res, next) {
 
 router.post('/course', async function (req, res, next) {
   let course = req.body;
-  await addCourseData(db, course);
-  return res.json("Added course");
+  try {
+    await addCourseData(db, course);
+    return res.json("Added course");
+  }
+  catch (error) {
+    console.error(error);
+    return res.json("Error: Couldn't add course")
+  }
 });
 
 router.post('/student', async function (req, res, next) {
   let { student, semester } = req.body;
-  await addStudent(db, student, semester);
-  return res.json("Added student");
+
+  try {
+    await addStudent(db, student, semester);
+    return res.json("Added student");
+  }
+  catch (error) {
+    console.error(error)
+    return res.json("Error: Couldn't add student")
+  }
+
 });
 
 router.post('/professor', async function (req, res, next) {
   const { professor, semester } = req.body;
-  await addProfessor(db, professor, semester);
-  return res.json("Added Professor");
+
+  try {
+    await addProfessor(db, professor, semester);
+    return res.json("Added Professor");
+  }
+  catch (error) {
+    console.error(error)
+    return res.json("Error: Couldn't Add Professor")
+  }
 });
 
 router.post('/semester', async function (req, res, next) {
   const semester = req.body;
-  await addSemester(db, semester);
-  return res.json('Added Semester');
+
+  try {
+    await addSemester(db, semester);
+    return res.json('Added Semester');
+  }
+  catch (error) {
+    console.error(error);
+    return res.json("Error: Couldn't add semester");
+  }
 });
 
 router.get('/finalized', async (req, res) => {
   const semester = req.body;
-  await finalize_semester(db, semester); //This used to be middleware, do I keep it like that?
+
+  try {
+    await finalize_semester(db, semester); //This used to be middleware, do I keep it like that?
+  }
+  catch (error) {
+    console.error(error);
+    return res.json("Error: Couldn't execute finalized route")
+  }
 
   //runs after finalize_semester middleware and returns messages for whatever front-end wants when finalizing TA allocation
-  const finalized = await finalized_confirmation(db, semester);
+  let finalized;
+  try {
+    finalized = await finalized_confirmation(db, semester);
+  }
+  catch (error) {
+    console.error(error);
+    return res.json("Error: Couldn't execute finalized route")
+  }
 
   if (finalized === 'YES') {
-    res.send("Finalization completed");
+    return res.json("Finalization completed");
   }
   else {
-    res.send("Not all students have been finalized");
+    return res.json("Not all students have been finalized");
   }
 });
 
 router.get('/allocation', async (req, res) => {
   const semesterInput = req.body;
-  const finalized = await finalized_condition(db, semesterInput);
-  const available = await available_condition(db, semesterInput);
+
+  let finalized, available;
+
+  try {
+    finalized = await finalized_condition(db, semesterInput);
+    available = await available_condition(db, semesterInput);
+  }
+  catch (error) {
+    console.error(error);
+    return res.json("Error: Couldn't execute allocation route");
+  }
+
   if (finalized === 'YES' && available === 'YES') {
-    const allocation = await display_allocation(db, semesterInput);
-    res.json(allocation);
+    let allocation;
+    try {
+      allocation = await display_allocation(db, semesterInput);
+      return res.json(allocation);
+    }
+    catch (error) {
+      console.error(error);
+      return res.json("Error: Couldn't execute allocation route");
+    }
   }
   else {
     res.status(400).json({ error: 'Allocation not finalized or not available' });

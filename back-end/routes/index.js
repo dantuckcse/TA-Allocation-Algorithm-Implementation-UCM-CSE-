@@ -6,7 +6,7 @@ let { open } = require('sqlite');
 
 // main_pipeline functions/files imports
 let { setup } = require('../main_pipeline/setup');
-let { cleanRankings } = require('../main_pipeline/ranking');
+// let { cleanRankings } = require('../main_pipeline/ranking');
 let { reranking } = require('../main_pipeline/reranking');
 // let { getList } = require('../main_pipeline/semester_list');
 let { addCourseData } = require('../input/add_course');
@@ -144,15 +144,15 @@ router.delete('/semester', async function (req, res, next) {
 });
 
 // Returns the rankings of all the requests
-router.get('/rankings', async function (req, res, next) {
-  let sql = `
-      SELECT * 
-      FROM student_rankings;
-    `;
-  const rows = await db.all(sql);
-  const cleanRows = cleanRankings(rows);
-  return res.json(cleanRows);
-});
+// router.get('/rankings', async function (req, res, next) {
+//   let sql = `
+//       SELECT * 
+//       FROM student_rankings;
+//     `;
+//   const rows = await db.all(sql);
+//   const cleanRows = cleanRankings(rows);
+//   return res.json(cleanRows);
+// });
 
 // ---------------
 // New routes are below, all the routes above might get deleted

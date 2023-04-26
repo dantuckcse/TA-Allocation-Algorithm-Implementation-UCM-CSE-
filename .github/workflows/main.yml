@@ -35,7 +35,6 @@ jobs:
       - name: Remove backend import from Data-Form.js
         run: |
           sed -i 's/import semesterDataList from "..\/..\/..\/back-end\/main_pipeline\/semester_list.json";//g' front-end/react/pages/Data-Form.js
-
       - name: Build and push Docker images (frontend)
         uses: docker/build-push-action@v2
         with:
@@ -60,6 +59,10 @@ jobs:
       - name: Install gke-gcloud-auth-plugin
         run: |
           gcloud components install gke-gcloud-auth-plugin
+
+      - name: Show current directory structure
+        run: |
+          ls -R
 
       - name: Apply dummy workload
         run: kubectl apply -f ${{ github.workspace }}/.github/workflows/kubernetes/dummy-workload.yaml

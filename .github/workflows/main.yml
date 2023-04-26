@@ -57,7 +57,7 @@ jobs:
         gcloud container clusters get-credentials autopilot-cluster-1 --zone us-central1
 
     - name: Apply dummy workload
-      run: kubectl apply -f kubernetes/dummy-workload.yaml
+      run: kubectl apply -f .github/workflows/kubernetes/dummy-workload.yaml
 
     - name: Install gke-gcloud-auth-plugin
       run: |

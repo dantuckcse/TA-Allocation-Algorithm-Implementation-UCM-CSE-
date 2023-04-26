@@ -13,7 +13,8 @@ let { addCourseData } = require('../input/add_course');
 let { addStudent } = require('../input/add_student');
 let { addProfessor } = require('../input/new_professor');
 let { addSemester } = require('../input/new_semester');
-let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
+// let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
+let { finalize_semester_v2 } = require('../main_pipeline/finalize_semester_v2');
 let { available_condition, finalized_condition, display_allocation } = require('../main_pipeline/display_semester');
 let { clear_data } = require('../main_pipeline/clear_data');
 let { reset } = require('../main_pipeline/reset');
@@ -245,32 +246,15 @@ router.post('/semester', async function (req, res, next) {
 
 router.get('/finalized', async (req, res) => {
   const semester = req.body;
-
   try {
-    await finalize_semester(db, semester); //This used to be middleware, do I keep it like that?
+    await finalize_semester_v2(_db, semester);
+    return res.json('finalize successful');
   }
   catch (error) {
     console.error(error);
-    return res.json("Error: Couldn't execute finalized route")
+    return res.json('finalize unsuccessful');
   }
 
-  //runs after finalize_semester middleware and returns messages for whatever front-end wants when finalizing TA allocation
-  let finalized;
-  try {
-    finalized = await finalized_confirmation(db, semester);
-  }
-  catch (error) {
-    console.error(error);
-    return res.json("Error: Couldn't execute finalized route")
-  }
-
-  if (finalized === 'YES') {
-    await clear_data(db);
-    return res.json("Finalization completed");
-  }
-  else {
-    return res.json("Not all students have been finalized");
-  }
 });
 
 router.get('/allocation', async (req, res) => {

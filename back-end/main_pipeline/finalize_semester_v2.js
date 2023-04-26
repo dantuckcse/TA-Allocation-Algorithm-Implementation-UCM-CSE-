@@ -27,8 +27,8 @@ const semester_finalized = async (_db, semesterInput) => {
     await _db.run(sql, args);
 };
 
-exports.reset = async (_db, semesterInput) => {
+exports.finalize_semester_v2 = async (_db, semesterInput) => {
     await students_finalized(_db, semesterInput);
     await semester_finalized(_db, semesterInput);
-    
+
 }

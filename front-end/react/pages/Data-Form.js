@@ -6,9 +6,6 @@ import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EX
 import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */ }
 import { url } from "../components/url.js";
 
-const API_URL = 'http://localhost:3000/allSemesters'; //
-
-
 export let currentSemesterData = [];
 export let newSemesterData = [];
 export let courseDetailData = [];
@@ -18,9 +15,9 @@ export let studentDetailData = [];
 export default function Data_Form() {
     const [semesterData, setSemesterData] = useState([]);
     useEffect(() => {
-        fetch(API_URL)
-          .then((response) => response.json())
-          .then(data => setSemesterData(data));
+        fetch(`${url}/allSemesters`)
+            .then((response) => response.json())
+            .then(data => setSemesterData(data));
     }, []);
 
     const [term, setTerm] = useState("");
@@ -148,7 +145,7 @@ export default function Data_Form() {
         setStudentDetails(updateStudentDetails)
     }
     const exportStudentID = (e) => {
-        const updatedStudentDetails = {...studentDetails, studentID: e.target.value }
+        const updatedStudentDetails = { ...studentDetails, studentID: e.target.value }
         setStudentDetails(updatedStudentDetails)
     }
 

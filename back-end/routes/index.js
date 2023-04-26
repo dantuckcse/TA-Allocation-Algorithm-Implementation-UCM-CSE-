@@ -6,7 +6,7 @@ let { open } = require('sqlite');
 
 // main_pipeline functions/files imports
 let { setup } = require('../main_pipeline/setup');
-// let { cleanRankings } = require('../main_pipeline/ranking');
+let { cleanRankings } = require('../main_pipeline/ranking');
 let { reranking } = require('../main_pipeline/reranking');
 let { getList } = require('../main_pipeline/semester_list');
 let { addCourseData } = require('../input/add_course');

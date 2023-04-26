@@ -14,11 +14,18 @@ export default function CourseCard(prop) {
 
     const [addingStudent, setAddingStudent] = useState([])
 
+    /*  This works similarly to 'markAsFinalized' in allocation.js'. 
+    addStudent ensures that the student dropped stays inside of the dropped slot
+    by storing the dropped students in 'droppedStudents.*/
     const addStudent = (id) => {
         const droppedStudents = students.filter(slot => id === slot.id)
         setAddingStudent(addingStudent => [...addingStudent, droppedStudents[0]])
     }
 
+    /*  slottedStudents maps through *filtered* students. The filter conditions are:
+     -  The 'finalized' item in the students object must be equal to "YES".
+        Being 'finalized' means that they have been added to a slot. 
+        They are set as 'finalized' in allocation.js, in markAsFinalized. */
     const slottedStudents = addingStudent
         .filter((f_student, i) => f_student.finalized === "YES")
         .map((f_student, i) =>

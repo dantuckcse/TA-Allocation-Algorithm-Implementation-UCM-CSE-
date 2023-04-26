@@ -55,7 +55,9 @@ export default function Allocation() {
         };
         fetch(`${url}/allocation`, requestOptions)
             .then(response => response.json())
-            .then(msg => console.log(msg))
+            .then(exportData => {
+                console.log(exportData)
+            })
     }
 
     // Setup & Ranking

@@ -189,3 +189,46 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
   justify-content: center;
   gap: 4vw;
 }
+
+.DF-Input-Div-Student-Fields-Div{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+.DF-Input-Student-Fields-1{
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#DF-Student-Details-Title{
+  display: flex;
+  flex: column;
+}
+
+#DF-Input-Div-Student{
+  margin-left: -5vw;
+}
+
+.DF-Input-Div{
+  padding-left: 5vw;
+}
+
+.DF-CD-Button{
+  padding: 12px 24px;
+  border: none;
+  background-color: #FFBF3C;
+  color: #102E52;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.DF-CD-Button:hover {
+  background-color: #ca901c;
+}

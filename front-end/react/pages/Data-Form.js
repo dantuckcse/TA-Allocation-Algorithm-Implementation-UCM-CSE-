@@ -265,17 +265,24 @@ export default function Data_Form() {
                         {/* STUDENT DETAILS */}
                         <div className="DF-Input-Div">
                             <h1>Student Details</h1>
-                            <input className="DF-CD-Input-Box" onChange={exportAssociatedProfessorName} type="text" placeholder="Associated Professor Name" />
-                            <input className="DF-CD-Input-Box" onChange={exportStudentFullName} type="text" placeholder="Full Name" />
-                            <input className="DF-CD-Input-Box" onChange={exportStudentCourses} type="text" placeholder="Courses" />
-                            <input className="DF-CD-Input-Box" onChange={exportStudentExclusiveCourses} type="number" placeholder="Exclusive Course" />
-                            <input className="DF-CD-Input-Box" onChange={exportStudentTAUnit} type="number" placeholder="TA Unit" />
-                            <input className="DF-CD-Input-Box" onChange={exportStudentID} type="number" placeholder="Student ID" />
-                            <button className="DF-CD-Button" onClick={exportStudentDetails}>Submit Student Data</button>
+                            <div className="DF-Input-Div-Student-Fields-Div">
+                                <div className= "DF-Input-Student-Fields-1">
+                                    <input className="DF-CD-Input-Box" onChange={exportAssociatedProfessorName} type="text" placeholder="Associated Professor Name" />
+                                    <input className="DF-CD-Input-Box" onChange={exportStudentFullName} type="text" placeholder="Full Name" />
+                                    <input className="DF-CD-Input-Box" onChange={exportStudentCourses} type="text" placeholder="Courses" />
+                                </div>
+                                <div className= "DF-Input-Student-Fields-1">
+                                    <input className="DF-CD-Input-Box" onChange={exportStudentExclusiveCourses} type="number" placeholder="Exclusive Course" />
+                                    <input className="DF-CD-Input-Box" onChange={exportStudentTAUnit} type="number" placeholder="TA Unit" />
+                                    <input className="DF-CD-Input-Box" onChange={exportStudentID} type="number" placeholder="Student ID" />
+                                </div>
+                            </div>
+                            <button className="DF-CD-Button" id = "DF-CD-Button-Student" onClick={exportStudentDetails}>Submit Student Data</button>
                         </div>
                     </div>
-                    <button onClick={newSemesterFunction}>New Semester</button> {/* EXPORT CHECK */}
-                    <button onClick={currentSemesterFunction}>Current Semester</button> {/* EXPORT CHECK */}
+                    {/* EXPORT CHECK */}
+                    {/* <button onClick={newSemesterFunction}>New Semester</button> 
+                    <button onClick={currentSemesterFunction}>Current Semester</button>  */}
                 </div>
             </Layout>
         </>

@@ -1,28 +1,15 @@
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
-import semesterInput from '../test_data/test_year.js';
-
-
-const dbPromise = open({
-
-    filename: '../database/TA_Allocation.db',
-    driver: sqlite3.Database
-});
-
-
-const clearRankings = async () => {
+const clearRankings = async (_db) => {
 
     let sql = `
         DELETE 
         FROM Student_Rankings;
     `;
 
-    const db = await dbPromise;
-    await db.run(sql);
+    await _db.run(sql);
 };
 
 
-const insertRankings = async () => {
+const insertRankings = async (_db) => {
 
     let sql = `
         INSERT INTO Student_Rankings (id, rank, professor, student, percentage, courses, finalized)
@@ -30,23 +17,21 @@ const insertRankings = async () => {
         FROM Student_Rankings_Copy;
     `;
 
-    const db = await dbPromise;
-    await db.run(sql);
+    await _db.run(sql);
 };
 
-const clearFaculty = async () => {
+const clearFaculty = async (_db) => {
 
     let sql = `
         DELETE
         FROM Faculty;
     `;
 
-    const db = await dbPromise;
-    await db.run(sql);
+    await _db.run(sql);
 };
 
 
-const insertFaculty = async () => {
+const insertFaculty = async (_db) => {
 
     let sql = `
         INSERT INTO Faculty (pk, first_name, last_name, start_semester_fk, students_assigned, total_semesters, score)
@@ -54,13 +39,12 @@ const insertFaculty = async () => {
         FROM Faculty_Copy;
     `;
 
-    const db = await dbPromise
-    await db.run(sql);
+    await _db.run(sql);
 
 };
 
 
-const resetAssignments = async (semesterInput) => {
+const resetAssignments = async (_db, semesterInput) => {
 
     let sql = `
     UPDATE Assignments
@@ -73,12 +57,13 @@ const resetAssignments = async (semesterInput) => {
     `;
 
     let args = [semesterInput.term, semesterInput.year];
-        const db = await dbPromise;
-        await db.run(sql, args);
+    await _db.run(sql, args);
 };
 
-await clearRankings();
-await insertRankings();
-await clearFaculty();
-await insertFaculty();
-await resetAssignments(semesterInput);
+exports.reset = async (_db, semesterInput) => {
+    await clearRankings(_db);
+    await insertRankings(_db);
+    await clearFaculty(_db);
+    await insertFaculty(_db);
+    await resetAssignments(_db, semesterInput);
+}

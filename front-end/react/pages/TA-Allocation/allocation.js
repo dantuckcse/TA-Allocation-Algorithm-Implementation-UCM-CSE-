@@ -36,12 +36,13 @@ export default function Allocation() {
         };
         fetch(`${url}/setup`, requestOptions)
             .then(response => response.json())
-            .then(data => fetch(`${url}/rankings`))
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setStudents(data)
-            })
+            .then(data => console.log(data))
+        // .then(data => fetch(`${url}/rankings`))
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log(data)
+        //     setStudents(data)
+        // })
     }, []);
 
     return (

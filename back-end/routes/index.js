@@ -6,9 +6,9 @@ let { open } = require('sqlite');
 
 // main_pipeline functions/files imports
 let { setup } = require('../main_pipeline/setup');
-let { cleanRankings } = require('../main_pipeline/ranking');
+// let { cleanRankings } = require('../main_pipeline/ranking');
 let { reranking } = require('../main_pipeline/reranking');
-// let { getList } = require('../main_pipeline/semester_list');
+let { getList } = require('../main_pipeline/semester_list');
 let { addCourseData } = require('../input/add_course');
 let { addStudent } = require('../input/add_student');
 let { addProfessor } = require('../input/new_professor');
@@ -16,6 +16,7 @@ let { addSemester } = require('../input/new_semester');
 let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
 let { available_condition, finalized_condition, display_allocation } = require('../main_pipeline/display_semester');
 let { clear_data } = require('../main_pipeline/clear_data');
+let { reset } = require('../main_pipeline/reset');
 
 // Global variable for current semester
 let currentSemesterId = 27;
@@ -143,15 +144,15 @@ router.delete('/semester', async function (req, res, next) {
 });
 
 // Returns the rankings of all the requests
-router.get('/rankings', async function (req, res, next) {
-  let sql = `
-      SELECT * 
-      FROM student_rankings;
-    `;
-  const rows = await db.all(sql);
-  const cleanRows = cleanRankings(rows);
-  return res.json(cleanRows);
-});
+// router.get('/rankings', async function (req, res, next) {
+//   let sql = `
+//       SELECT * 
+//       FROM student_rankings;
+//     `;
+//   const rows = await db.all(sql);
+//   const cleanRows = cleanRankings(rows);
+//   return res.json(cleanRows);
+// });
 
 // ---------------
 // New routes are below, all the routes above might get deleted
@@ -301,5 +302,19 @@ router.get('/allocation', async (req, res) => {
     res.status(400).json({ error: 'Allocation not finalized or not available' });
   }
 });
+
+router.put('/reset', async (req, res, next) => {
+  const { semester } = req.body;
+  let response;
+  try {
+    await reset(db, semester);
+    response = 'successfully reset';
+  }
+  catch (error) {
+    console.error(error);
+    response = 'Error: unable to reset'
+  }
+  return res.json(response);
+})
 
 module.exports = router;

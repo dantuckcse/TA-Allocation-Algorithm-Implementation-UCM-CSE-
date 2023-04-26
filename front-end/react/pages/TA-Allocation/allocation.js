@@ -19,9 +19,14 @@ export default function Allocation() {
     const [courses, setCourses] = useState(() => availableData)
     const [students, setStudents] = useState(() => requestData)
 
+    /*  markAsFinalized filters all of the students' ids using the following condition:
+     -  If the id of the student being dropped (droppedID) matches an id in the students array (f_student.id),
+        then the dragged student will be accepted into the dropped slot (setStudents). */  
     const markAsFinalized = id => {
         const f_student = students.filter((f_student, i) => id === f_student.id) // f_student = filtered student
-        f_student[0].finalized = "YES"
+        f_student[0].finalized = "YES" // Once the item is "dropped", finalized will be marked as "YES".
+        
+        // This removes the student item that matches the id of the dropped item from the leftside selection
         setStudents(students.filter((f_student, i) => f_student.id !== id).concat(f_student[0]))
     }
 

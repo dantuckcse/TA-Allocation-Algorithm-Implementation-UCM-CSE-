@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
+  scaleTargetRef:
+    name: dummy_workload
   replicas: 1
   selector:
     matchLabels:

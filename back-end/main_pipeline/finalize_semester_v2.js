@@ -1,16 +1,5 @@
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
-import semesterInput from '../test_data/test_year.js';
 
-
-const dbPromise = open({
-
-    filename: '../database/TA_Allocation.db',
-    driver: sqlite3.Database
-});
-
-
-const students_finalized = async (semesterInput) => {
+const students_finalized = async (_db, semesterInput) => {
 
     let sql = `
         UPDATE Assignments
@@ -21,12 +10,11 @@ const students_finalized = async (semesterInput) => {
     `;
 
     let args = [semesterInput.term, semesterInput.year];
-    const db = await dbPromise;
-    await db.run(sql, args);
+    await _db.run(sql, args);
 };
 
 
-const semester_finalized = async (semesterInput) => {
+const semester_finalized = async (_db, semesterInput) => {
 
     let sql = `
         UPDATE Semester 
@@ -35,9 +23,12 @@ const semester_finalized = async (semesterInput) => {
     `;
 
     let args = [semesterInput.term, semesterInput.year];
-    const db = await dbPromise;
-    await db.run(sql, args);
+
+    await _db.run(sql, args);
 };
 
-await students_finalized(semesterInput);
-await semester_finalized(semesterInput);
+exports.reset = async (_db, semesterInput) => {
+    await students_finalized(_db, semesterInput);
+    await semester_finalized(_db, semesterInput);
+    
+}

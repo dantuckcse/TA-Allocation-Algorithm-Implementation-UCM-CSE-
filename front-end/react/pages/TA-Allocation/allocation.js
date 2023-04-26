@@ -36,6 +36,17 @@ export default function Allocation() {
             .then(msg => console.log(msg))
     }
 
+    const reset = () => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentSemesterData)
+        };
+        fetch(`${url}/reset`, requestOptions)
+            .then(response => response.json())
+            .then(msg => console.log(msg))
+    }
+
     // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
     useEffect(() => {
@@ -96,7 +107,7 @@ export default function Allocation() {
                     <div className="TA-Button-Container">
                         <button onClick={finalize}>Finalize</button>
                         <button>Export</button>
-                        <button>Reset</button>
+                        <button onClick={reset}>Reset</button>
                     </div>
                 </div>
             </CardContext.Provider>

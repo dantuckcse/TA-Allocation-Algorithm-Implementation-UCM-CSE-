@@ -289,7 +289,7 @@ router.get('/allocation', async (req, res) => {
 });
 
 router.put('/reset', async (req, res, next) => {
-  const { semester } = req.body;
+  const semester = req.body;
   let response;
   try {
     await reset(db, semester);

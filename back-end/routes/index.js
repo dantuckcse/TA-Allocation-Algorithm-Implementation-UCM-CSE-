@@ -258,7 +258,7 @@ router.put('/finalized', async (req, res) => {
 
 });
 
-router.get('/allocation', async (req, res) => {
+router.put('/allocation', async (req, res) => {
   const semesterInput = req.body;
 
   let finalized, available;

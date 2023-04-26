@@ -73,10 +73,9 @@ export default function CourseCard(prop) {
                             };
                             fetch(`${url}/reranking`, requestOptions)
                                 .then(response => response.json())
+                                .then(data => fetch(`${url}/rankings`))
+                                .then(response => response.json())
                                 .then(data => console.log(data))
-                            // .then(data => fetch(`${url}/rankings`))
-                            // .then(response => response.json())
-                            // .then(data => console.log(data))
 
                             return monitor.getItem()
                         },

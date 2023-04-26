@@ -20,7 +20,7 @@ export default function Data_Form() {
     useEffect(() => {
         fetch(API_URL)
           .then((response) => response.json())
-          .then((data =>  setSemesterData(data));
+          .then(data => setSemesterData(data));
     }, []);
 
     const [term, setTerm] = useState("");

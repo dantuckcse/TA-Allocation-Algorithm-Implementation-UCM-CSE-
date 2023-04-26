@@ -1,11 +1,12 @@
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import Layout from "./layout/layout.js";
 import React, { useEffect, useState } from "react";
-import semesterDataList from '../../../back-end/main_pipeline/semester_list.json'
+//import semesterDataList from '../../../back-end/main_pipeline/semester_list.json'
 import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */ }
 import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */ }
 import { url } from "../components/url.js";
 
+const API_URL = 'http://localhost:3000/allSemesters'; //
 
 
 export let currentSemesterData = [];
@@ -17,9 +18,9 @@ export let studentDetailData = [];
 export default function Data_Form() {
     const [semesterData, setSemesterData] = useState([]);
     useEffect(() => {
-        fetch("/back-end/main_pipeline/semester_list.json")
+        fetch(API_URL)
           .then((response) => response.json())
-          .then((data) =>  setSemesterData(data));
+          .then((data =>  setSemesterData(data));
     }, []);
 
     const [term, setTerm] = useState("");
@@ -267,24 +268,17 @@ export default function Data_Form() {
                         {/* STUDENT DETAILS */}
                         <div className="DF-Input-Div">
                             <h1>Student Details</h1>
-                            <div className="DF-Input-Div-Student-Fields-Div">
-                                <div className= "DF-Input-Student-Fields-1">
-                                    <input className="DF-CD-Input-Box" onChange={exportAssociatedProfessorName} type="text" placeholder="Associated Professor Name" />
-                                    <input className="DF-CD-Input-Box" onChange={exportStudentFullName} type="text" placeholder="Full Name" />
-                                    <input className="DF-CD-Input-Box" onChange={exportStudentCourses} type="text" placeholder="Courses" />
-                                </div>
-                                <div className= "DF-Input-Student-Fields-1">
-                                    <input className="DF-CD-Input-Box" onChange={exportStudentExclusiveCourses} type="number" placeholder="Exclusive Course" />
-                                    <input className="DF-CD-Input-Box" onChange={exportStudentTAUnit} type="number" placeholder="TA Unit" />
-                                    <input className="DF-CD-Input-Box" onChange={exportStudentID} type="number" placeholder="Student ID" />
-                                </div>
-                            </div>
-                            <button className="DF-CD-Button" id = "DF-CD-Button-Student" onClick={exportStudentDetails}>Submit Student Data</button>
+                            <input className="DF-CD-Input-Box" onChange={exportAssociatedProfessorName} type="text" placeholder="Associated Professor Name" />
+                            <input className="DF-CD-Input-Box" onChange={exportStudentFullName} type="text" placeholder="Full Name" />
+                            <input className="DF-CD-Input-Box" onChange={exportStudentCourses} type="text" placeholder="Courses" />
+                            <input className="DF-CD-Input-Box" onChange={exportStudentExclusiveCourses} type="number" placeholder="Exclusive Course" />
+                            <input className="DF-CD-Input-Box" onChange={exportStudentTAUnit} type="number" placeholder="TA Unit" />
+                            <input className="DF-CD-Input-Box" onChange={exportStudentID} type="number" placeholder="Student ID" />
+                            <button className="DF-CD-Button" onClick={exportStudentDetails}>Submit Student Data</button>
                         </div>
                     </div>
-                    {/* EXPORT CHECK */}
-                    {/* <button onClick={newSemesterFunction}>New Semester</button> 
-                    <button onClick={currentSemesterFunction}>Current Semester</button>  */}
+                    <button onClick={newSemesterFunction}>New Semester</button> {/* EXPORT CHECK */}
+                    <button onClick={currentSemesterFunction}>Current Semester</button> {/* EXPORT CHECK */}
                 </div>
             </Layout>
         </>

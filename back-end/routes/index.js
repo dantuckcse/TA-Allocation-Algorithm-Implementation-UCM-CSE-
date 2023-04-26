@@ -244,7 +244,7 @@ router.post('/semester', async function (req, res, next) {
   }
 });
 
-router.get('/finalized', async (req, res) => {
+router.put('/finalized', async (req, res) => {
   const semester = req.body;
   try {
     await finalize_semester_v2(db, semester);

@@ -25,6 +25,17 @@ export default function Allocation() {
         setStudents(students.filter((f_student, i) => f_student.id !== id).concat(f_student[0]))
     }
 
+    const finalize = () => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentSemesterData)
+        };
+        fetch(`${url}/finalized`, requestOptions)
+            .then(response => response.json())
+            .then(msg => console.log(msg))
+    }
+
     // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
     useEffect(() => {
@@ -82,8 +93,8 @@ export default function Allocation() {
                                 />
                             ))}
                     </div>
-                    <div className = "TA-Button-Container">
-                        <button>Finalize</button>
+                    <div className="TA-Button-Container">
+                        <button onClick={finalize}>Finalize</button>
                         <button>Export</button>
                         <button>Reset</button>
                     </div>

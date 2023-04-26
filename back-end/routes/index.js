@@ -247,12 +247,13 @@ router.post('/semester', async function (req, res, next) {
 router.get('/finalized', async (req, res) => {
   const semester = req.body;
   try {
-    await finalize_semester_v2(_db, semester);
+    await finalize_semester_v2(db, semester);
+    await clear_data(db);
     return res.json('finalize successful');
   }
   catch (error) {
     console.error(error);
-    return res.json('finalize unsuccessful');
+    return res.json('error: finalize unsuccessful');
   }
 
 });

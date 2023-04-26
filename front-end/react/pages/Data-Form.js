@@ -19,7 +19,6 @@ export default function Data_Form() {
             .then((response) => response.json())
             .then(data => setSemesterData(data));
     }, []);
-
     const [term, setTerm] = useState("");
     const [year, setYear] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -46,7 +45,7 @@ export default function Data_Form() {
     };
 
     const [semesterSelect, setSemesterSelect] = useState([])
-    const handleSemesterChange = (e) => {
+        const handleSemesterChange = (e) => {
         const index = e.target.selectedIndex;
         const semester = semesterData[index];
         setSemesterSelect(semester)

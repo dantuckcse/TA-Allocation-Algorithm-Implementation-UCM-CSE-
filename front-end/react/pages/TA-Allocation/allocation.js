@@ -50,10 +50,8 @@ export default function Allocation() {
                 <title>TA Allocation</title>
             </Head>
             <AssignedStudents />
-
             <CardContext.Provider value={{ markAsFinalized }}>
                 <div className="drag-and-drop">
-
                     <div className="selected-container">
                         {courses
                             .map((f_course, i) => (
@@ -83,6 +81,11 @@ export default function Allocation() {
                                     percentage={f_student.percentage}
                                 />
                             ))}
+                    </div>
+                    <div className = "TA-Button-Container">
+                        <button>Finalize</button>
+                        <button>Export</button>
+                        <button>Reset</button>
                     </div>
                 </div>
             </CardContext.Provider>

@@ -30,7 +30,7 @@ exports.display_allocation = async (_db, semesterInput) => {
   const sql = `
       SELECT
       A.rank AS rank,
-      A.student_name AS student,
+      (SELECT DISTINCT student_name FROM Assignments) AS student,
       A.student_id AS id,
       (F.first_name || ' ' || F.last_name) AS professor,
       A.assigned_course AS courses

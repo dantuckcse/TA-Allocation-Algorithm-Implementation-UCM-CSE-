@@ -158,10 +158,16 @@ router.get('/rankings', async function (req, res, next) {
 // ---------------
 // New routes are below, all the routes above might get deleted
 // ---------------
+const deleteSemesters = async (_db) => {
+
+  let sql = `DELETE FROM Student_Rankings`
+  await _db.run(sql);
+};
 
 router.post('/setup', async function (req, res, next) {
   const semesterInput = req.body;
   try {
+    await deleteSemesters(db)
     await setup(db, semesterInput);
     return res.json('setup was run successfully');
   }

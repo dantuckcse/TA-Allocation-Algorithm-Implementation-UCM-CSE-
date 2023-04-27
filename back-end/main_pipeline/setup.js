@@ -2,6 +2,13 @@
 
 const starting = async (_db, semesterInput) => {
 
+    const deleteSemesters = async (_db) => {
+
+        let sql = `DELETE FROM Student_Rankings`
+        await _db.run(sql);
+    };
+
+
     //calculates the total semesters a professor has been at UCM
     const totalSemesters = async (_db, semesterInput) => {
 
@@ -55,26 +62,26 @@ const starting = async (_db, semesterInput) => {
     const initalRank = async (_db, semesterInput) => {
 
         let sql = `
-        INSERT INTO Student_Rankings (id, rank, professor, student, percentage, courses, finalized)
+        INSERT INTO Student_Rankings(id, rank, professor, student, percentage, courses, finalized)
         SELECT
-            A.pk AS id,
-            ROW_NUMBER() OVER (ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name)) AS rank,
-            (F.first_name || ' ' || F.last_name) AS professor,
-            (SELECT DISTINCT(A.student_name)) AS student,
-            A.percentage AS percentage,
-            T.course_list AS courses,
-            A.finalized as finalized
+        A.pk AS id,
+            ROW_NUMBER() OVER(ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name)) AS rank,
+                (F.first_name || ' ' || F.last_name) AS professor,
+                    (SELECT DISTINCT(A.student_name)) AS student,
+                        A.percentage AS percentage,
+                            T.course_list AS courses,
+                                A.finalized as finalized
         FROM
             Faculty F
             INNER JOIN Assignments A ON A.faculty_fk = F.pk
             INNER JOIN
             (SELECT
-                T.SN, 
+                T.SN,
                 GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
                                 WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
                                 ELSE T.CN END, ',') as course_list
             FROM
-                (SELECT DISTINCT
+                    (SELECT DISTINCT
                     A.student_name AS SN, RC.course_number AS CN, RC.category AS cat
                 FROM
                     Requested_Courses RC
@@ -82,7 +89,7 @@ const starting = async (_db, semesterInput) => {
                     INNER JOIN Assignments A ON RC.assignment_fk = A.pk
                 ORDER BY cast(RC.course_number AS INTEGER) ASC) AS T
             GROUP BY T.SN) T ON A.student_name = T.SN
-        WHERE A.semester_fk IN (SELECT semester_fk 
+        WHERE A.semester_fk IN(SELECT semester_fk 
                                 FROM Assignments, Semester
                                 WHERE semester_fk = Semester.pk
                                 AND term = ? AND year = ?)

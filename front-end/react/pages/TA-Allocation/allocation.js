@@ -15,7 +15,6 @@ import Modal from "react-modal"
 import jsPDF from "jspdf"
 import finalized_export from "../TA-Allocation/export.json"
 
-
 export const CardContext = createContext({
     markAsFinalized: null,
 })
@@ -26,56 +25,71 @@ export default function Allocation() {
     const [students, setStudents] = useState([])
     const [loading, setLoading] = useState(true)
 
-    
+
     // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
     useEffect(() => {
-    console.log(currentSemesterData);
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(currentSemesterData)
-    };
-    fetch(`${url}/setup`, requestOptions)
-        .then(response => response.json())
-        .then(data => fetch(`${url}/rankings`))
-        .then(response => response.json())
-        .then(data => {
-            console.log("DATA===> ", data)
-            var half_length = Math.ceil(data.length / 2);    
-            var first_half = data.slice(0,half_length);
-            studentData.push(first_half)
-            setStudents(first_half)
-            console.log("FIRST HALF ===> ", first_half)
-            setLoading(false)
-        })
+        console.log(currentSemesterData);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentSemesterData)
+        };
+        fetch(`${url}/setup`, requestOptions)
+            .then(response => response.json())
+            .then(data => fetch(`${url}/rankings`))
+            .then(response => response.json())
+            .then(data => {
+                console.log("DATA===> ", data)
+                var half_length = Math.ceil(data.length / 2);
+                var first_half = data.slice(0, half_length);
+                studentData.push(first_half)
+                setStudents(first_half)
+                console.log("FIRST HALF ===> ", first_half)
+                setLoading(false)
+            })
     }, []);
 
     //Export Data Display Variables and Functions
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [fileName, setFileName] = useState("");
-    function openExportModal() {setIsExportModalOpen(true);} //popup open
-    function closeExportModal() {setIsExportModalOpen(false);} //popup close
-    function handleFileNameChange(event) {setFileName(event.target.value);}
-    function handleExportPDF() {
-        const doc = new jsPDF();
-        const dataItems = JSON.parse(JSON.stringify(finalized_export));
-        let x = 10;
-        let y = 10;
-        dataItems.forEach((item) => {
-        Object.entries(item).forEach(([key, value]) => {
-            doc.text(`${key}: ${value}`, x, y);
-            y += 10;
-        });
-        // Add some space between each data item
-        y += 10;
-        });
-        doc.save(`${fileName}.pdf`);
+    function openExportModal() { setIsExportModalOpen(true); } //popup open
+    function closeExportModal() { setIsExportModalOpen(false); } //popup close
+    function handleFileNameChange(event) { setFileName(event.target.value); }
+    async function handleExportPDF() {
+
+        //Fetch export data
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentSemesterData)
+        };
+
+        const response = await fetch(`${url}/allocation`, requestOptions);
+
+        console.log("response: ", response)
+        if (response.status === 200) {
+            let data = await response.json();
+            console.log('response data: ', data)
+
+            const doc = new jsPDF();
+            let x = 10;
+            let y = 10;
+            data.forEach((item) => {
+                Object.entries(item).forEach(([key, value]) => {
+                    doc.text(`${key}: ${value}`, x, y);
+                    y += 10;
+                });
+                // Add some space between each data item
+                y += 10;
+            });
+            doc.save(`${fileName}.pdf`);
+        }
     }
 
-/*  markAsFinalized filters all of the students' ids using the following condition:
-     -  If the id of the student being dropped (droppedID) matches an id in the students array (f_student.id),
-        then the dragged student will be accepted into the dropped slot (setStudents). */  
+    /*  markAsFinalized filters all of the students' ids using the following condition:
+         -  If the id of the student being dropped (droppedID) matches an id in the students array (f_student.id),
+            then the dragged student will be accepted into the dropped slot (setStudents). */
     const markAsFinalized = id => {
         const f_student = students.filter((f_student, i) => id === f_student.id) // f_student = filtered student
         f_student[0].finalized = "YES"  // Once the item is "dropped", finalized will be marked as "YES".
@@ -96,34 +110,34 @@ export default function Allocation() {
             <AssignedStudents />
 
             <div className='TA-Button-Container'>
-                        <button>Finalize</button>
-                        <button onClick={openExportModal}>Export</button>
-                        <Modal isOpen={isExportModalOpen} onRequestClose={closeExportModal}>
-                            <h2>Export Data</h2>
-                            <div>
-                            <label htmlFor="fileName">File Name: </label>
-                            <input
-                                type="text"
-                                id="fileName"
-                                value={fileName}
-                                placeholder='PDF Name Here...'
-                                onChange={handleFileNameChange}
-                            />
-                            </div>
-                            {/* <pre>{JSON.stringify(finalized_export, null, 2)}</pre> */}
-                            <pre>{finalized_export.map((item, index) => (
-                                `rank: ${item.rank !== null ? item.rank : 'null'},
+                <button>Finalize</button>
+                <button onClick={openExportModal}>Export</button>
+                <Modal isOpen={isExportModalOpen} onRequestClose={closeExportModal}>
+                    <h2>Export Data</h2>
+                    <div>
+                        <label htmlFor="fileName">File Name: </label>
+                        <input
+                            type="text"
+                            id="fileName"
+                            value={fileName}
+                            placeholder='PDF Name Here...'
+                            onChange={handleFileNameChange}
+                        />
+                    </div>
+                    {/* <pre>{JSON.stringify(finalized_export, null, 2)}</pre> */}
+                    <pre>{finalized_export.map((item, index) => (
+                        `rank: ${item.rank !== null ? item.rank : 'null'},
                                 student: ${item.student},
                                 id: ${item.id},
                                 professor: ${item.professor},
                                 courses: ${item.courses}`
-                                )).join('\n\n')}
-                            </pre>
-                            <button onClick={handleExportPDF}>Export to PDF</button>
-                            <button onClick={closeExportModal}>Close</button>
-                        </Modal>
-                        <button>Reset</button>
-                    </div>
+                    )).join('\n\n')}
+                    </pre>
+                    <button onClick={handleExportPDF}>Export to PDF</button>
+                    <button onClick={closeExportModal}>Close</button>
+                </Modal>
+                <button>Reset</button>
+            </div>
 
             <CardContext.Provider value={{ markAsFinalized }}>
                 <div className="drag-and-drop">

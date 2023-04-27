@@ -16,7 +16,7 @@ export default function CourseCard(prop) {
 
     const [addingStudent, setAddingStudent] = useState([])
 
-    console.log("STUDENT DATA: ", studentData)
+    // console.log("STUDENT DATA: ", studentData)
 
     /*  This works similarly to 'markAsFinalized' in allocation.js'. 
     addStudent ensures that the student dropped stays inside of the dropped slot

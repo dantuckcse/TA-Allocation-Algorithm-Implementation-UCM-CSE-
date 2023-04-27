@@ -10,6 +10,7 @@ import Head from 'next/head'
 import Layout from "../layout/layout.js"
 import { url } from "../../components/url"
 import { currentSemesterData } from "../Data-Form"
+import exportData from "../TA-Allocation/export.json"
 
 export const CardContext = createContext({
     markAsFinalized: null,
@@ -100,6 +101,11 @@ export default function Allocation() {
                                     percentage={f_student.percentage}
                                 />
                             ))}
+                    </div>
+                    <div className='TA-Button-Container'>
+                        <button>Finalize</button>
+                        <button onClick = {console.log("hello")}> Export </button>
+                        <button>Reset</button>
                     </div>
                 </div>
             </CardContext.Provider>

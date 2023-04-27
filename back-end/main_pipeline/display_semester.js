@@ -38,7 +38,7 @@ exports.display_allocation = async (_db, semesterInput) => {
     WHERE A.semester_fk IN (SELECT DISTINCT semester_fk 
                             FROM Assignments, Semester
                             WHERE semester_fk = Semester.pk
-                            AND term = 'Summer' AND year = 2021)
+                            AND term = ? AND year = ?)
       AND A.faculty_fk = F.pk
       GROUP BY A.student_name
     ORDER BY A.rank ASC NULLS LAST;

@@ -21,32 +21,41 @@ export default function Allocation() {
     const [students, setStudents] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const markAsFinalized = id => {
-        const f_student = students.filter((f_student, i) => id === f_student.id) // f_student = filtered student
-        f_student[0].finalized = "YES"
-        setStudents(students.filter((f_student, i) => f_student.id !== id).concat(f_student[0]))
-    }
-
+    
     // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
     useEffect(() => {
-        console.log(currentSemesterData);
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(currentSemesterData)
-        };
-        fetch(`${url}/setup`, requestOptions)
-            .then(response => response.json())
-            .then(data => fetch(`${url}/rankings`))
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setStudents(data)
-                studentData.push(data)
-                setLoading(false)
-            })
+    console.log(currentSemesterData);
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentSemesterData)
+    };
+    fetch(`${url}/setup`, requestOptions)
+        .then(response => response.json())
+        .then(data => fetch(`${url}/rankings`))
+        .then(response => response.json())
+        .then(data => {
+            console.log("DATA===> ", data)
+            var half_length = Math.ceil(data.length / 2);    
+            var first_half = data.slice(0,half_length);
+            studentData.push(first_half)
+            setStudents(first_half)
+            console.log("FIRST HALF ===> ", first_half)
+            setLoading(false)
+        })
     }, []);
+
+/*  markAsFinalized filters all of the students' ids using the following condition:
+     -  If the id of the student being dropped (droppedID) matches an id in the students array (f_student.id),
+        then the dragged student will be accepted into the dropped slot (setStudents). */  
+    const markAsFinalized = id => {
+        const f_student = students.filter((f_student, i) => id === f_student.id) // f_student = filtered student
+        f_student[0].finalized = "YES"  // Once the item is "dropped", finalized will be marked as "YES".
+
+        // This removes the student item that matches the id of the dropped item from the leftside selection
+        setStudents(students.filter((f_student, i) => f_student.id !== id).concat(f_student[0]))
+    }
 
     if (loading) {
         return <p>Loading...</p>

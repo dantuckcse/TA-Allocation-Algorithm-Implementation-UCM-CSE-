@@ -757,3 +757,45 @@ SET student_id = (
 WHERE student_name IN (
   SELECT DISTINCT student_name FROM Assignments
 );
+
+DELETE FROM Student_Rankings;
+
+INSERT INTO Student_Rankings (id, rank, professor, student, percentage, courses, finalized)
+        SELECT
+            A.pk AS id,
+            ROW_NUMBER() OVER (ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name)) AS rank,
+            (F.first_name || ' ' || F.last_name) AS professor,
+            (SELECT DISTINCT(A.student_name)) AS student,
+            A.percentage AS percentage,
+            T.course_list AS courses,
+            A.finalized as finalized
+        FROM
+            Faculty F
+            INNER JOIN Assignments A ON A.faculty_fk = F.pk
+            INNER JOIN
+            (SELECT
+                T.SN, 
+                GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
+                                WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
+                                ELSE T.CN END, ',') as course_list
+            FROM
+                (SELECT DISTINCT
+                    A.student_name AS SN, RC.course_number AS CN, RC.category AS cat
+                FROM
+                    Requested_Courses RC
+                    INNER JOIN Requested_Courses CR ON RC.pk = CR.pk
+                    INNER JOIN Assignments A ON RC.assignment_fk = A.pk
+                ORDER BY cast(RC.course_number AS INTEGER) ASC) AS T
+            GROUP BY T.SN) T ON A.student_name = T.SN
+        WHERE A.semester_fk IN (SELECT semester_fk 
+                                FROM Assignments, Semester
+                                WHERE semester_fk = Semester.pk
+                                AND term = 'Summer' AND year = 2021)
+            AND A.finalized = 'NO'
+        GROUP BY A.student_name
+        ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
+
+
+    DELETE FROM Student_Rankings;
+    DELETE FROM Student_Rankings_Copy;
+    Delete FROM Faculty_Copy;

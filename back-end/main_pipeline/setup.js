@@ -180,7 +180,7 @@ const starting = async (_db, semesterInput) => {
         let sql = `
             INSERT INTO Faculty_Copy (pk, first_name, last_name, start_semester_fk, students_assigned, total_semester, score)
             SELECT pk, first_name, last_name, start_semester_fk, students_assigned, total_semesters, score
-            FROM Faculty
+            FROM Faculty;
         `;
 
         await _db.run(sql);

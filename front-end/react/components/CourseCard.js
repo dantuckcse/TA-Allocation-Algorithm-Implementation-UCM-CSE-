@@ -7,12 +7,16 @@ import { requestData } from "../pages/TA-Allocation/data/requests"
 import { currentSemesterData } from '@/pages/Data-Form'
 import { url } from '../components/url'
 import { assigned_student } from './AssignedStudents'
+import { studentData } from "../pages/TA-Allocation/allocation.js"
+
 
 export default function CourseCard(prop) {
     const { markAsFinalized } = useContext(CardContext);
-    const [students, setStudents] = useState(() => requestData)
+    const [students, setStudents] = useState(() => studentData[0])
 
     const [addingStudent, setAddingStudent] = useState([])
+
+    console.log("STUDENT DATA: ", studentData)
 
     /*  This works similarly to 'markAsFinalized' in allocation.js'. 
     addStudent ensures that the student dropped stays inside of the dropped slot
@@ -73,6 +77,7 @@ export default function CourseCard(prop) {
                                 assignment: item,
                                 semester: currentSemesterData
                             }
+                            console.log('body: ', body);
                             const requestOptions = {
                                 method: 'PUT',
                                 headers: { 'Content-Type': 'application/json' },
@@ -82,7 +87,11 @@ export default function CourseCard(prop) {
                                 .then(response => response.json())
                                 .then(data => fetch(`${url}/rankings`))
                                 .then(response => response.json())
-                                .then(data => console.log(data))
+                                .then(data => {
+                                    // Edit here if no work
+                                    console.log('reranked data, ', data)
+                                    setStudents(data);
+                                })
 
                             return monitor.getItem()
                         },

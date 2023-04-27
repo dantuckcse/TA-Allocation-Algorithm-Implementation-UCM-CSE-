@@ -14,55 +14,17 @@ import { currentSemesterData } from "../Data-Form"
 export const CardContext = createContext({
     markAsFinalized: null,
 })
+export const studentData = []
 
 export default function Allocation() {
     const [courses, setCourses] = useState(() => availableData)
-    const [students, setStudents] = useState(() => requestData)
+    const [students, setStudents] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    /*  markAsFinalized filters all of the students' ids using the following condition:
-     -  If the id of the student being dropped (droppedID) matches an id in the students array (f_student.id),
-        then the dragged student will be accepted into the dropped slot (setStudents). */  
     const markAsFinalized = id => {
         const f_student = students.filter((f_student, i) => id === f_student.id) // f_student = filtered student
-        f_student[0].finalized = "YES" // Once the item is "dropped", finalized will be marked as "YES".
-        
-        // This removes the student item that matches the id of the dropped item from the leftside selection
+        f_student[0].finalized = "YES"
         setStudents(students.filter((f_student, i) => f_student.id !== id).concat(f_student[0]))
-    }
-
-    const finalize = () => {
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(currentSemesterData)
-        };
-        fetch(`${url}/finalized`, requestOptions)
-            .then(response => response.json())
-            .then(msg => console.log(msg))
-    }
-
-    const reset = () => {
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(currentSemesterData)
-        };
-        fetch(`${url}/reset`, requestOptions)
-            .then(response => response.json())
-            .then(msg => console.log(msg))
-    }
-
-    const exportFunc = () => {
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(currentSemesterData)
-        };
-        fetch(`${url}/allocation`, requestOptions)
-            .then(response => response.json())
-            .then(exportData => {
-                console.log(exportData)
-            })
     }
 
     // Setup & Ranking
@@ -81,8 +43,14 @@ export default function Allocation() {
             .then(data => {
                 console.log(data)
                 setStudents(data)
+                studentData.push(data)
+                setLoading(false)
             })
     }, []);
+
+    if (loading) {
+        return <p>Loading...</p>
+    }
 
     return (
         <Layout>
@@ -90,8 +58,10 @@ export default function Allocation() {
                 <title>TA Allocation</title>
             </Head>
             <AssignedStudents />
+
             <CardContext.Provider value={{ markAsFinalized }}>
                 <div className="drag-and-drop">
+
                     <div className="selected-container">
                         {courses
                             .map((f_course, i) => (
@@ -121,11 +91,6 @@ export default function Allocation() {
                                     percentage={f_student.percentage}
                                 />
                             ))}
-                    </div>
-                    <div className="TA-Button-Container">
-                        <button onClick={finalize}>Finalize</button>
-                        <button onClick={exportFunc}>Export</button>
-                        <button onClick={reset}>Reset</button>
                     </div>
                 </div>
             </CardContext.Provider>

@@ -28,19 +28,20 @@ exports.finalized_condition = async (_db, semesterInput) => {
 
 exports.display_allocation = async (_db, semesterInput) => {
   const sql = `
-      SELECT
+    SELECT
       A.rank AS rank,
-      (SELECT DISTINCT student_name FROM Assignments) AS student,
+      A.student_name AS student,
       A.student_id AS id,
       (F.first_name || ' ' || F.last_name) AS professor,
       A.assigned_course AS courses
     FROM Faculty F, Assignments A, Semester S
-    WHERE A.semester_fk IN (SELECT semester_fk 
+    WHERE A.semester_fk IN (SELECT DISTINCT semester_fk 
                             FROM Assignments, Semester
                             WHERE semester_fk = Semester.pk
-                            AND term = ? AND year = ?)
+                            AND term = 'Summer' AND year = 2021)
       AND A.faculty_fk = F.pk
-    ORDER BY A.rank;
+      GROUP BY A.student_name
+    ORDER BY A.rank ASC NULLS LAST;
   `;
 
   const args = [semesterInput.term, semesterInput.year];

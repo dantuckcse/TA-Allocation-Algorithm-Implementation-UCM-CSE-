@@ -2,12 +2,14 @@
 
 const starting = async (_db, semesterInput) => {
 
-    const deleteSemesters = async (_db) => {
+    const clearStudentRanking = async (_db) => {
 
-        let sql = `DELETE FROM Student_Rankings`
+        let sql = `
+            DELETE FROM Student_Rankings
+        `;
+
         await _db.run(sql);
     };
-
 
     //calculates the total semesters a professor has been at UCM
     const totalSemesters = async (_db, semesterInput) => {
@@ -52,8 +54,8 @@ const starting = async (_db, semesterInput) => {
                             ELSE ROUND(students_assigned / total_semesters, 5) 
             END);
         `;
-
-        await _db.run(sql);
+    
+    await _db.run(sql);
 
     };
 
@@ -62,26 +64,26 @@ const starting = async (_db, semesterInput) => {
     const initalRank = async (_db, semesterInput) => {
 
         let sql = `
-        INSERT INTO Student_Rankings(id, rank, professor, student, percentage, courses, finalized)
+        INSERT INTO Student_Rankings (id, rank, professor, student, percentage, courses, finalized)
         SELECT
-        A.pk AS id,
-            ROW_NUMBER() OVER(ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name)) AS rank,
-                (F.first_name || ' ' || F.last_name) AS professor,
-                    (SELECT DISTINCT(A.student_name)) AS student,
-                        A.percentage AS percentage,
-                            T.course_list AS courses,
-                                A.finalized as finalized
+            A.pk AS id,
+            ROW_NUMBER() OVER (ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name)) AS rank,
+            (F.first_name || ' ' || F.last_name) AS professor,
+            (SELECT DISTINCT(A.student_name)) AS student,
+            A.percentage AS percentage,
+            T.course_list AS courses,
+            A.finalized as finalized
         FROM
             Faculty F
             INNER JOIN Assignments A ON A.faculty_fk = F.pk
             INNER JOIN
             (SELECT
-                T.SN,
+                T.SN, 
                 GROUP_CONCAT(CASE WHEN T.cat = 'prevent' THEN '<span class="prevent">' || T.CN || '</span>' 
                                 WHEN T.cat = 'ensure' THEN '<span class="ensure">' || T.CN || '</span>' 
                                 ELSE T.CN END, ',') as course_list
             FROM
-                    (SELECT DISTINCT
+                (SELECT DISTINCT
                     A.student_name AS SN, RC.course_number AS CN, RC.category AS cat
                 FROM
                     Requested_Courses RC
@@ -89,10 +91,10 @@ const starting = async (_db, semesterInput) => {
                     INNER JOIN Assignments A ON RC.assignment_fk = A.pk
                 ORDER BY cast(RC.course_number AS INTEGER) ASC) AS T
             GROUP BY T.SN) T ON A.student_name = T.SN
-        WHERE A.semester_fk IN(SELECT semester_fk 
+        WHERE A.semester_fk IN (SELECT semester_fk 
                                 FROM Assignments, Semester
                                 WHERE semester_fk = Semester.pk
-                                AND term = ? AND year = ?)
+                                AND term = 'Summer' AND year = 2021)
             AND A.finalized = 'NO'
         GROUP BY A.student_name
         ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
@@ -161,7 +163,7 @@ const starting = async (_db, semesterInput) => {
         WHERE A.semester_fk IN (SELECT semester_fk 
                                 FROM Assignments, Semester
                                 WHERE semester_fk = Semester.pk
-                                AND term = ? AND year = ?)
+                                AND term = 'Summer' AND year = 2021)
             AND A.finalized = 'NO'
         GROUP BY A.student_name
         ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
@@ -178,7 +180,7 @@ const starting = async (_db, semesterInput) => {
         let sql = `
             INSERT INTO Faculty_Copy (pk, first_name, last_name, start_semester_fk, students_assigned, total_semester, score)
             SELECT pk, first_name, last_name, start_semester_fk, students_assigned, total_semesters, score
-            FROM Faculty;
+            FROM Faculty
         `;
 
         await _db.run(sql);
@@ -187,6 +189,7 @@ const starting = async (_db, semesterInput) => {
 
 
     //runs all functions in order
+    await clearStudentRanking(_db);
     await totalSemesters(_db, semesterInput);
     await calcScore(_db);
     await initalRank(_db, semesterInput);
@@ -199,7 +202,7 @@ const starting = async (_db, semesterInput) => {
 
 const clearTable = async (_db) => {
 
-
+    
     let sql = `
     DELETE 
     FROM Student_Rankings;
@@ -209,8 +212,7 @@ const clearTable = async (_db) => {
 };
 
 
-const continuing = async (_db, semesterInput) => {
-    ;
+const continuing = async (_db, semesterInput) => {;
 
     await clearTable(_db);
 
@@ -248,18 +250,18 @@ const continuing = async (_db, semesterInput) => {
                     Assignments A, 
                     Semester S
                 WHERE 
-                    A.semester_fk = S.pk AND S.term = ? AND year = ?) R
+                    A.semester_fk = S.pk AND S.term = 'Summer' AND year = 2021) R
             WHERE A.semester_fk IN (SELECT semester_fk 
                                     FROM Assignments, Semester
                                     WHERE semester_fk = Semester.pk
-                                    AND term = ? AND year = ?)
+                                    AND term = 'Summer' AND year = 2021)
                 AND A.finalized = 'NO'
             GROUP BY A.student_name
             ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name) + R.previous;
         `;
 
     let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
-    const semesters = await _db.get(sql, args);
+    await _db.run(sql, args)
 };
 
 
@@ -268,7 +270,7 @@ const save_condition = async (_db, semesterInput) => {
     let sql = `
             SELECT MAX(rank) AS max 
             FROM Assignments A, Semester S
-            WHERE A.semester_fk = S.pk AND S.term = ? AND year = ?;
+            WHERE A.semester_fk = S.pk AND S.term = 'Summer' AND year = 2021;
         `;
 
     let args = [semesterInput.term, semesterInput.year];

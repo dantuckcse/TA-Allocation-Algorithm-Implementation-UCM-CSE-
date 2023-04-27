@@ -54,8 +54,8 @@ const starting = async (_db, semesterInput) => {
                             ELSE ROUND(students_assigned / total_semesters, 5) 
             END);
         `;
-    
-    await _db.run(sql);
+
+        await _db.run(sql);
 
     };
 
@@ -94,7 +94,7 @@ const starting = async (_db, semesterInput) => {
         WHERE A.semester_fk IN (SELECT semester_fk 
                                 FROM Assignments, Semester
                                 WHERE semester_fk = Semester.pk
-                                AND term = 'Summer' AND year = 2021)
+                                AND term = ? AND year = ?)
             AND A.finalized = 'NO'
         GROUP BY A.student_name
         ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
@@ -163,7 +163,7 @@ const starting = async (_db, semesterInput) => {
         WHERE A.semester_fk IN (SELECT semester_fk 
                                 FROM Assignments, Semester
                                 WHERE semester_fk = Semester.pk
-                                AND term = 'Summer' AND year = 2021)
+                                AND term = ? AND year = ?)
             AND A.finalized = 'NO'
         GROUP BY A.student_name
         ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name);
@@ -202,7 +202,7 @@ const starting = async (_db, semesterInput) => {
 
 const clearTable = async (_db) => {
 
-    
+
     let sql = `
     DELETE 
     FROM Student_Rankings;
@@ -212,7 +212,8 @@ const clearTable = async (_db) => {
 };
 
 
-const continuing = async (_db, semesterInput) => {;
+const continuing = async (_db, semesterInput) => {
+    ;
 
     await clearTable(_db);
 
@@ -250,11 +251,11 @@ const continuing = async (_db, semesterInput) => {;
                     Assignments A, 
                     Semester S
                 WHERE 
-                    A.semester_fk = S.pk AND S.term = 'Summer' AND year = 2021) R
+                    A.semester_fk = S.pk AND S.term = ? AND year = ?) R
             WHERE A.semester_fk IN (SELECT semester_fk 
                                     FROM Assignments, Semester
                                     WHERE semester_fk = Semester.pk
-                                    AND term = 'Summer' AND year = 2021)
+                                    AND term = ? AND year = ?)
                 AND A.finalized = 'NO'
             GROUP BY A.student_name
             ORDER BY F.score ASC, (F.first_name || ' ' || F.last_name) + R.previous;
@@ -270,7 +271,7 @@ const save_condition = async (_db, semesterInput) => {
     let sql = `
             SELECT MAX(rank) AS max 
             FROM Assignments A, Semester S
-            WHERE A.semester_fk = S.pk AND S.term = 'Summer' AND year = 2021;
+            WHERE A.semester_fk = S.pk AND S.term = ? AND year = ?;
         `;
 
     let args = [semesterInput.term, semesterInput.year];

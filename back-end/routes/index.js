@@ -166,15 +166,18 @@ const deleteSemesters = async (_db) => {
 
 router.post('/setup', async function (req, res, next) {
   const semesterInput = req.body;
+  let response;
   try {
     await deleteSemesters(db)
     await setup(db, semesterInput);
-    return res.json('setup was run successfully');
+    response = 'setup was run successfully'
   }
   catch (error) {
     console.error(error);
-    return res.json('Error: Setup did not run properly');
+    response = 'Error: Setup did not run properly';
   }
+  console.log('setup response: ', response)
+  return res.json(response);
 });
 
 router.put('/reranking', async function (req, res, next) {

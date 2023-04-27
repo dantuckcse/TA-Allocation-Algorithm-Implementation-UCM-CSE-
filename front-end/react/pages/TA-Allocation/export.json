@@ -1,0 +1,23 @@
+[  
+    {    
+        "rank": 3,    
+        "student": "Jasmine Jane",    
+        "id": 229472539,    
+        "professor": "Bob Milll",    
+        "courses": "135,20"  
+    },  
+
+    {   "rank": 1,    
+        "student": "John Doe",    
+        "id": 123456789,    
+        "professor": "Jane Smith",    
+        "courses": "101,102"  
+    },  
+    
+    {   "rank": 2,    
+        "student": "Sarah Lee",    
+        "id": 987654321,    
+        "professor": "Mike Johnson",    
+        "courses": "205,210" 
+    }
+]

@@ -5,7 +5,7 @@ const starting = async (_db, semesterInput) => {
     const clearStudentRanking = async (_db) => {
 
         let sql = `
-            DELETE FROM Student_Rankings
+            DELETE FROM Student_Rankings;
         `;
 
         await _db.run(sql);
@@ -213,7 +213,6 @@ const clearTable = async (_db) => {
 
 
 const continuing = async (_db, semesterInput) => {
-    ;
 
     await clearTable(_db);
 

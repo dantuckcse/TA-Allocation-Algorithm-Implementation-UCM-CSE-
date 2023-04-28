@@ -19,7 +19,7 @@ const semester_finalized = async (_db, semesterInput) => {
     let sql = `
         UPDATE Semester 
         SET finalized = 'YES', data_available = 'YES'
-        WHERE term = ? AND year = ?
+        WHERE term = ? AND year = ?;
     `;
 
     let args = [semesterInput.term, semesterInput.year];

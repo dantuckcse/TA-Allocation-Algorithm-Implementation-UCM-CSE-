@@ -87,6 +87,30 @@ export default function Allocation() {
         }
     }
 
+
+    const finalize = async () => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentSemesterData)
+        };
+        const response = await fetch(`${url}/finalized`, requestOptions)
+        let msg = await response.json();
+        console.log(msg)
+    }
+
+
+    const reset = async () => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentSemesterData)
+        };
+        const response = await fetch(`${url}/reset`, requestOptions);
+        let msg = await response.json();
+        console.log(msg)
+    }
+
     /*  markAsFinalized filters all of the students' ids using the following condition:
          -  If the id of the student being dropped (droppedID) matches an id in the students array (f_student.id),
             then the dragged student will be accepted into the dropped slot (setStudents). */
@@ -110,7 +134,7 @@ export default function Allocation() {
             <AssignedStudents />
 
             <div className='TA-Button-Container'>
-                <button>Finalize</button>
+                <button onClick={finalize}>Finalize</button>
                 <button onClick={openExportModal}>Export</button>
                 <Modal isOpen={isExportModalOpen} onRequestClose={closeExportModal}>
                     <h2>Export Data</h2>
@@ -136,7 +160,7 @@ export default function Allocation() {
                     <button onClick={handleExportPDF}>Export to PDF</button>
                     <button onClick={closeExportModal}>Close</button>
                 </Modal>
-                <button>Reset</button>
+                <button onClick={reset}>Reset</button>
             </div>
 
             <CardContext.Provider value={{ markAsFinalized }}>

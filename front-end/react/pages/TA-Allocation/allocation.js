@@ -134,8 +134,8 @@ export default function Allocation() {
             <AssignedStudents />
 
             <div className='TA-Button-Container'>
-                <button onClick={finalize}>Finalize</button>
-                <button onClick={openExportModal}>Export</button>
+                <button className = 'TA-Button' onClick={finalize}>Finalize</button>
+                <button className = 'TA-Button' onClick={openExportModal}>Export</button>
                 <Modal isOpen={isExportModalOpen} onRequestClose={closeExportModal}>
                     <h2>Export Data</h2>
                     <div>
@@ -157,8 +157,8 @@ export default function Allocation() {
                                 courses: ${item.courses}`
                     )).join('\n\n')}
                     </pre>
-                    <button onClick={handleExportPDF}>Export to PDF</button>
-                    <button onClick={closeExportModal}>Close</button>
+                    <button className = 'TA-Button' onClick={handleExportPDF}>Export to PDF</button>
+                    <button className = 'TA-Button' onClick={closeExportModal}>Close</button>
                 </Modal>
                 <button onClick={reset}>Reset</button>
             </div>

@@ -184,7 +184,7 @@ export default function Data_Form() {
                     <div id="DF-Title">Data Form</div>
                     <div id="DF-Semester-Title">{semesterSelect.term} {semesterSelect.year}</div>
                     <div className='Data-Form-DropDown'>
-                        <label id="DF-Select-Semester-Title">Select Semester:</label>
+                        <label id="DF-Select-Semester-Title">Select Semester</label>
 
                         <select id="semester-drop-down" onChange={handleSemesterChange}>
                             {semesterData.map((s, i) => (
@@ -192,7 +192,7 @@ export default function Data_Form() {
                             ))}
                         </select>
 
-                        <button onClick={() => setShowModal(true)}>Add Semesters</button>
+                        <button id = "Add-Semester-Btn" className = "TA-Button" onClick={() => setShowModal(true)}>Add Semesters</button>
 
                         {showModal && (
                             <div className="modal">
@@ -203,16 +203,18 @@ export default function Data_Form() {
                                         value={term}
                                         onChange={(e) => setTerm(e.target.value)}
                                         placeholder="Enter term"
+                                        className="DF-CD-Input-Box"
                                     />
                                     <input
                                         type="number"
                                         value={year}
                                         onChange={(e) => setYear(e.target.value)}
                                         placeholder="Enter year"
+                                        className="DF-CD-Input-Box"
                                     />
-                                    <button onClick={handleCreateSemester}>Create Semester</button>
+                                    <button id = "Add-Semester-Btn" className = "TA-Button" onClick={handleCreateSemester}>Create Semester</button>
                                     {/* <button onClick={newSemesterFunction}>Check Last Export</button> */}
-                                    <button onClick={() => setShowModal(false)}>Cancel</button>
+                                    <button id = "Add-Semester-Btn" className = "TA-Button" onClick={() => setShowModal(false)}>Cancel</button>
                                 </div>
                             </div>
                         )}

@@ -269,3 +269,34 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 #fileName:focus {
   border-color: #ca901c;
 }
+#semester-drop-down {
+  appearance: none; /* hide default appearance */
+  background-color: #f2f2f2; /* set background color */
+  border: none; /* remove border */
+  border-radius: 5px; /* add rounded corners */
+  font-size: 15px; /* set font size */
+  padding: 0.5vw; /* add padding */
+  width: 10vw; /* set width */
+}
+#semester-drop-down:focus {
+  outline: none; /* remove focus outline */
+  box-shadow: 0 0 5px #fba721; /* add box shadow when focused */
+}
+#semester-drop-down option {
+  background-color: #f2f2f2; /* set background color */
+  border: none; /* remove border */
+  color: #333; /* set text color */
+  font-size: 16px; /* set font size */
+  padding: 10px; /* add padding */
+}
+
+#Add-Semester-Btn{
+  padding: 0.5vw;
+  font-size: 15px;
+  margin-left: 1vw;
+}
+
+#DF-Select-Semester-Title{
+  font-size: 20px;
+  margin-right: 1vw;
+}

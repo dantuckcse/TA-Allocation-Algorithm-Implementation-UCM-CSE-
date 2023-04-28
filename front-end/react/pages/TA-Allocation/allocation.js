@@ -160,7 +160,7 @@ export default function Allocation() {
                     <button className = 'TA-Button' onClick={handleExportPDF}>Export to PDF</button>
                     <button className = 'TA-Button' onClick={closeExportModal}>Close</button>
                 </Modal>
-                <button onClick={reset}>Reset</button>
+                <button className = 'TA-Button' onClick={reset}>Reset</button>
             </div>
 
             <CardContext.Provider value={{ markAsFinalized }}>

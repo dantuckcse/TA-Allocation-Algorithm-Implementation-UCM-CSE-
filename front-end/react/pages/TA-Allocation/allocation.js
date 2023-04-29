@@ -10,10 +10,10 @@ import Head from 'next/head'
 import Layout from "../layout/layout.js"
 import { url } from "../../components/url"
 import { currentSemesterData } from "../Data-Form"
-import exportData from "../TA-Allocation/export.json"
+// import exportData from "../TA-Allocation/export.json"
 import Modal from "react-modal"
 import jsPDF from "jspdf"
-import finalized_export from "../TA-Allocation/export.json"
+// import finalized_export from "../TA-Allocation/export.json"
 
 export const CardContext = createContext({
     markAsFinalized: null,
@@ -24,6 +24,9 @@ export default function Allocation() {
     const [courses, setCourses] = useState(() => availableData)
     const [students, setStudents] = useState([])
     const [loading, setLoading] = useState(true)
+
+    const [exportData, setExportData] = useState(false)
+    const [isExportDataHere, setIsExportDataHere] = useState(false);
 
 
     // Setup & Ranking
@@ -53,11 +56,8 @@ export default function Allocation() {
     //Export Data Display Variables and Functions
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [fileName, setFileName] = useState("");
-    function openExportModal() { setIsExportModalOpen(true); } //popup open
-    function closeExportModal() { setIsExportModalOpen(false); } //popup close
-    function handleFileNameChange(event) { setFileName(event.target.value); }
-    async function handleExportPDF() {
-
+    async function openExportModal() {
+        setIsExportModalOpen(true);
         //Fetch export data
         const requestOptions = {
             method: 'PUT',
@@ -68,23 +68,34 @@ export default function Allocation() {
         const response = await fetch(`${url}/allocation`, requestOptions);
 
         console.log("response: ", response)
-        if (response.status === 200) {
-            let data = await response.json();
-            console.log('response data: ', data)
 
-            const doc = new jsPDF();
-            let x = 10;
-            let y = 10;
-            data.forEach((item) => {
-                Object.entries(item).forEach(([key, value]) => {
-                    doc.text(`${key}: ${value}`, x, y);
-                    y += 10;
-                });
-                // Add some space between each data item
+        if (response.status == 200) {
+            let data = await response.json();
+            setExportData(data);
+            setIsExportDataHere(true)
+            console.log('response data: ', data)
+        }
+        else {
+            console.log('hasnt been finalized')
+        }
+
+
+    } //popup open
+    function closeExportModal() { setIsExportModalOpen(false); } //popup close
+    function handleFileNameChange(event) { setFileName(event.target.value); }
+    function handleExportPDF() {
+        const doc = new jsPDF();
+        let x = 10;
+        let y = 10;
+        exportData.forEach((item) => {
+            Object.entries(item).forEach(([key, value]) => {
+                doc.text(`${key}: ${value}`, x, y);
                 y += 10;
             });
-            doc.save(`${fileName}.pdf`);
-        }
+            // Add some space between each data item
+            y += 10;
+        });
+        doc.save(`${fileName}.pdf`);
     }
 
 
@@ -134,8 +145,8 @@ export default function Allocation() {
             <AssignedStudents />
 
             <div className='TA-Button-Container'>
-                <button className = 'TA-Button' onClick={finalize}>Finalize</button>
-                <button className = 'TA-Button' onClick={openExportModal}>Export</button>
+                <button className='TA-Button' onClick={finalize}>Finalize</button>
+                <button className='TA-Button' onClick={openExportModal}>Export</button>
                 <Modal isOpen={isExportModalOpen} onRequestClose={closeExportModal}>
                     <h2>Export Data</h2>
                     <div>
@@ -149,18 +160,18 @@ export default function Allocation() {
                         />
                     </div>
                     {/* <pre>{JSON.stringify(finalized_export, null, 2)}</pre> */}
-                    <pre>{finalized_export.map((item, index) => (
+                    <pre>{isExportDataHere ? exportData.map((item, index) => (
                         `rank: ${item.rank !== null ? item.rank : 'null'},
                                 student: ${item.student},
                                 id: ${item.id},
                                 professor: ${item.professor},
                                 courses: ${item.courses}`
-                    )).join('\n\n')}
+                    )).join('\n\n') : `Can't export to pdf, semester has not been finalized`}
                     </pre>
-                    <button className = 'TA-Button' onClick={handleExportPDF}>Export to PDF</button>
-                    <button className = 'TA-Button' onClick={closeExportModal}>Close</button>
+                    <button className='TA-Button' onClick={handleExportPDF}>Export to PDF</button>
+                    <button className='TA-Button' onClick={closeExportModal}>Close</button>
                 </Modal>
-                <button className = 'TA-Button' onClick={reset}>Reset</button>
+                <button className='TA-Button' onClick={reset}>Reset</button>
             </div>
 
             <CardContext.Provider value={{ markAsFinalized }}>

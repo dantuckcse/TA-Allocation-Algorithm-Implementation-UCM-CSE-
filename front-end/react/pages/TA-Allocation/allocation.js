@@ -42,13 +42,10 @@ export default function Allocation() {
             .then(response => response.json())
             .then(data => fetch(`${url}/rankings`))
             .then(response => response.json())
-            .then(data => {
-                console.log("DATA===> ", data)
-                var half_length = Math.ceil(data.length / 2);
-                var first_half = data.slice(0, half_length);
-                studentData.push(first_half)
-                setStudents(first_half)
-                console.log("FIRST HALF ===> ", first_half)
+            .then(rankings => {
+                console.log("Rankings===> ", rankings)
+                studentData.push(rankings)
+                setStudents(rankings)
                 setLoading(false)
             })
     }, []);

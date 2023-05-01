@@ -87,7 +87,13 @@ export default function Allocation() {
         const doc = new jsPDF();
         let x = 10;
         let y = 10;
+        let pageHeight = doc.internal.pageSize.height;
         exportData.forEach((item) => {
+            // Check if adding the text will exceed the height of the page
+            if (y > pageHeight - 20) {
+                doc.addPage();
+                y = 10;
+            }
             Object.entries(item).forEach(([key, value]) => {
                 doc.text(`${key}: ${value}`, x, y);
                 y += 10;

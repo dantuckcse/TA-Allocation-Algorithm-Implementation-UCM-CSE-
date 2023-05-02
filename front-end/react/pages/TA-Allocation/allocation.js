@@ -21,7 +21,7 @@ export const CardContext = createContext({
 export const studentData = []
 
 export default function Allocation() {
-    const [courses, setCourses] = useState(() => availableData)
+    const [courses, setCourses] = useState([])
     const [students, setStudents] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -38,16 +38,27 @@ export default function Allocation() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(currentSemesterData)
         };
-        fetch(`${url}/setup`, requestOptions)
-            .then(response => response.json())
-            .then(data => fetch(`${url}/rankings`))
-            .then(response => response.json())
-            .then(rankings => {
-                console.log("Rankings===> ", rankings)
-                studentData.push(rankings)
-                setStudents(rankings)
-                setLoading(false)
-            })
+
+        const setup = async () => {
+            const setupResponse = await fetch(`${url}/setup`, requestOptions);
+            const setupMsg = await setupResponse.json();
+            const rankingsResponse = await fetch(`${url}/rankings`)
+            const rankings = await rankingsResponse.json();
+
+            console.log("Rankings===> ", rankings)
+            studentData.push(rankings)
+            setStudents(rankings)
+
+            const coursesResponse = await fetch(`${url}/available_courses`)
+            const coursesData = await coursesResponse.json();
+
+            console.log('Courses===>', courses);
+            setCourses(coursesData);
+
+            setLoading(false)
+        }
+
+        setup();
     }, []);
 
     //Export Data Display Variables and Functions

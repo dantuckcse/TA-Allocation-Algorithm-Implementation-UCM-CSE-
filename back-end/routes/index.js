@@ -104,15 +104,19 @@ router.put('/current_semester/:term/:year', async function (req, res, next) {
 // Find all the classes and how much space they have
 router.get('/available_courses/', async function (req, res, next) {
   // Find all the available classes
-  sql = `
-    SELECT *
+  let sql = `
+    SELECT 
+      pk as id, 
+      course_number AS CSE,
+      percentage AS slots
     FROM Available_Courses
   `;
 
   let availableCourses;
   try {
     availableCourses = await db.all(sql);
-    return res.json(availableCourses)
+    let cleanAvailableCourses = availableCourses.map(course => ({ ...course, CSE: parseInt(course.CSE) }));
+    return res.json(cleanAvailableCourses);
   }
   catch (error) {
     console.error(error);

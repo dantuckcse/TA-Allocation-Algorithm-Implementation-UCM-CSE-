@@ -7,9 +7,14 @@ export default function Header() {
                 <span className="UC">UC</span>MERCED
             </h1>
             <div className="nav-items">
-            <h3 id="nav-item">
+                <h3 id="nav-item">
                     <Link href="/">
                         HOME
+                    </Link>
+                </h3>
+                <h3 id="nav-item">
+                    <Link href="/login">
+                        LOGIN
                     </Link>
                 </h3>
                 <h3 id="nav-item">

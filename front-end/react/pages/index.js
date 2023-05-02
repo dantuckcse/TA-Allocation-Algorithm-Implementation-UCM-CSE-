@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Link from "next/link"
 import Layout from "./layout/layout.js"
 import React, { useEffect, useState } from "react";
 import { url } from "../components/url.js";

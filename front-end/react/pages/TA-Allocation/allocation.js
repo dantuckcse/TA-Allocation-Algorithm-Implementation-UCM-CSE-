@@ -9,7 +9,7 @@ import { availableData } from "./data/available"
 import Head from 'next/head'
 import Layout from "../layout/layout.js"
 import { url } from "../../components/url"
-import { currentSemesterData } from "../Data-Form"
+import { currentSemesterData } from "../index";
 import Modal from "react-modal"
 import jsPDF from "jspdf"
 // import finalized_export from "../TA-Allocation/export.json"
@@ -51,7 +51,7 @@ export default function Allocation() {
             const coursesResponse = await fetch(`${url}/available_courses`)
             const coursesData = await coursesResponse.json();
 
-            console.log('Courses===>', courses);
+            console.log('Courses===>', coursesData);
             setCourses(coursesData);
 
             setLoading(false)

@@ -46,7 +46,7 @@ export default function Allocation() {
 
             console.log("Rankings===> ", rankings)
             let half_length = Math.ceil(rankings.length / 2);
-            let first_half = data.slice(0, half_length);
+            let first_half = rankings.slice(0, half_length);
             studentData.push(first_half)
             setStudents(first_half)
             console.log("FIRST HALF ===> ", first_half);

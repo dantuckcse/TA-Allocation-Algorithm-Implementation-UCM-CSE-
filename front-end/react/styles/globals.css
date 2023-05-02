@@ -142,6 +142,7 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 #DF-Semester-Title{
   font-size: 2vw;
   padding-bottom: 1.5vw;
+  color: white;
 }
 
 #DF-Title{
@@ -299,4 +300,5 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 #DF-Select-Semester-Title{
   font-size: 20px;
   margin-right: 1vw;
+  color: white;
 }

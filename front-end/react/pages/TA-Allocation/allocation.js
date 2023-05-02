@@ -10,7 +10,6 @@ import Head from 'next/head'
 import Layout from "../layout/layout.js"
 import { url } from "../../components/url"
 import { currentSemesterData } from "../Data-Form"
-// import exportData from "../TA-Allocation/export.json"
 import Modal from "react-modal"
 import jsPDF from "jspdf"
 // import finalized_export from "../TA-Allocation/export.json"

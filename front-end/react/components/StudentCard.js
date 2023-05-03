@@ -1,6 +1,5 @@
 import { useDrag } from "react-dnd"
 import  itemTypes  from "../utils/itemType"
-import DOMPurify from 'dompurify';
 
 export const assigned_student = {}
 export default function StudentCard(prop){
@@ -32,17 +31,11 @@ export default function StudentCard(prop){
         <div className="requests--container" ref={drag} id = {isDragging ? "dragging-item" : ""}>
             <div className="student--info">
                 <p id="student-item" className="student-txt">{prop.student}</p>
-                <p id="student-item" className="course-txt"> Desired Courses: {prop.courses.map((course, index) => {
-                    if (typeof course === 'string') {
-                        const classType = course.includes('prevent') ? 'prevent' : 'allow';
-                        return <span key={index} id={classType} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(course) }} />;
-                    } else {
-                        return `CSE ${course}`;
-                    }
-                }).reduce((prev, curr) => [prev, ', ', curr])} </p>
+                <p id="student-item" className="course-txt"> Desired Courses: {prop.courses.map(course => typeof course === 'string' ? <span dangerouslySetInnerHTML={{ __html: course }} /> : `CSE ${course}`).reduce((prev, curr) => [prev, ', ', curr])} </p>
                 <p id="student-item">{prop.professor} - {prop.percentage}</p>
                 <br></br>
             </div>
+
 
 
             <div className="student--slots"></div>

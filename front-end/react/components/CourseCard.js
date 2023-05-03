@@ -57,6 +57,7 @@ export default function CourseCard(prop) {
             boxTotal -= 0.25;
         }
     }
+
     return (
         <div>
             <div className="drop-items-here">
@@ -66,13 +67,21 @@ export default function CourseCard(prop) {
                 </div>
                 {boxes.map((b, index) => { // Added index to map
                     const [{ isOver, didDrop, getDropResult }, drop] = useDrop(() => ({
+                        
                         accept: itemTypes.UNSLOTTED_STUDENT,
-                        // canDrop: (item, monitor) => {  // will use later for "prevent" cases
-                        //     return (item.task_id === prop.task_id ? true : false);
+                        // canDrop: (item, monitor) => {  // for "prevent" and "ensure" cases
+                        //     const preventItem = document.getElementById("prevent")
+                        //     console.log("PREVENT ITEM: ", preventItem)
+                        //     return
                         // },
                         drop(item, monitor) {
-                            markAsFinalized(item.id)
-                            addStudent(item.id)
+                            // Check if student's course code matches prop.CSE
+                            if (item.courses === prop.CSE || item.courses.includes(`<span class="prevent">${prop.CSE}</span>`)) {
+                                return null; // Cancel drop operation
+                            }
+                            
+                            markAsFinalized(item.id);
+                            addStudent(item.id);
 
                             // reranking & ranking requests here
                             const body = {
@@ -100,16 +109,15 @@ export default function CourseCard(prop) {
                         collect: monitor => ({
                             isOver: !!monitor.isOver(),
                             didDrop: monitor.didDrop(),
-                            canDrop: !!monitor.canDrop()
                         }),
                     }))
+
                     return (
                         <div className="slots--container">
                             {slottedStudents[index] ? (
                                 <div className="items-dropped" ref={drop} id={isOver ? "hover-region" : ""} key={index}>
                                     <CardContext.Provider value={{ markAsFinalized }}>
                                         {slottedStudents[index]}
-                                        {console.log("SLOTTED STUDENTS =======> ", slottedStudents)}
                                     </CardContext.Provider>
                                 </div>
                             ) : (

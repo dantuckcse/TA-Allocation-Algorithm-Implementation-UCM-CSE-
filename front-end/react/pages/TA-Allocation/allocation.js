@@ -143,6 +143,7 @@ export default function Allocation() {
             then the dragged student will be accepted into the dropped slot (setStudents). */
     const markAsFinalized = id => {
         const f_student = students.filter((f_student, i) => id === f_student.id) // f_student = filtered student
+        console.log("F_STUDENT: ", f_student)
         f_student[0].finalized = "YES"  // Once the item is "dropped", finalized will be marked as "YES".
 
         // This removes the student item that matches the id of the dropped item from the leftside selection

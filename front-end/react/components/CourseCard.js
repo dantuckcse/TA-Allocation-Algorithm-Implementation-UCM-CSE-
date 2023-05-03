@@ -23,6 +23,7 @@ export default function CourseCard(prop) {
     by storing the dropped students in 'droppedStudents.*/
     const addStudent = (id) => {
         const droppedStudents = students.filter(slot => id === slot.id)
+        console.log("DROPPED STUDENT: ", droppedStudents)
         setAddingStudent(addingStudent => [...addingStudent, droppedStudents[0]])
     }
 
@@ -31,7 +32,7 @@ export default function CourseCard(prop) {
         Being 'finalized' means that they have been added to a slot. 
         They are set as 'finalized' in allocation.js, in markAsFinalized. */
     const slottedStudents = addingStudent
-        .filter((f_student, i) => f_student.finalized === "YES")
+
         .map((f_student, i) =>
             <StudentCard
                 key={f_student.id.toString()}
@@ -42,6 +43,7 @@ export default function CourseCard(prop) {
                 courses={f_student.courses}
                 professor={f_student.professor}
                 percentage={f_student.percentage}
+                finalized="YES"
             />)
 
     let boxTotal = prop.slots;
@@ -107,6 +109,7 @@ export default function CourseCard(prop) {
                                 <div className="items-dropped" ref={drop} id={isOver ? "hover-region" : ""} key={index}>
                                     <CardContext.Provider value={{ markAsFinalized }}>
                                         {slottedStudents[index]}
+                                        {console.log("SLOTTED STUDENTS =======> ", slottedStudents)}
                                     </CardContext.Provider>
                                 </div>
                             ) : (

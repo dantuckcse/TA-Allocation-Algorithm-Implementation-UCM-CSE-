@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import newSemesterFunction from "./Exported-DataForm/EDF-NewSemester.js"; {/* EXPORT CHECK */ }
 import currentSemesterFunction from "./Exported-DataForm/EDF-CurrentSemester.js"; {/* EXPORT CHECK */ }
 import { url } from "../components/url.js";
-import { currentSemesterData } from "./index.js";
+//import { currentSemesterData } from "./index.js";
+import { currentSemesterData } from "./home/index";
+
 
 export let newSemesterData = [];
 export let courseDetailData = [];

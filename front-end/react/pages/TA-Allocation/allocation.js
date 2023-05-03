@@ -9,7 +9,9 @@ import { availableData } from "./data/available"
 import Head from 'next/head'
 import Layout from "../layout/layout.js"
 import { url } from "../../components/url"
-import { currentSemesterData } from "../index";
+//import { currentSemesterData } from "../index";
+import { currentSemesterData } from "../home/index";
+//
 import Modal from "react-modal"
 import jsPDF from "jspdf"
 // import finalized_export from "../TA-Allocation/export.json"

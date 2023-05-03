@@ -4,7 +4,7 @@ import itemTypes from "../utils/itemType"
 import { CardContext } from "../pages/TA-Allocation/allocation.js"
 import StudentCard from "./StudentCard"
 import { requestData } from "../pages/TA-Allocation/data/requests"
-import { currentSemesterData } from '../pages/index';
+import { currentSemesterData } from '../pages/Home/index';
 import { url } from '../components/url'
 import { assigned_student } from './AssignedStudents'
 import { studentData } from "../pages/TA-Allocation/allocation.js"

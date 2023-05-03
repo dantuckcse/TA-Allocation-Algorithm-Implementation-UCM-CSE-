@@ -1,17 +1,14 @@
-import '@/styles/globals.css'
-import Header from "./Header"
-import { DndProvider } from "react-dnd"
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import '@/styles/globals.css';
+import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-// HTML5Backend gives us access to the Dnd monitors.
-
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Header />
-      <DndProvider backend={HTML5Backend}>
-        <Component {...pageProps} />
-      </DndProvider>
-    </>
-  )
+    <DndProvider backend={HTML5Backend}>
+      <Component {...pageProps} />
+    </DndProvider>
+  );
 }
+
+export default MyApp;

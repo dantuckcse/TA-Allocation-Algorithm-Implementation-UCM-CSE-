@@ -118,6 +118,12 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
   font-weight: bold;
   padding: 0.1px;
 }
+.ensure {
+  color: green;
+}
+.prevent {
+  color: red;
+}
 
 .student-txt {
   font-size: 12px;

@@ -1,5 +1,6 @@
 import { useDrag } from "react-dnd"
 import  itemTypes  from "../utils/itemType"
+import DOMPurify from 'dompurify';
 
 export const assigned_student = {}
 export default function StudentCard(prop){
@@ -15,7 +16,7 @@ export default function StudentCard(prop){
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if (item && dropResult) {
-             assigned_student.id = 500 + dropResult.id
+             assigned_student.id = dropResult.id
              assigned_student.rank = dropResult.rank
              assigned_student.courses = dropResult.courses
             }
@@ -31,10 +32,18 @@ export default function StudentCard(prop){
         <div className="requests--container" ref={drag} id = {isDragging ? "dragging-item" : ""}>
             <div className="student--info">
                 <p id="student-item" className="student-txt">{prop.student}</p>
-                <p id="student-item" className="course-txt">CSE <span id="cse-check">{Number.isInteger(prop.courses) ? prop.courses + " " :" N/A"}</span></p>
+                <p id="student-item" className="course-txt"> Desired Courses: {prop.courses.map((course, index) => {
+                    if (typeof course === 'string') {
+                        const classType = course.includes('prevent') ? 'prevent' : 'allow';
+                        return <span key={index} id={classType} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(course) }} />;
+                    } else {
+                        return `CSE ${course}`;
+                    }
+                }).reduce((prev, curr) => [prev, ', ', curr])} </p>
                 <p id="student-item">{prop.professor} - {prop.percentage}</p>
                 <br></br>
             </div>
+
 
             <div className="student--slots"></div>
         </div>

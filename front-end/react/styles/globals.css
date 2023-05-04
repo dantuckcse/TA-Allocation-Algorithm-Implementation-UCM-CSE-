@@ -344,9 +344,26 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 }
 
 #login-buttons{
-  margin: 1vw;
+  margin-right: 15vw;
+  margin-top: 5vw;
 }
 
 .login-contents{
   margin-right: 15vw;
+}
+
+.login-input-title{
+  color: white;
+  font-size: larger;
+  margin-left: 1vw;
+}
+
+.login-input-box{
+  padding: 10px;
+  margin-left: 1vw;
+}
+
+.login-input-div{
+  display: flex;
+  margin-left: 15vw;
 }

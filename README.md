@@ -2,9 +2,10 @@
 
 Front-End:
 * Instructions for running react files:
-    1. type *npm install* in termnial
-    2. type *npm run dev* in terminal
-    3. type *ctrl+c* to stop running
+    1. navigate to front-end/react
+    2. type *npm install* in termnial
+    3. type *npm run dev* in terminal
+    4. type *ctrl+c* to stop running
     
 Back-End:
 * Required packaged and modules

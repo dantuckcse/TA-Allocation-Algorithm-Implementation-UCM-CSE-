@@ -83,6 +83,10 @@ export default function CourseCard(prop) {
                             markAsFinalized(item.id);
                             addStudent(item.id);
 
+                            console.log("DROPPED ON COURSE: =====> ", prop.CSE)
+                            item.courses = prop.CSE;
+                            console.log("ITEM: =====> ", item)
+
                             // reranking & ranking requests here
                             const body = {
                                 assignment: item,

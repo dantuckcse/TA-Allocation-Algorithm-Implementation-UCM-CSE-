@@ -152,7 +152,8 @@ router.delete('/semester', async function (req, res, next) {
 router.get('/rankings', async function (req, res, next) {
   let sql = `
       SELECT * 
-      FROM student_rankings;
+      FROM student_rankings
+      ORDER BY rank;
     `;
   const rows = await db.all(sql);
   const cleanRows = cleanRankings(rows);

@@ -33,7 +33,7 @@ export default function Allocation() {
     // Setup & Ranking
     // go to data form, click semester, then go to TA allocation
     useEffect(() => {
-        console.log(currentSemesterData);
+        console.log('currentSemester: ', currentSemesterData);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -47,11 +47,13 @@ export default function Allocation() {
             const rankings = await rankingsResponse.json();
 
             console.log("Rankings===> ", rankings)
-            let half_length = Math.ceil(rankings.length / 2);
-            let first_half = rankings.slice(0, half_length);
-            studentData.push(first_half)
-            setStudents(first_half)
-            console.log("FIRST HALF ===> ", first_half);
+            studentData.push(rankings);
+            setStudents(rankings);
+            // let half_length = Math.ceil(rankings.length / 2);
+            // let first_half = rankings.slice(0, half_length);
+            // studentData.push(first_half)
+            // setStudents(first_half)
+            // console.log("FIRST HALF ===> ", first_half);
 
             const coursesResponse = await fetch(`${url}/available_courses`)
             const coursesData = await coursesResponse.json();

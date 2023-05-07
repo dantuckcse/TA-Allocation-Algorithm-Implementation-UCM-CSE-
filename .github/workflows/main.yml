@@ -23,11 +23,6 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCR_JSON_KEY }}
 
-      - name: Install Firebase CLI
-        run: |
-          curl -sL https://firebase.tools | bash
-          echo $HOME/.firebase/bin >> $GITHUB_PATH
-
       - name: Build and push Docker images (backend)
         uses: docker/build-push-action@v2
         with:
@@ -40,7 +35,6 @@ jobs:
       - name: Remove backend import from Data-Form.js
         run: |
           sed -i 's/import semesterDataList from "..\/..\/..\/back-end\/main_pipeline\/semester_list.json";//g' front-end/react/pages/Data-Form.js
-
       - name: Build and push Docker images (frontend)
         uses: docker/build-push-action@v2
         with:
@@ -57,18 +51,9 @@ jobs:
           project_id: ta-allocation-382919
           export_default_credentials: true
 
-      - name: Authenticate Firebase CLI
-        run: |
-          firebase login:ci --token "${{ secrets.FIREBASE_TOKEN }}"
-
       - name: Deploy backend to Cloud Run
         run: |
           gcloud run deploy backend --image gcr.io/ta-allocation-382919/mybackend:latest --platform managed --region us-central1 --allow-unauthenticated
-
       - name: Deploy frontend to Cloud Run
         run: |
           gcloud run deploy frontend --image gcr.io/ta-allocation-382919/myfrontend:latest --platform managed --region us-central1 --allow-unauthenticated
-
-      - name: Deploy to Firebase Hosting
-        run: |
-          firebase deploy --only hosting

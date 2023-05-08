@@ -14,3 +14,4 @@ Back-End:
        - sqlite
        - sqlite3
        - express
+    - To run: npm run dev (w/ front-end running)

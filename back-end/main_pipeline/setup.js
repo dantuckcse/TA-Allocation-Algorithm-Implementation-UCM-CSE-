@@ -102,18 +102,7 @@ const starting = async (_db, semesterInput) => {
 
         let args = [semesterInput.term, semesterInput.year];
 
-        try {
-            await _db.run(sql, args);
-        }
-        catch (error) {
-            if (error.errno === 19 && error.code == 'SQLITE_CONSTRAINT') {
-                console.log("User tried to insert duplicates into Student_Rankings (initialRank). Didn't let them");
-            }
-            else {
-                console.error(error);
-            }
-        }
-
+        await _db.run(sql, args);
     };
 
 
@@ -182,18 +171,7 @@ const starting = async (_db, semesterInput) => {
 
         let args = [semesterInput.term, semesterInput.year];
 
-        try {
-            await _db.run(sql, args);
-        }
-        catch (error) {
-            if (error.errno === 19 && error.code == 'SQLITE_CONSTRAINT') {
-                console.log("User tried to insert duplicates into Student_Rankings_Copy. Didn't let them");
-            }
-            else {
-                console.error(error);
-            }
-        }
-
+        await _db.run(sql, args);
     };
 
 
@@ -205,18 +183,8 @@ const starting = async (_db, semesterInput) => {
             FROM Faculty;
         `;
 
-        try {
-            await _db.run(sql);
-        }
-        catch (error) {
-            if (error.errno === 19 && error.code == 'SQLITE_CONSTRAINT') {
-                console.log("User tried to insert duplicates into Faculty_Copy. Didn't let them");
-            }
-            else {
-                console.error(error);
-            }
-        }
 
+        await _db.run(sql);
     };
 
 
@@ -294,17 +262,7 @@ const continuing = async (_db, semesterInput) => {
 
     let args = [semesterInput.term, semesterInput.year, semesterInput.term, semesterInput.year];
 
-    try {
-        await _db.run(sql, args)
-    }
-    catch (error) {
-        if (error.errno === 19 && error.code == 'SQLITE_CONSTRAINT') {
-            console.log("User tried to insert duplicates into Student_Rankings (continuing). Didn't let them");
-        }
-        else {
-            console.error(error);
-        }
-    }
+    await _db.run(sql, args)
 };
 
 

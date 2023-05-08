@@ -42,13 +42,11 @@ export default function Allocation() {
             const rankings = await rankingsResponse.json();
 
             console.log("Rankings===> ", rankings)
-            studentData.push(rankings);
-            setStudents(rankings);
-            // let half_length = Math.ceil(rankings.length / 2);
-            // let first_half = rankings.slice(0, half_length);
-            // studentData.push(first_half)
-            // setStudents(first_half)
-            // console.log("FIRST HALF ===> ", first_half);
+            let half_length = Math.ceil(rankings.length / 2);
+            let first_half = rankings.slice(0, half_length);
+            studentData.push(first_half)
+            setStudents(first_half)
+            console.log("FIRST HALF ===> ", first_half);
 
             const coursesResponse = await fetch(`${url}/available_courses`)
             const coursesData = await coursesResponse.json();

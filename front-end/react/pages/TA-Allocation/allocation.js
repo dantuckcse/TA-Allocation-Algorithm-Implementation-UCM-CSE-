@@ -27,8 +27,8 @@ export default function Allocation() {
     const [isExportDataHere, setIsExportDataHere] = useState(false);
 
 
-    // Setup & Ranking
-    // go to data form, click semester, then go to TA allocation
+    // Setup & Ranking requests
+    // Is ran when the TA assignment page is first loaded
     useEffect(() => {
         console.log('currentSemester: ', currentSemesterData);
         const requestOptions = {
@@ -89,7 +89,7 @@ export default function Allocation() {
         }
 
 
-    } 
+    }
     //Export Pop-Up
     function closeExportModal() { setIsExportModalOpen(false); } //popup close on default
     function handleFileNameChange(event) { setFileName(event.target.value); } // filename input submission
@@ -199,7 +199,7 @@ export default function Allocation() {
             <CardContext.Provider value={{ markAsFinalized }}>
                 <div className="drag-and-drop">
 
-                    <div className="selected-container"> 
+                    <div className="selected-container">
                         {courses
                             .map((f_course, i) => (  // The courses provided to the 'courses' state are mapped through, and sent to the CourseCard component
                                 <CourseCard

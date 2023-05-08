@@ -13,14 +13,10 @@ let { addCourseData } = require('../input/add_course');
 let { addStudent } = require('../input/add_student');
 let { addProfessor } = require('../input/new_professor');
 let { addSemester } = require('../input/new_semester');
-// let { finalize_semester, finalized_confirmation } = require('../main_pipeline/finalize_semester');
 let { finalize_semester_v2 } = require('../main_pipeline/finalize_semester_v2');
 let { available_condition, finalized_condition, display_allocation } = require('../main_pipeline/display_semester');
 let { clear_data } = require('../main_pipeline/clear_data');
 let { reset } = require('../main_pipeline/reset');
-
-// Global variable for current semester
-let currentSemesterId = 27;
 
 // Open the database
 let db;
@@ -41,17 +37,8 @@ const openDb = async () => {
 }
 openDb();
 
-const getCurrentSemester = async () => {
-  let sql = `
-    SELECT *
-    FROM Semester
-    WHERE pk = ?
-  `;
-  let args = [currentSemesterId]
-  const semester = await db.get(sql, args);
-  return semester;
-}
 
+// Function that gets a semester based on term and year
 const getSemester = async (term, year) => {
   let sql = `
     SELECT *
@@ -64,42 +51,6 @@ const getSemester = async (term, year) => {
   return semester;
 }
 
-const generateSemesterId = async () => {
-  let sql = `
-    SELECT MAX(pk) + 1 AS newId
-    FROM Semester;
-  `;
-  const { newId } = await db.get(sql);
-  return newId;
-}
-
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-// Get current Semester
-router.get('/current_semester', async function (req, res, next) {
-  const semester = await getCurrentSemester()
-  return res.json(semester)
-});
-
-// Update the current semester in the app
-// ie somebody clicks Summer 2021, it should 
-// update the currentSemesterId to Summer 2021
-router.put('/current_semester/:term/:year', async function (req, res, next) {
-  const { term, year } = req.params;
-  let sql = `
-    SELECT *
-    FROM Semester
-    WHERE term = ?
-      AND year = ? 
-  `;
-  let args = [term, year];
-  const semester = await db.get(sql, args);
-  currentSemesterId = semester.pk;
-  return res.json({ currentSemesterId, msg: "success" })
-});
 
 // Find all the classes and how much space they have
 router.get('/available_courses/', async function (req, res, next) {
@@ -124,7 +75,8 @@ router.get('/available_courses/', async function (req, res, next) {
   }
 });
 
-// Delete a semester (the semester to delete is in the body)
+
+// Delete a semester: (it takes in the term & year of the semester to delete)
 router.delete('/semester', async function (req, res, next) {
   const { term, year } = req.body;
 
@@ -148,6 +100,7 @@ router.delete('/semester', async function (req, res, next) {
   return res.json(body)
 });
 
+
 // Returns the rankings of all the requests
 router.get('/rankings', async function (req, res, next) {
   let sql = `
@@ -159,15 +112,16 @@ router.get('/rankings', async function (req, res, next) {
   return res.json(cleanRows);
 });
 
-// ---------------
-// New routes are below, all the routes above might get deleted
-// ---------------
+
+// Delete all ranking information
 const deleteSemesters = async (_db) => {
 
   let sql = `DELETE FROM Student_Rankings`
   await _db.run(sql);
 };
 
+
+// A route that runs when the drag & drop page is loaded to calculate the initial ranks of TAs
 router.post('/setup', async function (req, res, next) {
   const semesterInput = req.body;
   let response;
@@ -184,6 +138,9 @@ router.post('/setup', async function (req, res, next) {
   return res.json(response);
 });
 
+
+// A route that runs after a TA is drag & dropped to a specific course. 
+// This recalculates the scores for all TAs 
 router.put('/reranking', async function (req, res, next) {
   let { assignment, semester } = req.body
   let courseListString = assignment.courses.toString();
@@ -201,11 +158,16 @@ router.put('/reranking', async function (req, res, next) {
   }
 });
 
+
+// A route that returns a list of all semesters.
+// Runs when the user has to choose what semester they want
 router.get('/allSemesters', async function (req, res, next) {
   let semesters = await getList(db);
   return res.json(semesters);
 });
 
+
+// Add a new course to the db
 router.post('/course', async function (req, res, next) {
   let course = req.body;
   try {
@@ -218,6 +180,8 @@ router.post('/course', async function (req, res, next) {
   }
 });
 
+
+// Add a new student to the db
 router.post('/student', async function (req, res, next) {
   let { student, semester } = req.body;
 
@@ -232,6 +196,8 @@ router.post('/student', async function (req, res, next) {
 
 });
 
+
+// Add a new professor to the db
 router.post('/professor', async function (req, res, next) {
   const { professor, semester } = req.body;
 
@@ -245,6 +211,8 @@ router.post('/professor', async function (req, res, next) {
   }
 });
 
+
+// Add a new semester to the db
 router.post('/semester', async function (req, res, next) {
   const semester = req.body;
   try {
@@ -257,6 +225,8 @@ router.post('/semester', async function (req, res, next) {
   }
 });
 
+
+// Finalizes all the TA assignments for a semester
 router.put('/finalized', async (req, res) => {
   const semester = req.body;
   try {
@@ -271,6 +241,8 @@ router.put('/finalized', async (req, res) => {
 
 });
 
+
+// Runs after assignments for a semester are finalized & the user wants to display them
 router.put('/allocation', async (req, res) => {
   const semesterInput = req.body;
 
@@ -301,6 +273,8 @@ router.put('/allocation', async (req, res) => {
   }
 });
 
+
+// Resets all TA assignments for a given semester
 router.put('/reset', async (req, res, next) => {
   const semester = req.body;
   let response;

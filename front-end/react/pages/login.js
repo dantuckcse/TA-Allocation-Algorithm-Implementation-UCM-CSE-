@@ -32,6 +32,7 @@ function Login() {
         <div className="login-contents">
           <h1 id="login-title">TA ALLOCATION</h1>
           <form onSubmit={handleLogin}>
+
             <div className='login-input-div'>
               <label className='login-input-title' htmlFor="email">EMAIL</label>
               <input className='login-input-box'
@@ -40,6 +41,9 @@ function Login() {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />
+            </div>
+
+            <div className='login-input-div'>
               <label className='login-input-title' htmlFor="password">PASSWORD</label>
               <input className='login-input-box'
                 type="password"
@@ -48,11 +52,11 @@ function Login() {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
+
             <div className="login-buttons-container">
-              <button type="submit" className="DF-CD-Button" id="login-buttons">
-                LOGIN
-              </button>
+                <button type="submit" className="DF-CD-Button" id="login-buttons">LOGIN</button>
             </div>
+
           </form>
         </div>
       </div>

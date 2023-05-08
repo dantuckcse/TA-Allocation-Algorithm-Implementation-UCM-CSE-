@@ -24,6 +24,7 @@ export default function Home() {
     };
   }, []);
 
+    //instantiate a hook variable to contain all semesters
   const [semesterData, setSemesterData] = useState([]);
   useEffect(() => {
     fetch(`${url}/allSemesters`)
@@ -31,10 +32,12 @@ export default function Home() {
       .then((data) => setSemesterData(data));
   }, []);
   
+  //instantiate hook variables for term and year
   const [term, setTerm] = useState("");
   const [year, setYear] = useState("");
   const [showModal, setShowModal] = useState(false);
   
+  //Pushes new term and year from the input
   const handleCreateSemester = () => {
     const newSemester = {
       term: term,
@@ -44,6 +47,7 @@ export default function Home() {
     setSemesterData([...semesterData, newSemester]);
     setTerm("");
     setYear("");
+    //popup modal is set to be invisible by default
     setShowModal(false);
 
     // Create new semester on backend
@@ -57,6 +61,7 @@ export default function Home() {
       .then(data => console.log(data))
   };
 
+  //Drop down list that reads all the available semesters in the DB.
   const [semesterSelect, setSemesterSelect] = useState([]);
   const handleSemesterChange = (e) => {
     const index = e.target.selectedIndex;
@@ -76,10 +81,12 @@ export default function Home() {
           <div className='Data-Form-DropDown'> 
             <label id="DF-Select-Semester-Title">Select Semester</label>
             <select id="semester-drop-down" onChange={handleSemesterChange}>
+              {/* Maps out all of the semesterData which contains the terms and years for the drop down options  */}
               {semesterData.map((s, i) => (
                 <option key={i} value={s}>{s.term} {s.year}</option>
               ))}
             </select>
+            {/* When button is pressed the modal appears */}
             <button id="Add-Semester-Btn" className="TA-Button" onClick={() => setShowModal(true)}>Add Semesters</button>
             {showModal && (
               <div className="modal">

@@ -176,6 +176,7 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 .DF-CD-Input-Box{
   padding: 1vw;
   margin: 1vw;
+  font-size: 1vw;
 }
 
 .DF-CD-Button{
@@ -335,7 +336,8 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 
 #login-title{
   color: white;
-  font-size: 40px;
+  font-size: 2.5vw;
+  min-height: 80px;
 }
 
 .login-buttons-container{
@@ -349,21 +351,27 @@ a:hover { text-decoration: none; color:rgb(47, 115, 120); }
 }
 
 .login-contents{
-  margin-right: 15vw;
+  margin-right: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-input-title{
   color: white;
   font-size: larger;
-  margin-left: 1vw;
+  display: inline-block;
 }
 
 .login-input-box{
-  padding: 10px;
-  margin-left: 1vw;
+  padding: 5px;
+  font-size: 1vw;
 }
 
 .login-input-div{
   display: flex;
-  margin-left: 15vw;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1vw;
+  justify-content: space-between;
 }

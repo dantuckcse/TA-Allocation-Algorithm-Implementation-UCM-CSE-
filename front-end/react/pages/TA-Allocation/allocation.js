@@ -2,19 +2,14 @@ import { useState, createContext, useEffect } from 'react'
 import StudentCard from "../../components/StudentCard"
 import CourseCard from "../../components/CourseCard"
 import AssignedStudents from "../../components/AssignedStudents"
-//import requests from "./data/requests"
 import { requestData } from "./data/requests";
-//import available from "./data/available"
 import { availableData } from "./data/available"
 import Head from 'next/head'
 import Layout from "../layout/layout.js"
 import { url } from "../../components/url"
-//import { currentSemesterData } from "../index";
 import { currentSemesterData } from "../home/index";
-//
 import Modal from "react-modal"
 import jsPDF from "jspdf"
-// import finalized_export from "../TA-Allocation/export.json"
 
 export const CardContext = createContext({
     markAsFinalized: null,
@@ -94,11 +89,13 @@ export default function Allocation() {
         }
 
 
-    } //popup open
-    function closeExportModal() { setIsExportModalOpen(false); } //popup close
-    function handleFileNameChange(event) { setFileName(event.target.value); }
+    } 
+    //Export Pop-Up
+    function closeExportModal() { setIsExportModalOpen(false); } //popup close on default
+    function handleFileNameChange(event) { setFileName(event.target.value); } // filename input submission
     function handleExportPDF() {
         const doc = new jsPDF();
+        //height instantiated
         let x = 10;
         let y = 10;
         let pageHeight = doc.internal.pageSize.height;
@@ -119,6 +116,8 @@ export default function Allocation() {
     }
 
 
+    //Finalize Current Assignments
+    const [finalizeMessage, setFinalizeMessage] = useState("")
     const finalize = async () => {
         const requestOptions = {
             method: 'PUT',
@@ -128,6 +127,8 @@ export default function Allocation() {
         const response = await fetch(`${url}/finalized`, requestOptions)
         let msg = await response.json();
         console.log(msg)
+        setFinalizeMessage(<span style={{ color: 'white' }}>Current assignments finalized!</span>);
+        setTimeout(() => setFinalizeMessage(''), 3000);
     }
 
 
@@ -180,7 +181,6 @@ export default function Allocation() {
                             onChange={handleFileNameChange}
                         />
                     </div>
-                    {/* <pre>{JSON.stringify(finalized_export, null, 2)}</pre> */}
                     <pre>{isExportDataHere ? exportData.map((item, index) => (
                         `rank: ${item.rank !== null ? item.rank : 'null'},
                                 student: ${item.student},
@@ -193,6 +193,7 @@ export default function Allocation() {
                     <button className='TA-Button' onClick={closeExportModal}>Close</button>
                 </Modal>
                 <button className='TA-Button' onClick={reset}>Reset</button>
+                <div>{finalizeMessage}</div>
             </div>
 
             <CardContext.Provider value={{ markAsFinalized }}>

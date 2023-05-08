@@ -17,8 +17,10 @@ export const CardContext = createContext({
 export const studentData = []
 
 export default function Allocation() {
+    // State variables in which the student and course information is stored
     const [courses, setCourses] = useState([])
     const [students, setStudents] = useState([])
+
     const [loading, setLoading] = useState(true)
 
     const [exportData, setExportData] = useState(false)
@@ -197,9 +199,9 @@ export default function Allocation() {
             <CardContext.Provider value={{ markAsFinalized }}>
                 <div className="drag-and-drop">
 
-                    <div className="selected-container">
+                    <div className="selected-container"> 
                         {courses
-                            .map((f_course, i) => (
+                            .map((f_course, i) => (  // The courses provided to the 'courses' state are mapped through, and sent to the CourseCard component
                                 <CourseCard
                                     key={f_course.id.toString()}
                                     index={i}
@@ -213,8 +215,8 @@ export default function Allocation() {
 
                     <div className="unselected-container">
                         {students
-                            .filter((f_student, i) => f_student.finalized === "NO")
-                            .map((f_student, i) => (
+                            .filter((f_student, i) => f_student.finalized === "NO")  // This filter makes it so that only students with a NO for finalization will pass into StudentComponent
+                            .map((f_student, i) => (  // Student data in 'students' being sent to the StudentCard component
                                 <StudentCard
                                     key={f_student.id.toString()}
                                     index={i}

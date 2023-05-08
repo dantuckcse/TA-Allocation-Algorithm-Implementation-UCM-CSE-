@@ -4,7 +4,7 @@ import  itemTypes  from "../utils/itemType"
 export const assigned_student = {}
 export default function StudentCard(prop){
 
-    const [{ isDragging }, drag] = useDrag(() => ({
+    const [{ isDragging }, drag] = useDrag(() => ({ // react-dnd's drag state
         type: itemTypes.UNSLOTTED_STUDENT, // type is required as it's used by the "accept" specification of drop targets.
         item: {
             id: prop.id,

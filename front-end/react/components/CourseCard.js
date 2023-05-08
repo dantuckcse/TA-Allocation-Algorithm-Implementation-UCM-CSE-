@@ -66,14 +66,9 @@ export default function CourseCard(prop) {
                     <br></br>
                 </div>
                 {boxes.map((b, index) => { // Added index to map
-                    const [{ isOver, didDrop, getDropResult }, drop] = useDrop(() => ({
+                    const [{ isOver }, drop] = useDrop(() => ({ // react-dnd's drop state
                         
                         accept: itemTypes.UNSLOTTED_STUDENT,
-                        // canDrop: (item, monitor) => {  // for "prevent" and "ensure" cases
-                        //     const preventItem = document.getElementById("prevent")
-                        //     console.log("PREVENT ITEM: ", preventItem)
-                        //     return
-                        // },
                         drop(item, monitor) {
                             // Check if student's course code matches prop.CSE
                             if (item.courses === prop.CSE || item.courses.includes(`<span class="prevent">${prop.CSE}</span>`)) {
@@ -112,13 +107,12 @@ export default function CourseCard(prop) {
                         },
                         collect: monitor => ({
                             isOver: !!monitor.isOver(),
-                            didDrop: monitor.didDrop(),
                         }),
                     }))
 
                     return (
                         <div className="slots--container">
-                            {slottedStudents[index] ? (
+                            {slottedStudents[index] ? ( 
                                 <div className="items-dropped" ref={drop} id={isOver ? "hover-region" : ""} key={index}>
                                     <CardContext.Provider value={{ markAsFinalized }}>
                                         {slottedStudents[index]}

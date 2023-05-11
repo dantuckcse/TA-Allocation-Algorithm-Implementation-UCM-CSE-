@@ -1,9 +1,6 @@
 import { useState, createContext, useEffect } from 'react'
 import StudentCard from "../../components/StudentCard"
 import CourseCard from "../../components/CourseCard"
-import AssignedStudents from "../../components/AssignedStudents"
-import { requestData } from "./data/requests";
-import { availableData } from "./data/available"
 import Head from 'next/head'
 import Layout from "../layout/layout.js"
 import { url } from "../../components/url"
@@ -164,7 +161,6 @@ export default function Allocation() {
             <Head>
                 <title>TA Allocation</title>
             </Head>
-            <AssignedStudents />
 
             <div className='TA-Button-Container'>
                 <button className='TA-Button' onClick={finalize}>Finalize</button>

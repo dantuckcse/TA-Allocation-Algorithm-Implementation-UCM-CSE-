@@ -18,3 +18,5 @@
     9. Click local host link provided by front-end: localhost:3000
    10. Stop application with ctrl+c for both /back-end and /front-end/react
    11. Optional: Reset the web application by copying and pasting database saved in step 5 to back-end/database and start from step 7 and ignore steps 7a and 8a.
+
+***DEMO VIDEO LINK***: https://youtu.be/0aWDL_fSD9M
